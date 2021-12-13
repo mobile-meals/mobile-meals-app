@@ -1,0 +1,25 @@
+<div data-role="page">
+    <%- include ("../partials/TopNavBar-1"); %>
+    <div role="main" class="ui-content content-main">
+        <h1>OTP</h1>
+        <p>We have sent a One Time Pin to your
+            mobile phone you entered.</p>
+        <form id="otp-form" action="#">
+            <div class="input-group">
+                <input type="number" id="otp-1" name="otp-1"
+                    placeholder="0" required>
+                <input type="number" id="otp-2" name="otp-2"
+                    placeholder="0" required>
+                <input type="number" id="otp-3" name="otp-3"
+                    placeholder="0" required>
+                <input type="number" id="otp-4" name="otp-4"
+                    placeholder="0" required>
+            </div>
+            <button class="btn btn-primary-color" type="submit">Proceed<span class="button-icon"><svg
+                        class="button-icon" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="m14 5 7 7m0 0-7 7m7-7H3" />
+                    </svg></span></button>
+        </form>
+    </div><!-- /content -->
+</div><!-- /page -->

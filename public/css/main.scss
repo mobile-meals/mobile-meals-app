@@ -1,0 +1,213 @@
+
+@font-face {
+    font-family: 'Poppins', sans-serif;
+    src: url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+}
+
+$mm-primary-color: #1A2340;
+$mm-secondary-color: #45AC34;
+$gray-placeholder: #E3E3E3;
+$input-field-border: #DBDBDB;
+$input-field-border-focus: #45AC34;
+
+* {
+	margin: 0;
+	overflow: hidden;
+	font-family: 'Poppins', sans-serif;
+	font-size: 1rem;
+    font-size: 16px;
+	box-sizing: border-box;
+}
+.ui-page {
+	.ui-header {
+		background: #fff;
+	}
+}
+.ui-bar-a {
+	box-shadow: none !important;
+}
+.ui-header {
+	height: 4rem;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	text-shadow: none !important;
+}
+.content-main {
+	margin-left: 1.5rem;
+	margin-right: 1.5rem;
+}
+.nobar-content {
+	margin-top: 8vh;
+}
+.topnav {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	box-shadow: none;
+	padding-left: 2.5rem;
+	padding-right: 2.5rem;
+}
+h1 {
+	color: $mm-primary-color;
+	font-size: 40px;
+	font-weight: 700;
+}
+h2 {
+	color: $mm-primary-color;
+}
+h3 {
+	color: $mm-primary-color;
+}
+h4 {
+	color: $mm-primary-color;
+}
+h5 {
+	color: $mm-primary-color;
+	color: $mm-primary-color;
+}
+p {
+	color: $mm-primary-color;
+	font-size: 16px;
+}
+input[type="text"] {
+	font-size: 1.25rem;
+	color: $mm-primary-color;
+	padding-top: 0.438rem;
+	padding-bottom: 0.438rem;
+	padding-left: 0.625rem;
+	padding-right: 0.625rem;
+	box-sizing: border-box;
+	height: 2.75rem;
+	border: 2px;
+	border-radius: 0.313rem;
+	outline: none;
+	color: $gray-placeholder;
+}
+[type="number"] {
+	font-size: 1.25rem;
+	color: $mm-primary-color;
+	padding-top: 0.438rem;
+	padding-bottom: 0.438rem;
+	padding-left: 0.625rem;
+	padding-right: 0.625rem;
+	box-sizing: border-box;
+	height: 2.75rem;
+	border: 2px;
+	border-radius: 0.313rem;
+	outline: none;
+	max-width: 13.25rem;
+	&::placeholder {
+		color: $gray-placeholder;
+	}
+}
+#otp-form {
+	input[type="number"] {
+		text-align: center;
+		font-size: 1.25rem;
+		height: 3rem;
+		max-width: 3rem;
+	}
+	.input-group {
+		display: flex;
+		justify-content: space-between;
+		margin: 1.25rem auto;
+		max-width: 80%;
+	}
+	.btn {
+		border: none;
+		border-radius: 0.313rem;
+		padding: 1rem 2rem;
+		text-align: center;
+		text-decoration: none;
+		display: inline-block;
+		font-size: 1.125rem;
+		text-transform: uppercase;
+		font-weight: 600;
+		letter-spacing: 2px;
+	}
+	.btn-primary-color {
+		background: $mm-primary-color;
+		color: #fff;
+		&:hover {
+			background-color: $mm-secondary-color;
+			color: #fff;
+		}
+	}
+}
+#get-started-form {
+	margin-top: 2.5rem;
+	input[type='text'] {
+		max-width: 13.25rem;
+	}
+	.btn {
+		border: none;
+		border-radius: 0.313rem;
+		padding: 1rem 2rem;
+		text-align: center;
+		text-decoration: none;
+		display: inline-block;
+		font-size: 1.125rem;
+		text-transform: uppercase;
+		font-weight: 600;
+		letter-spacing: 2px;
+	}
+	.btn-primary-color {
+		background: $mm-primary-color;
+		color: #fff;
+		&:hover {
+			background-color: $mm-secondary-color;
+			color: #fff;
+		}
+	}
+}
+.get-started-form-inputs-wrapper {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+.otp-form-form-inputs-wrapper {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+.button-icon {
+	width: 1.5rem;
+	height: 1.5rem;
+	stroke: #fff;
+	margin-left: 0.3rem;
+}
+.select-country-wrapper {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	width: 5.125rem;
+	height: 2.75rem;
+	position: relative;
+}
+.select-country-wrapper__select {
+	width: 3.75rem;
+	opacity: 0;
+	overflow: hidden;
+	overflow: -moz-hidden-unscrollable;
+	background: url(../img/flag_sl.svg) no-repeat right;
+	display: inline-block;
+	position: absolute;
+}
+.select-country-wrapper__flags {
+	width: 3.75rem;
+	height: 2.75rem;
+	position: absolute;
+	top: 0;
+	left: 0;
+	pointer-events: none;
+}
+.select-country-wrapper__flags__flag {
+	height: 100%;
+	border: 0px solid #ddd;
+	box-sizing: border-box;
+	display: none;
+}
+.select-country-wrapper__flags__flag.is-visible {
+	display: block;
+}
