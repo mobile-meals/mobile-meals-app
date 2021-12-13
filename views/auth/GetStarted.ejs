@@ -1,0 +1,43 @@
+<div data-role="page">
+    <div role="main" class="ui-content nobar-content">
+        <h1>Get Started</h1>
+        <p>Enter your mobile number to get started.</p>
+        <form id="get-started-form" action="#">
+            <div class="get-started-form-inputs-wrapper">
+                <!-- Select Country -->
+                <div class="select-country-wrapper">
+                    <div>
+                        <select class="select-country-wrapper__select" name="country-select" id="country-select">
+                            <option value="LK">Sri Lanka (+94)</option>
+                        </select>
+                        <div class="select-country-wrapper__flags" role="presentation">
+                            <img class="select-country-wrapper__flags__flag is-visible" data-country-code="LK"
+                                src="http://localhost:5000/img/flag_sl.svg">
+                        </div>
+                    </div>
+                    <svg width="11" height="7" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd"
+                            d="M.293.305a1 1 0 0 1 1.414 0L5 3.598 8.293.305A1 1 0 1 1 9.707 1.72l-4 4a1 1 0 0 1-1.414 0l-4-4a1 1 0 0 1 0-1.414Z"
+                            fill="#000" />
+                    </svg>
+                </div>
+                <!-- End of Select Country -->
+
+                <input class="get-started-form-input-field" type="number" id="phone_number" name="phone_number"
+                    placeholder="John" required>
+            </div>
+            <button class="btn btn-primary-color" type="submit">Get Started<span class="button-icon"><svg class="button-icon" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m14 5 7 7m0 0-7 7m7-7H3"/></svg></span></button>
+        </form>
+    </div><!-- /content -->
+</div><!-- /page -->
+
+<script>
+    let countrySelect = document.getElementById('country-select');
+    let updateSelected = function (e) {
+        document.querySelector('.is-visible').classList.remove('is-visible');
+        document.querySelector('[data-country-code="' + e.target.value + '"]').classList.add('is-visible');
+        document.querySelector('.dropdown-icon').classList.add('dropdown-icon-rotate')
+    };
+
+    countrySelect.addEventListener('change', updateSelected);
+</script>
