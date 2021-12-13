@@ -14,9 +14,9 @@ $input-field-border-focus: #45AC34;
 	margin: 0;
 	overflow: hidden;
 	font-family: 'Poppins', sans-serif;
-	font-size: 1rem;
     font-size: 16px;
 	box-sizing: border-box;
+    color: $mm-primary-color;
 }
 .ui-page {
 	.ui-header {
@@ -27,187 +27,130 @@ $input-field-border-focus: #45AC34;
 	box-shadow: none !important;
 }
 .ui-header {
-	height: 4rem;
+	height: 64px;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
 	text-shadow: none !important;
 }
 .content-main {
-	margin-left: 1.5rem;
-	margin-right: 1.5rem;
+	margin-left: 24px;
+	margin-right: 24px;
 }
-.nobar-content {
-	margin-top: 8vh;
+
+.scrollable {
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
 }
-.topnav {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	box-shadow: none;
-	padding-left: 2.5rem;
-	padding-right: 2.5rem;
+
+    /* iOS specific fix, don't use it on Android devices */
+.scrollable > * {
+    -webkit-transform: translateZ(0px);
 }
-h1 {
-	color: $mm-primary-color;
-	font-size: 40px;
-	font-weight: 700;
+
+/* Typography
+-----------------------------------------------------------------------------------------------------------*/
+h1,h2,h3,h4,h5{
+    line-height: 1.5rem;
+    font-weight: 700;
 }
-h2 {
-	color: $mm-primary-color;
+
+h1{
+    font-size: 40px;
 }
-h3 {
-	color: $mm-primary-color;
+
+h2{
+    font-size: 24px;
 }
-h4 {
-	color: $mm-primary-color;
+
+h3{
+    font-size: 20px;
 }
-h5 {
-	color: $mm-primary-color;
-	color: $mm-primary-color;
+
+h4{
+    font-size: 18px;
 }
-p {
-	color: $mm-primary-color;
-	font-size: 16px;
+
+h5{
+    font-size: 16px;
 }
-input[type="text"] {
-	font-size: 1.25rem;
-	color: $mm-primary-color;
-	padding-top: 0.438rem;
-	padding-bottom: 0.438rem;
-	padding-left: 0.625rem;
-	padding-right: 0.625rem;
-	box-sizing: border-box;
-	height: 2.75rem;
-	border: 2px;
-	border-radius: 0.313rem;
-	outline: none;
-	color: $gray-placeholder;
+
+p{
+    font-size: 16px;
 }
-[type="number"] {
-	font-size: 1.25rem;
-	color: $mm-primary-color;
-	padding-top: 0.438rem;
-	padding-bottom: 0.438rem;
-	padding-left: 0.625rem;
-	padding-right: 0.625rem;
-	box-sizing: border-box;
-	height: 2.75rem;
-	border: 2px;
-	border-radius: 0.313rem;
-	outline: none;
-	max-width: 13.25rem;
-	&::placeholder {
-		color: $gray-placeholder;
-	}
+
+.text-primary{
+    color: $mm-primary-color;
 }
-#otp-form {
-	input[type="number"] {
-		text-align: center;
-		font-size: 1.25rem;
-		height: 3rem;
-		max-width: 3rem;
-	}
-	.input-group {
-		display: flex;
-		justify-content: space-between;
-		margin: 1.25rem auto;
-		max-width: 80%;
-	}
-	.btn {
-		border: none;
-		border-radius: 0.313rem;
-		padding: 1rem 2rem;
-		text-align: center;
-		text-decoration: none;
-		display: inline-block;
-		font-size: 1.125rem;
-		text-transform: uppercase;
-		font-weight: 600;
-		letter-spacing: 2px;
-	}
-	.btn-primary-color {
-		background: $mm-primary-color;
-		color: #fff;
-		&:hover {
-			background-color: $mm-secondary-color;
-			color: #fff;
-		}
-	}
+
+.text-secondary{
+    color: $mm-secondary-color;
 }
-#get-started-form {
-	margin-top: 2.5rem;
-	input[type='text'] {
-		max-width: 13.25rem;
-	}
-	.btn {
-		border: none;
-		border-radius: 0.313rem;
-		padding: 1rem 2rem;
-		text-align: center;
-		text-decoration: none;
-		display: inline-block;
-		font-size: 1.125rem;
-		text-transform: uppercase;
-		font-weight: 600;
-		letter-spacing: 2px;
-	}
-	.btn-primary-color {
-		background: $mm-primary-color;
-		color: #fff;
-		&:hover {
-			background-color: $mm-secondary-color;
-			color: #fff;
-		}
-	}
+
+.uppercase{
+    text-transform: uppercase;
 }
-.get-started-form-inputs-wrapper {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
+
+.underline{
+    text-decoration: underline;
 }
-.otp-form-form-inputs-wrapper {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
+
+.text-bold{
+    font-weight: 700;
 }
-.button-icon {
-	width: 1.5rem;
-	height: 1.5rem;
-	stroke: #fff;
-	margin-left: 0.3rem;
+
+.text-semibold{
+    font-size: 600;
 }
-.select-country-wrapper {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	width: 5.125rem;
-	height: 2.75rem;
-	position: relative;
+
+.leading-2{
+    letter-spacing: 2px;
+} 
+
+/* Buttons
+-----------------------------------------------------------------------------------------------------------*/
+.ui-btn{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 16px 32px;
+    text-transform: uppercase;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: 2px;
+
+    
+    span{
+        width: 24px;
+        height: 24px;
+        stroke: #fff;
+        margin-left: 13px;
+    }
 }
-.select-country-wrapper__select {
-	width: 3.75rem;
-	opacity: 0;
-	overflow: hidden;
-	overflow: -moz-hidden-unscrollable;
-	background: url(../img/flag_sl.svg) no-repeat right;
-	display: inline-block;
-	position: absolute;
-}
-.select-country-wrapper__flags {
-	width: 3.75rem;
-	height: 2.75rem;
-	position: absolute;
-	top: 0;
-	left: 0;
-	pointer-events: none;
-}
-.select-country-wrapper__flags__flag {
-	height: 100%;
-	border: 0px solid #ddd;
-	box-sizing: border-box;
-	display: none;
-}
-.select-country-wrapper__flags__flag.is-visible {
-	display: block;
+
+/* Forms
+-----------------------------------------------------------------------------------------------------------*/
+form{
+    label{
+        font-size: 16px;
+        color: $mm-primary-color;
+        line-height: 1.5em;
+    }
+
+    input[type="text"],[type="number"]{
+        font-size: 1.25rem;
+        color: $mm-primary-color;
+        padding-top: 0.438rem;
+        padding-bottom: 0.438rem;
+        padding-left: 0.625rem;
+        padding-right: 0.625rem;
+        box-sizing: border-box;
+        height: 2.75rem;
+        border: 2px;
+        border-radius: 0.313rem;
+        outline: none;
+        color: $mm-primary-color;
+    }
 }
