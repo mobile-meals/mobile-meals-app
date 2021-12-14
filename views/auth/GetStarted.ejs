@@ -1,9 +1,9 @@
-<div data-role="page">
-    <div role="main" class="ui-content nobar-content">
+<div data-role="page" id="get-started">
+    <div data-role="content" class="ui-content nobar-content">
         <h1>Get Started</h1>
         <p>Enter your mobile number to get started.</p>
         <form id="get-started-form" action="#">
-            <div class="get-started-form-inputs-wrapper">
+            <div class="input-group form-inputs-wrapper">
                 <!-- Select Country -->
                 <div class="select-country-wrapper">
                     <div>
@@ -23,8 +23,10 @@
                 </div>
                 <!-- End of Select Country -->
 
-                <input class="get-started-form-input-field" type="number" id="phone_number" name="phone_number"
-                    placeholder="John" required>
+                <div class="input-wrapper">
+                    <input type="text" maxlength="10" pattern="[0-9]+" id="phone_number" name="phone_number"
+                    placeholder="077 123 4567" required>
+                </div>
             </div>
             <button class="btn btn-primary-color" type="submit">Get Started<span class="button-icon"><svg class="button-icon" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m14 5 7 7m0 0-7 7m7-7H3"/></svg></span></button>
         </form>
