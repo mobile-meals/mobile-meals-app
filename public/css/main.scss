@@ -12,11 +12,10 @@ $input-field-border-focus: #45AC34;
 
 * {
 	margin: 0;
-	overflow: hidden;
 	font-family: 'Poppins', sans-serif;
     font-size: 16px;
-	box-sizing: border-box;
     color: $mm-primary-color;
+    box-sizing: border-box;
 }
 .ui-page {
 	.ui-header {
@@ -38,15 +37,6 @@ $input-field-border-focus: #45AC34;
 	margin-right: 24px;
 }
 
-.scrollable {
-    overflow-y: scroll;
-    -webkit-overflow-scrolling: touch;
-}
-
-    /* iOS specific fix, don't use it on Android devices */
-.scrollable > * {
-    -webkit-transform: translateZ(0px);
-}
 
 /* Typography
 -----------------------------------------------------------------------------------------------------------*/
