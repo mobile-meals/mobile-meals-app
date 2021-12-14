@@ -1,67 +1,179 @@
 <div data-role="page">
     <%- include ("./partials/TopNavBar-1"); %>
-    <div data-role="content" class="content-main scrollable">
-        <h2 class="text-secondary uppercase underline leading-2" style="margin-bottom: 10px; margin-top: 10px;">
-            Typography:</h2>
-        <h1>Heading 1</h1>
-        <h2>Heading 2</h2>
-        <h3>Heading 3</h3>
-        <h4>Heading 4</h4>
-        <h5>Heading 5</h5>
-        <h4 class="leading-2 uppercase text-semibold">Page Header</h4>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-            dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-            ex ea commodo consequat.</p>
+        <div data-role="content" class="content-main">
 
-        <h2 class="text-secondary uppercase underline leading-2" style="margin-bottom: 10px; margin-top: 10px;">
-            Buttons:</h2>
+            
+            
 
-        <button class="ui-button ui-widget ui-corner-all" type="submit">Proceed<span><svg fill="none"
-                    viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="m14 5 7 7m0 0-7 7m7-7H3" />
-                </svg></span></button>
+            <h2 class="text-secondary uppercase underline leading-2" style="margin-bottom: 10px; margin-top: 10px;">
+                Typography:</h2>
+            <h1>Heading 1</h1>
+            <h2>Heading 2</h2>
+            <h3>Heading 3</h3>
+            <h4>Heading 4</h4>
+            <h5>Heading 5</h5>
+            <h4 class="leading-2 uppercase text-semibold">Page Header</h4>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+                dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
+                ex ea commodo consequat.</p>
 
-        <h2 class="text-secondary uppercase underline leading-2" style="margin-bottom: 10px; margin-top: 10px;">
-            Input Elements:</h2>
+            <h2 class="text-secondary uppercase underline leading-2" style="margin-bottom: 10px; margin-top: 10px;">
+                Buttons:</h2>
 
-        <form action="#">
-            <label>
-                <input type="checkbox" name="checkbox" />
-                Checkbox
-            </label>
-            <label for="textinput-1">Text Input Box</label>
-            <input type="text" name="textinput-1" id="textinput-1" placeholder="Placeholder" value="">
+            <button class="ui-button ui-widget ui-corner-all" type="submit">Proceed<span><svg fill="none"
+                        viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="m14 5 7 7m0 0-7 7m7-7H3" />
+                    </svg></span></button>
 
-            <label for="numberinput-1">Number Input Box</label>
-            <input type="number" name="textinput-1" id="numberinput-1" placeholder="123456" value="">
-        </form>
+            <h2 class="text-secondary uppercase underline leading-2" style="margin-bottom: 10px; margin-top: 10px;">
+                Input Elements:</h2>
 
-        <h2 class="text-secondary uppercase underline leading-2" style="margin-bottom: 10px; margin-top: 10px;">
-            UI Elements:</h2>
+            <form action="#">
+                <label>
+                    <input type="checkbox" name="checkbox" />
+                    Checkbox
+                </label>
+                <label for="textinput-1">Text Input Box</label>
+                <input type="text" name="textinput-1" id="textinput-1" placeholder="Placeholder" value="">
 
-        <p>Restaurant Widget:</p>
+                <label for="numberinput-1">Number Input Box</label>
+                <input type="number" name="textinput-1" id="numberinput-1" placeholder="123456" value="">
+            </form>
 
-        <div class="restautant-widget-single">
-            <img src="https://cdn.pixabay.com/photo/2019/07/29/05/52/burger-4369973_960_720.jpg"
-                alt="The American Touch">
-            <div>
-                <div>
-                    <h5>The American Touch</h5>
+            <h2 class="text-secondary uppercase underline leading-2" style="margin-bottom: 10px; margin-top: 10px;">
+                UI Elements:</h2>
+
+            <p>Dish Card:</p>
+            <div class="card restautant-widget-single dish-card">
+                <div class="card-img-top image-and-banner">
+                    <img src="https://images.pexels.com/photos/4862267/pexels-photo-4862267.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+                        class="" alt="...">
+                    <div class="banner">Rs. 1150.00</div>
+                </div>
+                <div class="card-body widget-info">
+                    <div class="widget-text">
+                        <h5>Olive Pizza</h5>
+                        <h6>The American Touch</h6>
+                    </div>
+                    <svg class="favourite-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 6a5 5 0 0 0 0 7l8 7 8-7a5 5 0 0 0-7-7l-1 2-1-2a5 5 0 0 0-7 0z" />
+                    </svg>
+                </div>
+            </div>
+
+            <p>Restaurant Widget with Banner:</p>
+            <div class="card restautant-widget-single">
+                <div class="card-img-top image-and-banner">
+                    <img src="https://cdn.pixabay.com/photo/2019/07/29/05/52/burger-4369973_960_720.jpg" class=""
+                        alt="...">
+                    <div class="banner">Save on Selected items</div>
+                </div>
+                <div class="card-body widget-info">
                     <div>
-                        <p>I</p>
-                        <p>4.5</p>
+                        <h5>The American Touch</h5>
+                        <div class="widget-info-rating">
+                            <svg fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M9 3h2l1 3a1 1 0 0 0 1 1h3c1 0 2 1 1 2l-3 2a1 1 0 0 0 0 1l1 3c0 1-1 2-2 1l-2-2a1 1 0 0 0-2 0l-2 2c-1 1-2 0-2-1l1-3a1 1 0 0 0 0-1L3 9C2 8 3 7 4 7h3a1 1 0 0 0 1-1l1-3z" />
+                            </svg>
+                            <div>4.5</div>
+                        </div>
+                    </div>
+                    <svg class="favourite-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 6a5 5 0 0 0 0 7l8 7 8-7a5 5 0 0 0-7-7l-1 2-1-2a5 5 0 0 0-7 0z" />
+                    </svg>
+                </div>
+            </div>
+
+            <p>Restaurant Widget without banner:</p>
+            <div class="card restautant-widget-single">
+                <div class="card-img-top image-and-banner">
+                    <img src="https://cdn.pixabay.com/photo/2019/07/29/05/52/burger-4369973_960_720.jpg" class=""
+                        alt="...">
+                    <div class="banner hidden">Save on Selected items</div>
+                </div>
+                <div class="card-body widget-info">
+                    <div>
+                        <h5>The American Touch</h5>
+                        <div class="widget-info-rating">
+                            <svg fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M9 3h2l1 3a1 1 0 0 0 1 1h3c1 0 2 1 1 2l-3 2a1 1 0 0 0 0 1l1 3c0 1-1 2-2 1l-2-2a1 1 0 0 0-2 0l-2 2c-1 1-2 0-2-1l1-3a1 1 0 0 0 0-1L3 9C2 8 3 7 4 7h3a1 1 0 0 0 1-1l1-3z" />
+                            </svg>
+                            <div>4.5</div>
+                        </div>
+                    </div>
+                    <svg class="favourite-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 6a5 5 0 0 0 0 7l8 7 8-7a5 5 0 0 0-7-7l-1 2-1-2a5 5 0 0 0-7 0z" />
+                    </svg>
+                </div>
+            </div>
+
+            <p>Restaurant Widget without banner selected fav:</p>
+            <div class="card restautant-widget-single">
+                <div class="card-img-top image-and-banner">
+                    <img src="https://cdn.pixabay.com/photo/2019/07/29/05/52/burger-4369973_960_720.jpg" class=""
+                        alt="...">
+                    <div class="banner hidden">Save on Selected items</div>
+                </div>
+                <div class="card-body widget-info">
+                    <div>
+                        <h5>The American Touch</h5>
+                        <div class="widget-info-rating">
+                            <svg fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M9 3h2l1 3a1 1 0 0 0 1 1h3c1 0 2 1 1 2l-3 2a1 1 0 0 0 0 1l1 3c0 1-1 2-2 1l-2-2a1 1 0 0 0-2 0l-2 2c-1 1-2 0-2-1l1-3a1 1 0 0 0 0-1L3 9C2 8 3 7 4 7h3a1 1 0 0 0 1-1l1-3z" />
+                            </svg>
+                            <div>4.5</div>
+                        </div>
+                    </div>
+                    <svg class="favourite-icon-selected" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 6a5 5 0 0 0 0 7l8 7 8-7a5 5 0 0 0-7-7l-1 2-1-2a5 5 0 0 0-7 0z" />
+                    </svg>
+                </div>
+            </div>
+
+            <p>Restaurant Single item:</p>
+            <div class="restaurant-item-card">
+                <div class="item-card-info">
+                    <div class="item-title">Ketchup and Mustard Dog</div>
+                    <div class="item-desc">Boiled Hotdog, served on a fresh bun with ketup and mustard.</div>
+                    <div class="item-card-price-order">
+                        <div class="price-order">Rs 260.00</div>
+                        <div class="price-order">12 Orders</div>
                     </div>
                 </div>
-                <div>H</div>
+                <div class="item-card-img">
+                    <img src="https://images.pexels.com/photos/3162040/pexels-photo-3162040.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="">
+                </div>
             </div>
-        </div>
+            
+            <p>Tab Item:</p>
+            <div class="tag-item text-bold">
+                Best Sellers
+            </div>
+
+            <p>Recent Search Item:</p>
+            <div class="tag-item">
+                Best Sellers
+            </div>
 
 
 
-    </div><!-- /content -->
 
-    <div data-role="footer">
-		<h4>Page Footer</h4>
-	</div><!-- /footer -->
+
+        </div><!-- /content -->
+
+        <div data-role="footer">
+            <h4>Page Footer</h4>
+        </div><!-- /footer -->
 </div><!-- /page -->

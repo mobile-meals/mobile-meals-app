@@ -42,7 +42,7 @@
 
 /* Typography
 -----------------------------------------------------------------------------------------------------------*/
-h1, h2, h3, h4, h5 {
+h1, h2, h3, h4, h5, h6 {
   line-height: 1.5rem;
   font-weight: 700;
 }
@@ -65,6 +65,10 @@ h4 {
 
 h5 {
   font-size: 16px;
+}
+
+h6 {
+  font-size: 12px;
 }
 
 p {
@@ -149,5 +153,226 @@ form input[type="text"], form [type="number"] {
   border-radius: 0.313rem;
   outline: none;
   color: #1A2340;
+}
+
+/* UI Components
+-----------------------------------------------------------------------------------------------------------*/
+.hidden {
+  display: none;
+}
+
+.restautant-widget-single {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  width: 275px;
+  border-radius: 5px;
+  -webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 10px 0 rgba(0, 0, 0, 0.19);
+          box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 10px 0 rgba(0, 0, 0, 0.19);
+  max-height: 178px;
+  margin: 10px;
+}
+
+.restautant-widget-single .image-and-banner {
+  height: 127px;
+  position: relative;
+}
+
+.restautant-widget-single .image-and-banner img {
+  width: 100%;
+  height: 127px;
+  -o-object-fit: cover;
+     object-fit: cover;
+  overflow: hidden;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+
+.restautant-widget-single .image-and-banner .banner {
+  position: absolute;
+  top: 13px;
+  right: 0;
+  background-color: #45AC34;
+  color: white;
+  font-weight: 500;
+  font-size: 16px;
+  text-align: center;
+  padding: 6px 4px 6px 9px;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+
+.restautant-widget-single .widget-info {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 5px 10px;
+  max-height: 51px;
+  background-color: white;
+  z-index: 1;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+.restautant-widget-single .widget-info h5 {
+  max-width: 227px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  line-clamp: 1;
+  -webkit-box-orient: vertical;
+  font-weight: 400;
+}
+
+.restautant-widget-single .widget-info .favourite-icon {
+  stroke: #1A2340;
+  width: 32px;
+  height: 32px;
+}
+
+.restautant-widget-single .widget-info .favourite-icon-selected {
+  width: 32px;
+  height: 32px;
+  fill: #FF294F;
+  stroke: #FF294F;
+}
+
+.restautant-widget-single .widget-info .widget-info-rating {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-top: -10px;
+}
+
+.restautant-widget-single .widget-info .widget-info-rating svg {
+  width: 20px;
+  height: 20px;
+  fill: #1A2340;
+  stroke: #1A2340;
+  margin-right: 5px;
+}
+
+.dish-card {
+  max-width: 200px;
+}
+
+.dish-card .widget-info h6 {
+  max-width: 160px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  line-clamp: 1;
+  margin-top: -10px;
+  -webkit-box-orient: vertical;
+  font-weight: 600;
+  line-height: 1em;
+}
+
+/* Restaurant Item Card */
+.restaurant-item-card {
+  max-width: 342px;
+  background-color: #F4F4F4;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  border-radius: 5px;
+  margin: 0px 6px;
+}
+
+.restaurant-item-card .item-card-img {
+  width: 75px;
+}
+
+.restaurant-item-card .item-card-img img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  border-bottom-right-radius: 5px;
+  border-top-right-radius: 5px;
+}
+
+.restaurant-item-card .item-card-info {
+  width: 267px;
+  padding: 3px 10px;
+}
+
+.restaurant-item-card .item-card-info .item-title {
+  max-width: 258px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  line-clamp: 1;
+  -webkit-box-orient: vertical;
+  font-weight: 600;
+  line-height: 1.5em;
+  font-size: 12px;
+}
+
+.restaurant-item-card .item-card-info .item-desc {
+  max-width: 258px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  font-size: 12px;
+  margin-left: 6px;
+}
+
+.restaurant-item-card .item-card-info .item-card-price-order {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin: 9px 0px 0px 6px;
+}
+
+.restaurant-item-card .item-card-info .item-card-price-order .price-order {
+  background-color: white;
+  padding: 4px 11px;
+  border-radius: 5px;
+  font-size: 12px;
+}
+
+.tag-item {
+  background-color: #F4F4F4;
+  padding: 10px 8px;
+  border-radius: 5px;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  margin: 5px;
 }
 /*# sourceMappingURL=main.css.map */
