@@ -1,0 +1,59 @@
+<div data-role="page" id="partner-identity-confirmation">
+    <%- include ("../partials/headers/TopNavBarBackOnly"); %>
+        <div data-role="content" class="ui-content content-main">
+            <h1>Identity Confimation</h1>
+            <p>In the previous step you selected your Driver’s License as the document for Identity Confirmation. Kindly
+                upload a clear picture of your Driver’s License.<br>
+                <a href="#">Click here</a> to learn more about uploading documents.
+            </p>
+
+            <form id="identity-doc-upload-form" action="#">
+                <div class="input-group">
+
+                    <div class="file-upload-container">
+                        <input type="file" name="identity-doc" id="identity-doc" hidden="hidden">
+                        <button type="button" id="file-upload-btn">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M3 9a2 2 0 0 1 2-2h1a2 2 0 0 0 2-1V5a2 2 0 0 1 2-1h4a2 2 0 0 1 2 1v1a2 2 0 0 0 2 1h1a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M15 13a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
+                            </svg>
+                        </button>
+                        <p id="file-text">Select Image File(s)</p>
+                    </div>
+
+
+                    <label for="accept-terms">I accept the <a href="#">Terms & Conditions</a> and <a href="#">Privacy
+                            Policy</a>.</label>
+                    <input type="checkbox" id="accept-terms" name="accept-terms" required>
+                </div>
+                <button class="ui-widget ui-corner-all" type="submit">Proceed<span class="button-icon"><svg
+                            class="button-icon" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="m14 5 7 7m0 0-7 7m7-7H3" />
+                        </svg></span></button>
+            </form>
+        </div><!-- /content -->
+</div><!-- /page -->
+
+
+<script text="text/javascript">
+    const fileInputBtnDef = document.getElementById("identity-doc");
+    const fileInputBtn = document.getElementById("file-upload-btn");
+    const fileInputText = document.getElementById("file-text");
+
+    fileInputBtn.addEventListener("click", function() {
+        fileInputBtnDef.click();
+    });
+
+    fileInputBtnDef.addEventListener("change", function() {
+        if (fileInputBtnDef.value){
+            fileInputText.innerHTML = fileInputBtnDef.value.match(/[\/\\]([\w\d\s\.\-\(\)]+)$/);
+        }else{
+            fileInputText.innerHTML = "Select Image File(s)";
+        }
+    });
+
+</script>

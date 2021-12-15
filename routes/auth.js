@@ -14,4 +14,12 @@ router.get('/password-reset-confirmation', (req, res) => res.render('auth/Passwo
 
 router.get('/register', (req, res) => res.render('auth/Register'));
 
+router.get('/vendor-consent', (req, res) => res.render('auth/VendorConsent'));
+
+router.get('/partner-registration', (req, res) => res.render('auth/PartnerRegistration'));
+
+router.get('/partner-identity-confirmation', (req, res) => res.render('auth/PartnerIdentityConfirmation'));
+
+router.get('/partner-registration-confirm', (req, res) => res.render('auth/PartnerRegistrationConfirm'));
+
 module.exports = router;

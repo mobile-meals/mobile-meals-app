@@ -1,17 +1,19 @@
 <div data-role="page" id="otp">
-    <%- include ("../partials/TopNavBar-1"); %>
+    <%- include ("../partials/headers/TopNavBarBackOnly"); %>
         <div data-role="content" class="ui-content content-main">
             <h1>OTP</h1>
             <p>We have sent a One Time Pin to your
                 mobile phone you entered.</p>
             <form id="otp-form" action="#">
                 <div class="input-group">
-                    <input type="text" id="otp-1" name="otp-1" placeholder="0"  maxlength="1" pattern="[0-9]+" required>
+                    <div class="otp-fields-group">
+                        <input type="text" id="otp-1" name="otp-1" placeholder="0"  maxlength="1" pattern="[0-9]+" required>
                     <input type="text" id="otp-2" name="otp-2" placeholder="0"  maxlength="1" pattern="[0-9]+" required>
                     <input type="text" id="otp-3" name="otp-3" placeholder="0"  maxlength="1" pattern="[0-9]+" required>
                     <input type="text" id="otp-4" name="otp-4" placeholder="0"  maxlength="1" pattern="[0-9]+" required>
+                    </div>
                 </div>
-                <button class="btn btn-primary-color ui-button ui-widget ui-corner-all" type="submit">Proceed<span
+                <button class="ui-widget ui-corner-all" type="submit">Proceed<span
                         class="button-icon"><svg class="button-icon" fill="none" viewBox="0 0 24 24"
                             xmlns="http://www.w3.org/2000/svg">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"

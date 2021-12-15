@@ -1,0 +1,43 @@
+<div data-role="page" id="register">
+    <div data-role="content" class="ui-content nobar-content">
+        <h1>Partner Profile</h1>
+        <p>Fill in the form to onboard you to Mobile
+            Meals Vendor Program.</p>
+        <form id="vendor-register-form" action="#">
+            <div class="input-group">
+                <label for="restaurant-name">Restaurant Name</label>
+                <input type="text" id="restaurant-name" name="restaurant-name" placeholder="My Restaurant" required>
+
+                <label for="restaurant-reg-no">Restaurant Registration Number</label>
+                <input type="text" id="restaurant-reg-no" name="restaurant-reg-no" placeholder="SL15748512" required>
+                <a href="#" id="dp-block">What is this?</a>
+
+                <label for="restaurant-address">Restaurant Address</label>
+                <input type="text" id="restaurant-address" name="restaurant-address"
+                    placeholder="124 Darley Road, Colombo" required>
+
+                <label for="zip-code">ZIP CODE</label>
+                <input type="text" id="zip-code" name="zip-code" maxlength="4" pattern="[0-9]+" placeholder="10135"
+                    required>
+
+                <label for="identity-doc">Identity Confirmation Document</label>
+                <select id="identity-doc" class="form-select" aria-label="Select Document">
+                    <option selected>Select Document</option>
+                    <option value="nic">National Identity Card</option>
+                    <option value="dlc">Driver's License</option>
+                    <option value="psp">Passport</option>
+                </select>
+                
+
+                <label for="accept-terms">I accept the <a href="#">Terms & Conditions</a> and <a href="#">Privacy
+                        Policy</a>.</label>
+                <input type="checkbox" id="accept-terms" name="accept-terms" required>
+            </div>
+            <button class="ui-widget ui-corner-all" type="submit">Get Started<span class="button-icon"><svg
+                        class="button-icon" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="m14 5 7 7m0 0-7 7m7-7H3" />
+                    </svg></span></button>
+        </form>
+    </div><!-- /content -->
+</div><!-- /page -->

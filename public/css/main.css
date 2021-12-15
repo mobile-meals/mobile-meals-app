@@ -46,10 +46,14 @@
   margin-right: 24px;
 }
 
+.ui-loader {
+  display: none;
+}
+
 /* Typography
 -----------------------------------------------------------------------------------------------------------*/
 h1, h2, h3, h4, h5, h6 {
-  line-height: 1.5rem;
+  line-height: 1.2em;
   font-weight: 700;
 }
 
@@ -164,6 +168,47 @@ p {
   margin-left: 13px;
 }
 
+.ui-content .ui-link {
+  display: inline;
+  color: #45AC34;
+  text-decoration: underline;
+  font-weight: 400;
+}
+
+.ui-content .ui-btn {
+  margin: 9px 0px;
+}
+
+.ui-content .ui-btn:focus {
+  border: none;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+}
+
+.ui-content #btn-secondary-color {
+  background-color: #45AC34;
+}
+
+.ui-content #btn-secondary-color:focus {
+  background-color: #1A2340;
+}
+
+#file-upload-btn {
+  width: 158px;
+  height: 158px;
+  border-radius: 100%;
+  background-color: #F4F4F4;
+  border: none;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+}
+
+#file-upload-btn svg {
+  width: 85px;
+  height: 85px;
+  stroke: #45AC34;
+}
+
 /* Forms
 -----------------------------------------------------------------------------------------------------------*/
 input {
@@ -216,10 +261,14 @@ form .input-group .ui-focus {
 }
 
 form .input-group .ui-link {
-  display: inline;
   color: #45AC34;
   text-decoration: underline;
   font-weight: 400;
+}
+
+form .input-group #dp-block {
+  display: contents;
+  margin-bottom: 5px;
 }
 
 form .input-group label {
@@ -240,9 +289,9 @@ form .input-group .ui-checkbox {
   -webkit-box-pack: start;
       -ms-flex-pack: start;
           justify-content: start;
-  -webkit-box-align: start;
-      -ms-flex-align: start;
-          align-items: flex-start;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   border-radius: 5px;
 }
 
@@ -257,6 +306,8 @@ form .input-group .ui-checkbox .ui-btn {
   padding: 0px;
   border: none;
   font-weight: 400;
+  margin-left: 10px;
+  margin-top: 25px;
 }
 
 form .input-group .ui-checkbox input[type="checkbox"] {
@@ -264,6 +315,31 @@ form .input-group .ui-checkbox input[type="checkbox"] {
   height: 24px;
   border-radius: 5px;
   border: 2px solid red;
+}
+
+form .input-group .ui-select {
+  width: 100%;
+}
+
+form .input-group .ui-select .form-select {
+  width: 100%;
+  height: 42px;
+}
+
+form .input-group .ui-select span {
+  display: none;
+}
+
+form .input-group .ui-select .ui-btn {
+  background-color: transparent;
+  border: none;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+  padding: 0px;
+}
+
+form .input-group .ui-select .ui-focus {
+  width: 100%;
 }
 
 form button {
@@ -345,20 +421,27 @@ form button {
   display: block;
 }
 
-#otp-form .input-group {
+#otp-form .input-group .otp-fields-group {
+  width: 100%;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: space-evenly;
-      -ms-flex-pack: space-evenly;
-          justify-content: space-evenly;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
   margin: 34px 0px;
 }
 
-#otp-form .input-group input[type="text"] {
+#otp-form .input-group .otp-fields-group .ui-input-text {
+  width: 43px;
+  height: 43px;
+  margin: 0px 13px;
+}
+
+#otp-form .input-group .otp-fields-group input[type="text"] {
   width: 43px;
   height: 43px;
   text-align: center;
@@ -377,6 +460,27 @@ form button {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+}
+
+#identity-doc-upload-form .ui-input-text {
+  opacity: 0;
+}
+
+#identity-doc-upload-form .file-upload-container {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
 
 /* UI Components
@@ -641,5 +745,6 @@ form button {
 
 .confirmation-content p {
   margin-top: 48px;
+  text-align: center;
 }
 /*# sourceMappingURL=main.css.map */
