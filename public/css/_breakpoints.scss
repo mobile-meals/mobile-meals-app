@@ -1,0 +1,30 @@
+$breakpoints: (
+    "iphone-portrait" : 0,
+    "iphone-landscape" : 391px,
+    "ipad-portrait" : 845px,
+    "ipad-landscape" : 1025px,
+);
+
+@mixin iphone-portatit{
+    @media (min-width: map-get($breakpoints, "iphone-portrait")) {
+        @content;
+    }
+}
+
+@mixin iphone-landscape{
+    @media (min-width: map-get($breakpoints, "iphone-landscape")) {
+        @content;
+    }
+}
+
+@mixin ipad-portrait{
+    @media (min-width: map-get($breakpoints, "ipad-portrait")) {
+        @content;
+    }
+}
+
+@mixin ipad-landscape{
+    @media (min-width: map-get($breakpoints, "ipad-landscape")) {
+        @content;
+    }
+}

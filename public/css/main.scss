@@ -4,6 +4,8 @@
     src: url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 }
 
+@import 'breakpoints';
+
 $mm-primary-color: #1A2340;
 $mm-secondary-color: #45AC34;
 $mm-danger-color: #FF294F; 
@@ -60,6 +62,11 @@ h1,h2,h3,h4,h5,h6{
 
 h1{
     font-size: 40px;
+
+    /* Example To use media queries */
+    // @include iphone-landscape{
+    //     font-size: 100px;
+    // }
 }
 
 h2{
