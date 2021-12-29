@@ -1,0 +1,27 @@
+[
+    {
+        "restaurantId": 1,
+        "isBanner": false,
+        "bannerText": ""
+    },
+    {
+        "restaurantId": 2,
+        "isBanner": false,
+        "bannerText": ""
+    },
+    {
+        "restaurantId": 3,
+        "isBanner": false,
+        "bannerText": ""
+    },
+    {
+        "restaurantId": 4,
+        "isBanner": false,
+        "bannerText": ""
+    },
+    {
+        "restaurantId": 8,
+        "isBanner": false,
+        "bannerText": ""
+    }
+]
