@@ -1,0 +1,114 @@
+[
+    {
+        "restaurantId":1,
+        "imageUrl" : "https://cdn.pixabay.com/photo/2019/07/29/05/52/burger-4369973_960_720.jpg",
+        "restaurantTitle": "The American Touch",
+        "restaurantRating": "4.5",
+        "operatingTimes": {
+            "opening" : "9am",
+            "closing" : "10pm"
+        },
+        "isOpen" : true
+    },
+    {
+        "restaurantId":2,
+        "imageUrl" : "https://cdn.pixabay.com/photo/2017/01/20/17/25/detox-1995433_960_720.jpg",
+        "restaurantTitle": "Smoothie Point",
+        "restaurantRating": "3.5",
+        "operatingTimes": {
+            "opening" : "10am",
+            "closing" : "6pm"
+        },
+        "isOpen" : true
+    },
+    {
+        "restaurantId":3,
+        "imageUrl" : "https://cdn.pixabay.com/photo/2016/01/22/02/13/meat-1155132_960_720.jpg",
+        "restaurantTitle": "The Big Beef",
+        "restaurantRating": "5.0",
+        "operatingTimes": {
+            "opening" : "10am",
+            "closing" : "10pm"
+        },
+        "isOpen" : true
+    },
+    {
+        "restaurantId":4,
+        "imageUrl" : "https://cdn.pixabay.com/photo/2017/01/26/02/06/platter-2009590_960_720.jpg",
+        "restaurantTitle": "Deluxor",
+        "restaurantRating": "4.8",
+        "operatingTimes": {
+            "opening" : "9am",
+            "closing" : "11pm"
+        },
+        "isOpen" : true
+    },
+    {
+        "restaurantId":5,
+        "imageUrl" : "https://cdn.pixabay.com/photo/2017/12/09/08/18/pizza-3007395__480.jpg",
+        "restaurantTitle": "Pizza King",
+        "restaurantRating": "3.9",
+        "operatingTimes": {
+            "opening" : "9am",
+            "closing" : "11pm"
+        },
+        "isOpen" : true
+    },
+    {
+        "restaurantId":6,
+        "imageUrl" : "https://cdn.pixabay.com/photo/2017/09/04/18/39/coffee-2714970_960_720.jpg",
+        "restaurantTitle": "Python Lounge",
+        "restaurantRating": "4.0",
+        "operatingTimes": {
+            "opening" : "9am",
+            "closing" : "11pm"
+        },
+        "isOpen" : true
+    },
+    {
+        "restaurantId":7,
+        "imageUrl" : "https://cdn.pixabay.com/photo/2010/12/13/10/14/baguettes-2561_960_720.jpg",
+        "restaurantTitle": "Bread Buddy",
+        "restaurantRating": "4.6",
+        "operatingTimes": {
+            "opening" : "9am",
+            "closing" : "6pm"
+        },
+        "isOpen" : true
+    },
+    {
+        "restaurantId":8,
+        "imageUrl" : "https://cdn.pixabay.com/photo/2010/12/13/10/14/baguettes-2561_960_720.jpg",
+        "restaurantTitle": "Prawn to Addication",
+        "restaurantRating": "5.0",
+        "operatingTimes": {
+            "opening" : "11am",
+            "closing" : "11pm"
+        },
+        "isOpen" : true
+    },
+    {
+        "restaurantId":9,
+        "imageUrl" : "https://cdn.pixabay.com/photo/2013/07/19/00/18/seafood-165220_960_720.jpg",
+        "restaurantTitle": "Something Fishy",
+        "restaurantRating": "4.2",
+        "operatingTimes": {
+            "opening" : "9am",
+            "closing" : "7pm"
+        },
+        "isOpen" : true
+    },
+    {
+        "restaurantId":10,
+        "imageUrl" : "https://cdn.pixabay.com/photo/2014/05/26/14/53/sushi-354628_960_720.jpg",
+        "restaurantTitle": "Sushi Bar",
+        "restaurantRating": "3.6",
+        "operatingTimes": {
+            "opening" : "9am",
+            "closing" : "12pm"
+        },
+        "isOpen" : true
+    }
+    
+    
+]

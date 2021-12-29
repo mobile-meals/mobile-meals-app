@@ -1,0 +1,24 @@
+<div class="card restautant-widget-single">
+    <div class="card-img-top image-and-banner">
+        <img src="<%= restaurantWidgetData.imageUrl %>" class=""
+            alt="...">
+        <div class="banner <%= restaurantWidgetData.isBanner ? '':'hidden' %>"><%= restaurantWidgetData.bannerText %></div>
+    </div>
+    <div class="card-body widget-info">
+        <div>
+            <h5><%= restaurantWidgetData.restaurantTitle %></h5>
+            <div class="widget-info-rating">
+                <svg fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M9 3h2l1 3a1 1 0 0 0 1 1h3c1 0 2 1 1 2l-3 2a1 1 0 0 0 0 1l1 3c0 1-1 2-2 1l-2-2a1 1 0 0 0-2 0l-2 2c-1 1-2 0-2-1l1-3a1 1 0 0 0 0-1L3 9C2 8 3 7 4 7h3a1 1 0 0 0 1-1l1-3z" />
+                </svg>
+                <div><%= restaurantWidgetData.restaurantRating %></div>
+            </div>
+        </div>
+        <svg class="<%= restaurantWidgetData.isFavoriteItem ? 'favourite-icon':'favourite-icon-selected' %>" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M4 6a5 5 0 0 0 0 7l8 7 8-7a5 5 0 0 0-7-7l-1 2-1-2a5 5 0 0 0-7 0z" />
+        </svg>
+    </div>
+</div>

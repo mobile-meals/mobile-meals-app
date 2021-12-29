@@ -1,0 +1,32 @@
+[
+    {
+        "restaurantId": 1,
+        "isBanner": false,
+        "bannerText": "",
+        "isFavoriteItem": true 
+    },
+    {
+        "restaurantId": 4,
+        "isBanner": false,
+        "bannerText": "",
+        "isFavoriteItem": true 
+    },
+    {
+        "restaurantId": 6,
+        "isBanner": false,
+        "bannerText": "",
+        "isFavoriteItem": true 
+    },
+    {
+        "restaurantId": 9,
+        "isBanner": false,
+        "bannerText": "",
+        "isFavoriteItem": true 
+    },
+    {
+        "restaurantId": 10,
+        "isBanner": false,
+        "bannerText": "",
+        "isFavoriteItem": true 
+    }
+]
