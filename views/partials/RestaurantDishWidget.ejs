@@ -1,0 +1,15 @@
+<div class="restaurant-item-card">
+    <div class="item-card-info">
+        <div class="item-title"><%= widgetData.name %></div>
+        <div class="item-desc"><%= widgetData.description %></div>
+        <div class="item-card-price-order">
+            <div class="price-order">LKR <%= widgetData.price %></div>
+            <% if (typeof widgetData.orderCount !== 'undefined') { %>
+                <div class="price-order"><%= widgetData.orderCount %> Orders</div>
+            <% } %>
+        </div>
+    </div>
+    <div class="item-card-img">
+        <img src="<%= widgetData.imageUrl %>" alt="">
+    </div>
+</div>

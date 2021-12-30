@@ -1,8 +1,8 @@
-<div data-role="page" id="login">
+<div data-role="page" id="home">
 	<%- include ("./partials/headers/TopNavBar"); %>
 		<div data-role="content" class="ui-content content-main">
 			<h3 class="text-regular">Good Morning John</h3>
-			
+
 			<div class="x-scroll-container">
 				<a href="#">
 					<%- include ("./partials/Tab_Item", {item: 'Deals' }); %>
@@ -21,21 +21,94 @@
 				</a>
 			</div>
 
-			<div class="x-scroll-container">
+			<!-- Top Restaurants -->
+			<div class="home-category-title-container">
+				<div class="text-bold">Top Restaurants</div>
 				<a href="#">
-					<%- include ("./partials/RestaurantWidget", {item: 'Deals' }); %>
+					<span>More</span>
+					<svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+							d="m14 5 7 7m0 0-7 7m7-7H3" />
+					</svg>
 				</a>
-				<a href="#">
-					<%- include ("./partials/RestaurantWidget", {item: 'Deals' }); %>
-				</a>
-				<a href="#">
-					<%- include ("./partials/RestaurantWidget", {item: 'Deals' }); %>
-				</a>
-				<a href="#">
-					<%- include ("./partials/RestaurantWidget", {item: 'Deals' }); %>
-				</a>
-				
 			</div>
 
+			<div class="x-scroll-container">
+				<% topRestaurants.forEach((topRestaurant, index)=> { %>
+					<a href="<%= baseURL + '/restaurants/'+ topRestaurant.restaurantId %>" data-ajax="false">
+						<%- include ("./partials/RestaurantWidget", {restaurantWidgetData: topRestaurant }); %>
+					</a>
+					<% }); %>
+
+			</div>
+			<!-- End of Top Restaurants -->
+
+
+			<!-- Recently Ordered -->
+			<div class="home-category-title-container">
+				<div class="text-bold">Recently Ordered</div>
+				<a href="#">
+					<span>More</span>
+					<svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+							d="m14 5 7 7m0 0-7 7m7-7H3" />
+					</svg>
+				</a>
+			</div>
+			<div class="x-scroll-container">
+				<% topRestaurants.forEach((topRestaurant, index)=> { %>
+					<a href="#">
+						<%- include ("./partials/RestaurantWidget", {restaurantWidgetData: topRestaurant }); %>
+					</a>
+					<% }); %>
+
+			</div>
+			<!-- End of Recently Ordered -->
+
+
+			<!-- Deals -->
+			<div class="home-category-title-container">
+				<div class="text-bold">Deals</div>
+				<a href="#">
+					<span>More</span>
+					<svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+							d="m14 5 7 7m0 0-7 7m7-7H3" />
+					</svg>
+				</a>
+			</div>
+			<div class="x-scroll-container">
+				<% deals.forEach((deal, index)=> { %>
+					<a href="#">
+						<%- include ("./partials/RestaurantWidget", {restaurantWidgetData: deal }); %>
+					</a>
+					<% }); %>
+
+			</div>
+			<!-- End of Deals -->
+
+			<!-- Favourite Dishes -->
+			<div class="home-category-title-container">
+				<div class="text-bold">Favourite Dishes</div>
+				<a href="#">
+					<span>More</span>
+					<svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+							d="m14 5 7 7m0 0-7 7m7-7H3" />
+					</svg>
+				</a>
+			</div>
+			<div class="x-scroll-container">
+				<% topRestaurants.forEach((topRestaurant, index)=> { %>
+					<a href="#">
+						<%- include ("./partials/DishWidget", {restaurantWidgetData: topRestaurant }); %>
+					</a>
+					<% }); %>
+
+			</div>
+			<!-- End of Favourite Dishes -->
+
 		</div><!-- /content -->
+
+		<%- include ("./partials/BottomNavBars/BottomNavBar"); %>
 </div><!-- /page -->

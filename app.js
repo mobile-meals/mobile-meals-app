@@ -1,8 +1,13 @@
 const express = require('express');
 const expressLayouts = require('express-ejs-layouts');
 const session = require('express-session');
+const sequelize = require('./database');
+
+sequelize.sync().then(() => console.log("db ready"));
 
 const app = express();
+
+app.locals.baseURL = "http://localhost:5000";
 
 //EJS
 app.use(expressLayouts);
@@ -18,6 +23,7 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use('/', require('./routes/index.js'));
 app.use('/auth', require('./routes/auth.js'));
+app.use('/restaurants', require('./routes/restaurants.js'));
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, console.log(`Server running on  ${PORT}`));

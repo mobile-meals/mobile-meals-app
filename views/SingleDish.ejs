@@ -1,0 +1,68 @@
+<div data-role="page" id="home">
+	<%- include ("./partials/headers/RestaurantNavBar.ejs"); %>
+		<div data-role="content" class="ui-content content-main">
+
+			<div class="dish-header">
+				<img src="<%= dishData.imageUrl %>" alt="<%= dishData.name %>">
+
+				<div>
+					<h4>
+						<%= dishData.name %>
+					</h4>
+					<p>
+						<%= dishData.description %>
+					</p>
+					<p class="price-tag text-bold">LKR <%= dishData.price %>
+					</p>
+					<hr>
+				</div>
+
+
+			</div>
+
+			<div class="dish-extras">
+				<% extras.forEach((extra) =>{ %>
+					<div class="extra-item">
+						<div class="item-check">
+							<label for="<%= extra.slug %>"><%= extra.name %></label>
+							<input type="checkbox" id="<%= extra.slug %>" name="<%= extra.slug %>" required>
+						</div>
+						<div>
+							LKR <%= extra.price %>
+						</div>
+					</div>
+				<% }); %>
+			</div>
+
+			<div class="dish-notes">
+				<label for="dish-note">Notes</label>
+				<textarea class="form-control" id="dish-note" placeholder="Write your allegies, special preparation notes here." rows="10"></textarea>
+			</div>
+
+		</div><!-- /content -->
+		<%- include ("./partials/BottomNavBars/DishBottomNavBar"); %>
+</div><!-- /page -->
+
+<script type="text/javascript">
+var qty = 1;
+document.getElementById('qty').setAttribute('value', qty);
+
+
+document.getElementById("qty-add").addEventListener("click", function() {
+  qty = qty + 1;
+  document.getElementById('qty').setAttribute('value', qty);
+});
+
+document.getElementById("qty-minus").addEventListener("click", function() {
+	qty = qty - 1;
+	if (qty < 1){
+		qty = 1;
+	}
+	document.getElementById('qty').setAttribute('value', qty);
+});
+
+document.getElementById("add-to-cart").addEventListener("click", function() {
+  alert(extras);
+});
+
+</script>

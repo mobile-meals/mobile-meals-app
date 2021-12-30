@@ -1,0 +1,14 @@
+{
+  "development": {
+    "dialect": "sqlite",
+    "storage": "mm-dev.db"
+  },
+  "test": {
+    "dialect": "sqlite",
+    "storage": "mm-test.db"
+  },
+  "production": {
+    "dialect": "sqlite",
+    "storage": "mm-prod.db"
+  }
+}

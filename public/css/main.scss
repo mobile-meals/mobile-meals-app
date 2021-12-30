@@ -11,6 +11,7 @@ $mm-secondary-color: #45AC34;
 $mm-danger-color: #FF294F; 
 $gray-placeholder: #E3E3E3;
 $gray-item-card: #F4F4F4;
+$gray-dark-1: #c4c4c4;
 $input-field-border: #DBDBDB;
 $input-field-border-focus: #45AC34;
 
@@ -40,6 +41,8 @@ $input-field-border-focus: #45AC34;
 .content-main {
 	margin-left: 24px;
 	margin-right: 24px;
+    padding-top: 100px;
+    padding-bottom: 50px;
 }
 
 .nobar-content {
@@ -51,23 +54,6 @@ $input-field-border-focus: #45AC34;
 .ui-loader {
     display: none;
 }
-
-.top-nav-main{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-
-    svg{
-        width: 36px;
-        height: 36px;
-        stroke: $mm-primary-color;
-    }
-
-    h4{
-        color: $mm-primary-color;
-    }
-}
-
 
 /* Typography
 -----------------------------------------------------------------------------------------------------------*/
@@ -126,11 +112,11 @@ p{
 }
 
 .text-bold{
-    font-weight: 700;
+    font-weight: 600;
 }
 
 .text-semibold{
-    font-weight: 600;
+    font-weight: 500;
 }
 
 .text-regular{
@@ -148,8 +134,6 @@ p{
     justify-content: space-between;
     align-items: center;
     height: 90px;
-    margin-left: 24px;
-	margin-right: 24px;
     overflow: hidden;
 
 
@@ -160,6 +144,175 @@ p{
         }
     }
     
+}
+
+.top-nav-main{
+    position:fixed;
+    width: 390px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 1000;
+    padding: 0px 24px;
+
+    svg{
+        width: 36px;
+        height: 36px;
+        stroke: $mm-primary-color;
+    }
+
+    h4{
+        color: $mm-primary-color;
+    }
+}
+
+.top-nav-restaurant{
+    position:fixed;
+    width: 390px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 1000;
+    padding: 0px 24px;
+
+    .ui-btn{
+        position: relative;
+        display: inline;
+        justify-content: center;
+        align-items: center;
+        background-color: transparent;
+        width:36px;
+        box-shadow: none;
+        border: none;
+        padding: 0;
+
+        svg{
+            width: 36px;
+            height: 36px;
+            position: absolute;
+            left: 0; 
+            right: 0; 
+            top: 0;
+            bottom: 0;
+            margin: auto;
+        }
+
+        &:focus, &:hover{
+            background-color: transparent;
+            box-shadow: none;
+            border: none;
+
+            svg{
+                stroke: $mm-secondary-color;
+            }
+        }
+    }
+
+    svg{
+        width: 36px;
+        height: 36px;
+        stroke: $mm-primary-color;
+    }
+
+    h4{
+        color: $mm-primary-color;
+    }
+}
+
+
+
+.footer-icon-bar{
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 72px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px 24px;
+    z-index: 1000;
+
+    .ui-btn{
+        position: relative;
+        display: inline;
+        justify-content: center;
+        align-items: center;
+        background-color: transparent;
+        width:36px;
+
+        svg{
+            position: absolute;
+            left: 0; 
+            right: 0; 
+            top: 0;
+            bottom: 0;
+            margin: auto;
+        }
+
+        &:focus, &:hover{
+            background-color: transparent;
+            box-shadow: none;
+            border: none;
+
+            svg{
+                stroke: $mm-secondary-color;
+            }
+        }
+    }
+
+    svg{
+        width: 36px;
+        height: 36px;
+        stroke: $mm-primary-color;
+
+        &:focus{
+            
+        }
+    }
+}
+
+
+.footer-dish{
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 72px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px 24px;
+    z-index: 1000;
+
+    button{
+        height: 45px;
+
+        svg{
+            width: 24px;
+            height: 24px;
+            stroke: #fff;
+        }
+    }
+
+    .qty-selector{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        input[type=text]{
+            width: 51px;
+            height: 30px;
+            text-align: center;
+            font-size: 20px;
+            font-weight: 700;
+        }
+        
+        .qty-btn{
+            width: 32px;
+            height: 32px;
+            stroke: $mm-primary-color;
+            margin: 0px 19px;
+        }
+    }
 }
 
 /* Buttons
@@ -497,11 +650,6 @@ form{
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 10px 0 rgba(0, 0, 0, 0.19);
     max-height: 178px;
     margin: 10px;
-
-    .ui-link{
-        text-decoration: none;
-        font-size: 100px;
-    }
     
     .image-and-banner{
         height: 127px;
@@ -612,12 +760,15 @@ form{
     background-color: $gray-item-card;
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: stretch;
     border-radius: 5px;
-    margin: 0px 6px;
+    margin: 12px 6px;
+    
     
     .item-card-img{
         width: 75px;
+        height: auto;
+        padding: 0;
 
         img{
             width: 100%;
@@ -707,4 +858,158 @@ form{
     background-color: $gray-placeholder;
     padding: 9px 10px;
     border-radius: 5px;
+}
+
+.home-category-title-container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 34px;
+    margin-bottom: 15px;
+
+    a{
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+        
+        span{
+            color: $gray-dark-1;
+            text-decoration: none;
+        }
+
+        svg{
+            width: 16px;
+            height: 16px;
+            stroke: $gray-dark-1;
+            margin-left: 5px;
+        }
+    }
+}
+
+.restaurant-header{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+
+    img{
+        width: 342px;
+        height: 172px;
+        object-fit: cover;
+        border-radius: 5px;
+    }
+
+    .header-2cols{
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 9px;
+        margin-bottom: 3px;
+    }
+
+    .tag{
+        padding: 5px 9px;
+        background-color: $mm-secondary-color;
+        color: #fff;
+        border-radius: 5px;
+     }
+
+    .icon-text{
+        display: flex;
+        align-items: center;
+
+        svg{
+            width: 20px;
+            height: 20px;
+            margin-right: 3px;
+        }
+    }
+}
+
+.dish-group{
+    margin: 14px 0px;
+
+    h5{
+        margin-bottom: 9px;
+    }
+
+    .ui-link{
+        color: transparent;
+
+        &:focus, &:hover {
+            color: transparent;
+        }
+    }
+}
+
+.dish-header{
+    display: flex;
+    flex-direction: column;
+    row-gap: 22px;
+
+    img{
+        width: 342px;
+        height: 172px;
+        object-fit: cover;
+        border-radius: 5px;
+    }
+
+    .price-tag{
+        font-size: 24px;
+        background-color: $mm-secondary-color;
+        color: #fff;
+        width: fit-content;
+        padding: 10px 15px;
+        border-radius: 5px;
+    }
+}
+
+.dish-extras{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    margin-bottom: 22px;
+
+    .extra-item{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .item-check{
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+
+            .ui-checkbox{
+                display: flex;
+                flex-direction: row-reverse;
+                justify-content: start;
+                align-items: center;
+                border-radius: 5px;
+    
+                .ui-btn{
+                    display: inline;
+                    font-size: 16px;
+                    background-color: transparent;
+                    text-align: left;
+                    color: $mm-primary-color;
+                    text-transform: none;
+                    letter-spacing: 0;
+                    padding: 0px;
+                    border: none;
+                    font-weight: 400;
+                    margin-left: 10px;
+                }
+    
+                input[type="checkbox"]{
+                    width: 24px;
+                    height: 24px;
+                    border-radius: 5px;
+                    border: 2px solid red;
+                }
+                
+            }
+        }
+    }
 }
