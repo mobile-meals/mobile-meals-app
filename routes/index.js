@@ -57,4 +57,6 @@ router.get('/', async function (req, res) {
 
 router.get('/components', (req, res) => res.render('components'));
 
+router.get('/menu', (req, res) => res.render('Menu'));
+
 module.exports = router;

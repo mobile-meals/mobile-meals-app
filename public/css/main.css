@@ -52,6 +52,10 @@
   display: none;
 }
 
+.pt-top-none {
+  padding-top: 0 !important;
+}
+
 /* Typography
 -----------------------------------------------------------------------------------------------------------*/
 h1, h2, h3, h4, h5, h6 {
@@ -155,6 +159,46 @@ p {
           align-items: center;
   z-index: 1000;
   padding: 0px 24px;
+  top: 0;
+}
+
+.top-nav-main .ui-btn {
+  position: relative;
+  display: inline;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background-color: transparent;
+  width: 36px;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+  border: none;
+  padding: 0;
+}
+
+.top-nav-main .ui-btn svg {
+  width: 36px;
+  height: 36px;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+}
+
+.top-nav-main .ui-btn:focus, .top-nav-main .ui-btn:hover {
+  background-color: transparent;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+  border: none;
+}
+
+.top-nav-main .ui-btn:focus svg, .top-nav-main .ui-btn:hover svg {
+  stroke: #45AC34;
 }
 
 .top-nav-main svg {
@@ -411,6 +455,74 @@ p {
   width: 85px;
   height: 85px;
   stroke: #45AC34;
+}
+
+.offers-button {
+  height: 37px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.switch-profile-button {
+  height: 63px;
+  font-size: 16px;
+  font-weight: 600;
+  background-color: #45AC34 !important;
+  border: none !important;
+  -webkit-box-shadow: none !important;
+          box-shadow: none !important;
+}
+
+.switch-profile-button:focus, .switch-profile-button:hover {
+  background-color: #1A2340 !important;
+}
+
+.links-group {
+  margin: 22px 0;
+}
+
+.links-group .menu-link {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  width: 100%;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  border-bottom: 1px solid #E3E3E3;
+  padding: 11px 0 12px;
+  text-decoration: none !important;
+}
+
+.links-group .menu-link svg {
+  width: 32px;
+  height: 32px;
+  margin-right: 12px;
+  stroke: #1A2340;
+}
+
+.logout-button {
+  height: 43px;
+  font-size: 16px;
+  font-weight: 600;
+  background-color: #FF294F !important;
+  border: none !important;
+  -webkit-box-shadow: none !important;
+          box-shadow: none !important;
+}
+
+.logout-button:focus, .logout-button:hover {
+  background-color: #1A2340 !important;
+}
+
+.logout-button svg {
+  width: 24px;
+  height: 24px;
+  margin-left: 9px;
+  stroke: #fff;
 }
 
 /* Forms
@@ -1171,5 +1283,76 @@ form button {
   height: 24px;
   border-radius: 5px;
   border: 2px solid red;
+}
+
+.rewards-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: start;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  width: 342px;
+  margin: 0 auto;
+  background-color: #E3E3E3;
+  border-radius: 5px;
+  padding: 18px 18px 9px;
+}
+
+.rewards-container img {
+  width: 76px;
+  height: 76px;
+  margin-right: 26px;
+}
+
+.rewards-container .rewards-data {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+}
+
+.rewards-container .rewards-data .progress-bar-wrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.rewards-container .rewards-data .progress-bar-wrapper img {
+  width: 24px;
+  height: 24px;
+  margin: 0;
+}
+
+.rewards-container .rewards-data .progress-bar-wrapper .progress {
+  width: 147px;
+  height: 7px;
+  border-radius: 100px;
+  margin: 0px 9px;
+}
+
+.rewards-container .rewards-data .progress-bar-wrapper .progress .progress-bar {
+  background-color: #45AC34;
+}
+
+.rewards-container .rewards-data .points {
+  font-size: 12px;
+  margin: 0 auto;
+  margin-top: -5px;
 }
 /*# sourceMappingURL=main.css.map */
