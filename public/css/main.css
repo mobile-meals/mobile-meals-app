@@ -662,6 +662,44 @@ form button {
   margin-top: 20px;
 }
 
+@media (min-width: 1025px) {
+  #home h3 {
+    font-size: 36px;
+    font-weight: 400;
+    margin-bottom: 2%;
+  }
+  #home .ui-content .x-scroll-container .home-tabs {
+    margin-right: 3%;
+  }
+  #home .ui-content .x-scroll-container #restautant-widget-single {
+    background-color: #1A2340;
+  }
+  #home .home-category-title-container .text-bold {
+    font-size: 24px;
+    font-weight: 700;
+  }
+}
+
+#top-nav-main {
+  width: 100%;
+}
+
+@media (min-width: 1025px) {
+  #get-started {
+    margin-top: 20%;
+    margin-left: 50%;
+    margin-right: 12%;
+  }
+  #get-started h1 {
+    font-size: 60px;
+    font-weight: 700;
+  }
+  #get-started p {
+    font-size: 32px;
+    font-weight: 500;
+  }
+}
+
 #get-started-form {
   margin-top: 40px;
 }
@@ -685,6 +723,14 @@ form button {
 
 #get-started-form .input-wrapper {
   padding-left: 5px;
+}
+
+@media (min-width: 1025px) {
+  #get-started-form .input-wrapper {
+    margin-bottom: 1%;
+    margin-top: -2%;
+    width: 358px;
+  }
 }
 
 #get-started-form .select-country-wrapper {
@@ -737,6 +783,22 @@ form button {
   display: block;
 }
 
+@media (min-width: 1025px) {
+  #otp .ui-content {
+    margin-left: 50%;
+    margin-top: 13%;
+  }
+  #otp .ui-content h1 {
+    font-size: 60px;
+    font-weight: 700;
+  }
+  #otp .ui-content p {
+    font-size: 32px;
+    font-weight: 500;
+    margin-right: 20%;
+  }
+}
+
 #otp-form .input-group .otp-fields-group {
   width: 100%;
   display: -webkit-box;
@@ -751,10 +813,27 @@ form button {
   margin: 34px 0px;
 }
 
+@media (min-width: 1025px) {
+  #otp-form .input-group .otp-fields-group {
+    margin-right: 10%;
+    margin: 14px -65px;
+    text-align: center;
+  }
+}
+
 #otp-form .input-group .otp-fields-group .ui-input-text {
   width: 43px;
   height: 43px;
   margin: 0px 13px;
+}
+
+@media (min-width: 1025px) {
+  #otp-form .input-group .otp-fields-group .ui-input-text {
+    width: 65px;
+    height: 70px;
+    margin: 15px 15px;
+    font-size: 40px;
+  }
 }
 
 #otp-form .input-group .otp-fields-group input[type="text"] {
@@ -763,6 +842,54 @@ form button {
   text-align: center;
   font-size: 20;
   border-radius: 5px;
+}
+
+@media (min-width: 1025px) {
+  #otp-form .input-group .otp-fields-group input[type="text"] {
+    font-size: 25px;
+  }
+}
+
+@media (min-width: 1025px) {
+  #otp-form .ui-btn {
+    width: 77%;
+    height: 70px;
+    margin-right: 50%;
+    font-size: 24px;
+    font-weight: 600;
+  }
+}
+
+@media (min-width: 1025px) {
+  #login .ui-content {
+    margin-left: 50%;
+    margin-top: 13%;
+  }
+  #login .ui-content p {
+    font-weight: 500;
+    font-size: 32px;
+  }
+  #login .ui-content h3 {
+    font-weight: 500;
+    font-size: 32px;
+  }
+  #login .ui-content h2 {
+    font-weight: 700;
+    font-size: 60px;
+  }
+  #login .ui-content label {
+    font-size: 24px;
+  }
+  #login .ui-content .input-group {
+    width: 90%;
+  }
+  #login .ui-content .ui-btn {
+    width: 90%;
+    margin-top: 5%;
+  }
+  #login .ui-content .ui-link {
+    font-size: 24px;
+  }
 }
 
 #login-form .input-group .forgot-pw-link {
@@ -776,6 +903,199 @@ form button {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+}
+
+@media (min-width: 1025px) {
+  #register .ui-content {
+    margin-left: 35%;
+    margin-top: -5%;
+  }
+  #register .ui-content h1 {
+    font-size: 60px;
+    font-weight: 700;
+  }
+  #register .ui-content p {
+    font-size: 32px;
+    font-weight: 500;
+  }
+  #register .ui-content label {
+    font-size: 24px;
+    font-weight: 400;
+  }
+  #register .ui-content .input-email {
+    width: 90%;
+  }
+  #register .ui-content .accept-terms {
+    width: 600px;
+  }
+  #register .ui-content .input-names {
+    display: -webkit-inline-box;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    margin-bottom: 3%;
+    width: 90%;
+  }
+  #register .ui-content .input-names .input-firstname {
+    margin-right: 20%;
+    width: 95%;
+  }
+  #register .ui-content .input-names .input-lastname {
+    width: 95%;
+  }
+  #register .ui-content .input-passwordfield {
+    display: -webkit-inline-box;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    margin-top: 3%;
+    width: 90%;
+  }
+  #register .ui-content .input-passwordfield .input-password {
+    margin-right: 20%;
+    width: 95%;
+  }
+  #register .ui-content .input-passwordfield .input-confirmpassword {
+    width: 95%;
+  }
+  #register .ui-content a {
+    font-size: 24px;
+    font-weight: 500;
+  }
+  #register .ui-content button {
+    margin-top: 5%;
+    width: 90%;
+  }
+  #register .ui-content .res-name-num {
+    display: -webkit-inline-box;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    margin-bottom: 3%;
+    width: 98%;
+  }
+  #register .ui-content .res-name-num .res-name {
+    width: 48%;
+    margin-right: 2%;
+  }
+  #register .ui-content .res-name-num .res-num {
+    width: 48%;
+  }
+  #register .ui-content .info-link {
+    margin-left: 60%;
+  }
+  #register .ui-content .res-address {
+    width: 95%;
+  }
+  #register .ui-content .zip-confirm {
+    display: -webkit-inline-box;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    margin-top: 3%;
+    width: 98%;
+  }
+  #register .ui-content .zip-confirm .zipCode {
+    width: 58%;
+  }
+  #register .ui-content .zip-confirm .identityConfirm {
+    width: 58%;
+  }
+  #register .ui-content .zip-confirm .identityConfirm select {
+    width: 91%;
+  }
+}
+
+@media (min-width: 1025px) {
+  #partner-register .ui-content {
+    margin-left: 35%;
+  }
+  #partner-register .ui-content h1 {
+    font-size: 60px;
+    font-weight: 700;
+  }
+  #partner-register .ui-content p {
+    font-size: 32px;
+    font-weight: 500;
+  }
+  #partner-register .ui-content label {
+    font-size: 24px;
+    font-weight: 400;
+  }
+  #partner-register .ui-content .input-email {
+    width: 90%;
+  }
+  #partner-register .ui-content .accept-terms {
+    width: 600px;
+  }
+  #partner-register .ui-content .input-names {
+    display: -webkit-inline-box;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    margin-bottom: 3%;
+    width: 90%;
+  }
+  #partner-register .ui-content .input-names .input-firstname {
+    margin-right: 20%;
+    width: 95%;
+  }
+  #partner-register .ui-content .input-names .input-lastname {
+    width: 95%;
+  }
+  #partner-register .ui-content .input-passwordfield {
+    display: -webkit-inline-box;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    margin-top: 3%;
+    width: 90%;
+  }
+  #partner-register .ui-content .input-passwordfield .input-password {
+    margin-right: 20%;
+    width: 95%;
+  }
+  #partner-register .ui-content .input-passwordfield .input-confirmpassword {
+    width: 95%;
+  }
+  #partner-register .ui-content a {
+    font-size: 24px;
+    font-weight: 500;
+  }
+  #partner-register .ui-content button {
+    margin-top: 5%;
+    width: 90%;
+  }
+  #partner-register .ui-content .res-name-num {
+    display: -webkit-inline-box;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    margin-bottom: 3%;
+    width: 98%;
+  }
+  #partner-register .ui-content .res-name-num .res-name {
+    width: 48%;
+    margin-right: 2%;
+  }
+  #partner-register .ui-content .res-name-num .res-num {
+    width: 48%;
+  }
+  #partner-register .ui-content .info-link {
+    margin-left: 60%;
+  }
+  #partner-register .ui-content .res-address {
+    width: 95%;
+  }
+  #partner-register .ui-content .zip-confirm {
+    display: -webkit-inline-box;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    margin-top: 3%;
+    width: 98%;
+  }
+  #partner-register .ui-content .zip-confirm .zipCode {
+    width: 58%;
+  }
+  #partner-register .ui-content .zip-confirm .identityConfirm {
+    width: 58%;
+  }
+  #partner-register .ui-content .zip-confirm .identityConfirm select {
+    width: 91%;
+  }
 }
 
 #identity-doc-upload-form .ui-input-text {

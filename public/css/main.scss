@@ -607,6 +607,54 @@ form{
 
 }
 
+#home{
+    @include ipad-landscape{
+        h3{
+            font-size: 36px;
+            font-weight: 400;
+            margin-bottom: 2%;
+        }
+        .ui-content{
+            .x-scroll-container{
+                .home-tabs{
+                    margin-right: 3%;
+                }
+                #restautant-widget-single{
+                    background-color: #1A2340;
+                }
+            }
+        }
+        .home-category-title-container{
+            .text-bold{
+                font-size: 24px;
+                font-weight: 700;
+            }
+        }
+    }
+}
+
+#top-nav-main{
+    width: 100%;
+}
+
+#get-started{
+    @include ipad-landscape{
+        margin-top: 20%;
+        margin-left: 50%;
+        margin-right: 12%;
+
+        h1{
+            font-size: 60px;
+            font-weight: 700;
+        }
+
+        p{
+            font-size: 32px;
+            font-weight: 500;
+        }      
+    }
+}
+
 #get-started-form{
     margin-top: 40px;
 
@@ -625,6 +673,14 @@ form{
 
     .input-wrapper{
         padding-left: 5px;
+
+        @include ipad-landscape{
+            //margin-right: 20%;
+            margin-bottom: 1%;
+            margin-top: -2%;
+            width: 358px;
+            //border-width: 50%;
+        }
     }
 
     .select-country-wrapper {
@@ -669,11 +725,36 @@ form{
     
 }
 
+#otp{
+    .ui-content{
+        @include ipad-landscape{
+            margin-left: 50%;
+            margin-top: 13%;
+            
+
+            h1{
+                font-size: 60px;
+                font-weight: 700;
+            }
+            p{
+                font-size: 32px;
+                font-weight: 500;
+                margin-right: 20%;
+            }
+        }
+        
+    }
+}
 
 #otp-form{
     .input-group{
 
         .otp-fields-group{
+            @include ipad-landscape{
+                margin-right: 10%;
+                margin: 14px -65px;
+                text-align: center;
+            }
             width: 100%;
             display: flex;
             justify-content: center;
@@ -681,6 +762,12 @@ form{
             margin: 34px 0px;
 
             .ui-input-text{
+                @include ipad-landscape{
+                    width: 65px;
+                    height: 70px;
+                    margin: 15px 15px;
+                    font-size: 40px;
+                }
                 width: 43px;
                 height: 43px;
                 margin: 0px 13px;
@@ -693,11 +780,58 @@ form{
                 text-align: center;
                 font-size: 20;
                 border-radius: 5px;
+                @include ipad-landscape{
+                    font-size: 25px;
+                }
             }
         }
         
     }
+    .ui-btn{
+        @include ipad-landscape{
+            width: 77%;
+            height: 70px;
+            margin-right: 50%;
+            font-size: 24px;
+            font-weight: 600;
+        }
+    }
 
+}
+
+#login{
+    .ui-content{
+        @include ipad-landscape{
+            margin-left: 50%;
+            margin-top: 13%;
+
+            p{
+                font-weight: 500;
+                font-size: 32px;
+            }
+            h3{
+                font-weight: 500;
+                font-size: 32px;
+            }
+            h2{
+                font-weight: 700;
+                font-size: 60px;
+            }
+            label{
+                font-size: 24px;
+            }
+            .input-group{
+                width: 90%;
+            }
+            .ui-btn{
+                width: 90%;
+                margin-top: 5%;
+            }
+            .ui-link{
+                font-size: 24px;
+            }
+        }
+    }
 }
 
 #login-form{
@@ -708,6 +842,199 @@ form{
             display: flex;
             justify-content: end;
             align-items: center;
+        }
+    }
+}
+
+#register{
+    // display:inline;
+    @include ipad-landscape{
+        .ui-content{
+            margin-left: 35%;
+            margin-top: -5%;
+            h1{
+                font-size: 60px;
+                font-weight: 700;
+            }
+            p{
+                font-size: 32px;
+                font-weight: 500;
+            }
+            label{
+                font-size: 24px;
+                font-weight: 400;
+            }
+            .input-email{
+                width: 90%;
+            }
+            .accept-terms{
+                width: 600px;
+            }
+            .input-names{
+                display: inline-flex;
+                margin-bottom: 3%;
+                width: 90%;
+
+                .input-firstname{
+                    margin-right: 20%;
+                    width: 95%;
+                }
+                .input-lastname{
+                    width: 95%;
+                }
+            }
+           .input-passwordfield{
+               display: inline-flex;
+               margin-top: 3%;
+               width: 90%;
+
+               .input-password{
+                   margin-right: 20%;
+                   width: 95%;
+               }
+               .input-confirmpassword{
+                   width: 95%;
+               }
+           }
+            a{
+                font-size: 24px;
+                font-weight: 500;
+            }
+            button{
+                margin-top: 5%;
+                width: 90%;
+            }
+            .res-name-num{
+                display: inline-flex;
+                margin-bottom: 3%;
+                width: 98%;
+
+                .res-name{
+                    width: 48%;
+                    margin-right: 2%;
+                }
+                .res-num{
+                    width: 48%;
+                }
+            }
+            .info-link{
+                margin-left: 60%;
+            }
+            .res-address{
+                width: 95%;
+            }
+            .zip-confirm{
+               display: inline-flex;
+               margin-top: 3%;
+               width: 98%;
+
+               .zipCode{
+                    width: 58%;
+               }
+               .identityConfirm{
+                    width: 58%;
+
+                    select{
+                        width: 91%;
+                    }
+               }
+            }
+        }
+    }
+}
+
+#partner-register{
+    // display:inline;
+    @include ipad-landscape{
+        .ui-content{
+            margin-left: 35%;
+            h1{
+                font-size: 60px;
+                font-weight: 700;
+            }
+            p{
+                font-size: 32px;
+                font-weight: 500;
+            }
+            label{
+                font-size: 24px;
+                font-weight: 400;
+            }
+            .input-email{
+                width: 90%;
+            }
+            .accept-terms{
+                width: 600px;
+            }
+            .input-names{
+                display: inline-flex;
+                margin-bottom: 3%;
+                width: 90%;
+
+                .input-firstname{
+                    margin-right: 20%;
+                    width: 95%;
+                }
+                .input-lastname{
+                    width: 95%;
+                }
+            }
+           .input-passwordfield{
+               display: inline-flex;
+               margin-top: 3%;
+               width: 90%;
+
+               .input-password{
+                   margin-right: 20%;
+                   width: 95%;
+               }
+               .input-confirmpassword{
+                   width: 95%;
+               }
+           }
+            a{
+                font-size: 24px;
+                font-weight: 500;
+            }
+            button{
+                margin-top: 5%;
+                width: 90%;
+            }
+            .res-name-num{
+                display: inline-flex;
+                margin-bottom: 3%;
+                width: 98%;
+
+                .res-name{
+                    width: 48%;
+                    margin-right: 2%;
+                }
+                .res-num{
+                    width: 48%;
+                }
+            }
+            .info-link{
+                margin-left: 60%;
+            }
+            .res-address{
+                width: 95%;
+            }
+            .zip-confirm{
+               display: inline-flex;
+               margin-top: 3%;
+               width: 98%;
+
+               .zipCode{
+                    width: 58%;
+               }
+               .identityConfirm{
+                    width: 58%;
+
+                    select{
+                        width: 91%;
+                    }
+               }
+            }
         }
     }
 }
