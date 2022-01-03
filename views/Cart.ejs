@@ -1,0 +1,52 @@
+<div data-role="page" id="Cart">
+	<%- include ("./partials/headers/TopNavBarBackOnly.ejs",{title: 'Cart'}); %>
+		<div data-role="content" class="ui-content content-main pt-top-none cart-wrapper">
+
+            <div class="cart-header">
+                <h4 class="leading-2"><%= restaurantData.name  %></h4>
+                <button class="btn cart-menu-btn">
+                    Menu
+                    <span>
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                    </span>
+                </button>
+            </div>
+
+            <div class="cart-items">
+                <% if(typeof cartItems !== 'undefined' && cartItems.length !== 0 ) {%>
+                    <% cartItems.forEach ( (item, index) => { %>
+                        <div class="cart-item">
+                            <div class="title-desc">
+                                <h6><%= item.name %></h6>
+                                <% if(typeof item.description !== 'undefined' && Boolean(item.description) !== false ) {%>
+                                    <span class="desc"><%= item.description %></span>
+                                <% } %>
+                                <% if(typeof item.extras !== 'undefined' && item.extras.length !== 0 ) {%> 
+                                    <div>came here</div>
+                                    <div class="extras">
+                                        <% item.extras.forEach( (extra) => {%>
+                                            <div class="extra">
+                                                <span><%= extra.qty %> X <%= extra.name %></span>
+                                                <span>LKR <%= extra.price %></span>
+                                            </div>
+                                        <% }); %>
+                                    </div>
+                                <% } %>   
+                            </div>
+                            <div class="qty-price">
+                                QTY <br> <%= item.qty %>
+                            </div>
+                            <div class="qty-price text-bold">LKR <br> <%= item.price %></div>
+                        </div>
+                    <% }); %>
+                <% } %>
+
+                
+
+                
+            </div>
+
+
+		</div><!-- /content -->
+		<%- include ("./partials/BottomNavBars/DishBottomNavBar"); %>
+</div><!-- /page -->

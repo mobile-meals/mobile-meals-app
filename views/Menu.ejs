@@ -1,4 +1,12 @@
-<div data-role="page" id="login">
+<script>
+    window.onload = function() {
+        var mainDiv = document.getElementsByClassName("dialog-page");
+        var role = window.outerWidth <= 390 ? 'page': 'dialog';
+        mainDiv[0].setAttribute("data-role", role);
+      };
+</script>
+
+<div data-role="page" id="login" class="dialog-page">
     <%- include ("./partials/headers/TopNavBarBackOnly", {title:' Menu'}); %>
         <div data-role="content" class="ui-content content-main pt-top-none">
             <div class="rewards-container">

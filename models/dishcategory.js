@@ -16,7 +16,8 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   DishCategory.init({
-    name: DataTypes.STRING
+    name: DataTypes.STRING,
+    image_url: DataTypes.STRING,
   }, {
     sequelize,
     modelName: 'DishCategory',
