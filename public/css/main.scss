@@ -133,6 +133,17 @@ p{
 } 
 
 
+.alert{
+    display: flex;
+    
+    .ui-btn{
+        background-color: transparent;
+        box-shadow: none;
+        border: none;
+        text-shadow: none;
+    }
+}
+
 /* Navbars
 -----------------------------------------------------------------------------------------------------------*/
 .ui-header{

@@ -1,16 +1,17 @@
-<div data-role="page" id="otp">
-    <%- include ("../partials/headers/TopNavBarBackOnly"); %>
+<div data-role="page" id="otp" class="pt-top-none">
+    <%- include ("../partials/headers/TopNavBarBackOnly",{uri:'/auth/get-started'}); %>
         <div data-role="content" class="ui-content content-main">
             <h1>OTP</h1>
             <p>We have sent a One Time Pin to your
                 mobile phone you entered.</p>
-            <form id="otp-form" action="#">
+            <%- include ("../partials/messages"); %>
+            <form id="otp-form" action="/auth/otp" method="POST" data-ajax="false">
                 <div class="input-group">
                     <div class="otp-fields-group">
-                        <input type="text" id="otp-1" name="otp-1" placeholder="0"  maxlength="1" pattern="[0-9]+" required>
-                    <input type="text" id="otp-2" name="otp-2" placeholder="0"  maxlength="1" pattern="[0-9]+" required>
-                    <input type="text" id="otp-3" name="otp-3" placeholder="0"  maxlength="1" pattern="[0-9]+" required>
-                    <input type="text" id="otp-4" name="otp-4" placeholder="0"  maxlength="1" pattern="[0-9]+" required>
+                        <input type="text" id="otp_1" name="otp_1" placeholder="0"  maxlength="1" pattern="[0-9]+" required>
+                        <input type="text" id="otp_2" name="otp_2" placeholder="0"  maxlength="1" pattern="[0-9]+" required>
+                        <input type="text" id="otp_3" name="otp_3" placeholder="0"  maxlength="1" pattern="[0-9]+" required>
+                        <input type="text" id="otp_4" name="otp_4" placeholder="0"  maxlength="1" pattern="[0-9]+" required>
                     </div>
                 </div>
                 <button class="ui-widget ui-corner-all" type="submit">Proceed<span

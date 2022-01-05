@@ -66,6 +66,7 @@ router.get('/search',async function (req, res) {
         'Pepperoni Pizza', 'Mango Juice', 'The American Touch', 'Biriyani', 'Sri Lankan'
     ];
 
+
     var dishCategories = await models.DishCategory.findAll()
         .then(dishCategoriesRecieved => {
             var dishCategoriesArray = [];

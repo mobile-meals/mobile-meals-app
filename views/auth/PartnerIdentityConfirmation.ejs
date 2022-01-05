@@ -1,5 +1,5 @@
-<div data-role="page" id="partner-identity-confirmation">
-    <%- include ("../partials/headers/TopNavBarBackOnly"); %>
+<div data-role="page" id="partner-identity-confirmation" class="pt-top-none">
+    <%- include ("../partials/headers/TopNavBarBackOnly" ); %>
         <div data-role="content" class="ui-content content-main">
             <h1>Identity Confimation</h1>
             <p>In the previous step you selected your Driver’s License as the document for Identity Confirmation. Kindly
@@ -7,7 +7,7 @@
                 <a href="#">Click here</a> to learn more about uploading documents.
             </p>
 
-            <form id="identity-doc-upload-form" action="#">
+            <form id="identity-doc-upload-form" action="/auth/partner-registration-confirm" data-ajax="false">
                 <div class="input-group">
 
                     <div class="file-upload-container">

@@ -1,8 +1,8 @@
-<div data-role="page" id="get-started">
+<div data-role="page" id="get-started pt-top-none">
     <div data-role="content" class="ui-content nobar-content">
         <h1>Get Started</h1>
         <p>Enter your mobile number to get started.</p>
-        <form id="get-started-form" action="#">
+        <form id="get-started-form" action="/auth/get-started" method="POST" data-ajax="false">
             <div class="input-group form-inputs-wrapper">
                 <!-- Select Country -->
                 <div class="select-country-wrapper">
@@ -42,4 +42,6 @@
     };
 
     countrySelect.addEventListener('change', updateSelected);
+
+    
 </script>

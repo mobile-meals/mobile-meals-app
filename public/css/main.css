@@ -125,6 +125,20 @@ p {
   letter-spacing: 2px;
 }
 
+.alert {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.alert .ui-btn {
+  background-color: transparent;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+  border: none;
+  text-shadow: none;
+}
+
 /* Navbars
 -----------------------------------------------------------------------------------------------------------*/
 .ui-header {
