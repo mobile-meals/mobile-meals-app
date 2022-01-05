@@ -637,6 +637,106 @@ form{
     width: 100%;
 }
 
+#password-reset-confirm{
+    @include ipad-landscape{
+        width: 35%;
+        margin-left: 30%;
+        margin-top: 15%;
+
+        h3{
+            font-size: 26px;
+        }
+    }
+}
+
+#password-reset{
+    @include ipad-landscape{
+        width: 35%;
+        margin-left: 30%;
+        margin-top: 15%;
+
+        h3{
+            font-size: 26px;
+        }
+    }
+}
+
+#vendor-consent{
+    @include ipad-landscape{
+        width: 30%;
+        margin-left: 30%;
+        margin-top: 15%;
+
+        h3{
+            font-size: 26px;
+            margin-bottom: 10%;
+        }
+        button{
+            margin-bottom: 3%;
+        }
+        p{
+            margin-bottom: 10%;
+        }
+    }
+}
+
+#menu{
+    @include ipad-landscape{
+        width: 50%;
+
+        .rewards-container{
+            width: 100%;
+            height: 150%;
+            .current-tier{
+                 width: 20%;
+                 height: 15%;
+             }
+             .rewards-data{
+                 width: 70%;
+                 height: 70%;
+
+                 h5{
+                     font-size: 24px;
+                     margin-left: 16%;
+                 }
+
+                 .progress-bar-wrapper{
+                     img{
+                         width: 10%;
+                         height: 10%;
+                     }
+                     .progress{
+                         width: 70%;
+                         height: 10px;
+                     }
+                 }
+                 span{
+                     font-size: 16px;
+                 }
+             }
+        }
+        .links-group{
+            span{
+                font-size: 24px;
+            }
+            svg{
+                width: 8%;
+                height: 8%;
+            }
+        }
+        h4{
+            font-size: 36px;
+            font-weight: 600;  
+        }
+        .top-nav-bar-title{
+            margin-left: 75%;
+        }
+    }
+    .logout-button{
+        height: 20%;
+    }
+}
+
 #get-started{
     @include ipad-landscape{
         margin-top: 20%;
