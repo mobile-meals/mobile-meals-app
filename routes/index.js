@@ -4,6 +4,7 @@ const router = express.Router();
 const models = require('../models');
 
 const utilHelpers = require('../helpers/utils');
+const dish = require('../models/dish');
 // Welcome Page
 router.get('/', async function (req, res) {
 
@@ -62,6 +63,7 @@ router.get('/components', (req, res) => res.render('components'));
 router.get('/menu', (req, res) => res.render('Menu', {utilHelpers}));
 
 router.get('/search',async function (req, res) { 
+    console.log(req.session);
     var recentSeachTerms = [
         'Pepperoni Pizza', 'Mango Juice', 'The American Touch', 'Biriyani', 'Sri Lankan'
     ];
@@ -89,43 +91,58 @@ router.get('/search',async function (req, res) {
     })
 });
 
-router.get('/cart', function (req, res) {
+router.get('/cart',async function (req, res) {
     var restaurantData = {
         id: 1,
         name:'The American Touch'
     };
-    var cartItems = [
-        {
-            dishId: 1,
-            name: 'All American Burger',
-            qty: 1,
-            price: '1430.00',
-            description: 'No Pickles, No Ranch',
-            extras: [
-                {
-                    id: 1,
-                    name: 'Extra Cheese',
-                    price: '120.00',
-                    qty: 2
-                },
-                {
-                    id: 2,
-                    name: 'Extra Beef patty',
-                    price: '160.00',
-                    qty: 1
-                }
-            ]
 
-        },
-        {
-            dishId: 4,
-            name: 'Texas Tommy',
-            qty: 3,
-            price: '1650.00',
-            description: null,
-            extras: []
+    var cartItems = [];
+
+    var cartItemsInSession = (typeof req.session.currentUser.cartItems == 'undefined') ? [] : req.session.currentUser.cartItems;
+
+    for (const item of cartItemsInSession){
+        var dishData = await models.Dish.findOne({ where: { id: item.dishId }})
+        .then(dishRecieved => {
+            return dishRecieved.dataValues;
+        })
+        .catch(err => console.log(err));
+
+        var extraItems = [];
+
+        for(const extra of item.extras){
+            var extraItemData = await models.Extra.findOne({ where: { id: extra }})
+                .then(extraItemRecieved => {
+                    return extraItemRecieved.dataValues;
+                })
+                .catch(err => console.log(err));
+
+            extraItems.push({
+                id: extraItemData.id,
+                name: extraItemData.name,
+                price: parseFloat(extraItemData.price).toFixed(2)
+            });
+
         }
-    ];
+
+        var priceForExtras = 0;
+
+        extraItems.forEach(item => {
+            priceForExtras += parseFloat(item.price);
+        });
+
+
+        cartItems.push(
+            {
+                dishId: dishData.id,
+                name: dishData.name,
+                qty: item.qty,
+                price: parseFloat((dishData.price * item.qty) + priceForExtras).toFixed(2),
+                description: item.notes,
+                extras: extraItems
+            }
+        );
+    }
 
     res.render('Cart', {
         restaurantData,

@@ -19,5 +19,15 @@ module.exports = {
         console.log(recievedOtp);
 
         return defaultOtp === recievedOtp;
+    },
+    getSecureUserObj: function (user){
+        return {
+            id: user.id,
+            phoneNumber:user.phone_number,
+            firstName: user.first_name,
+            lastName: user.last_name,
+            userImage: user.user_image,
+            cartItems: []
+        }
     }
 }
