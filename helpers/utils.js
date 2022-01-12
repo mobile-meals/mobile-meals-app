@@ -1,3 +1,5 @@
+const { mapValueFieldNames } = require("sequelize/dist/lib/utils");
+
 module.exports = {
     slugifyText:function(text) {
         return text.toLowerCase()
@@ -29,5 +31,8 @@ module.exports = {
             userImage: user.user_image,
             cartItems: []
         }
+    },
+    calculateDiscount(total, discountVal){
+        return parseFloat(total*(discountVal/100)).toFixed(2);
     }
 }

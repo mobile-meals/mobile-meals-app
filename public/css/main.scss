@@ -1236,6 +1236,7 @@ form{
                 .desc{
                     margin-left: 6px;
                     font-size: 12px;
+                    line-height: 13px !important;
                 }
 
                 .extras{
@@ -1423,16 +1424,28 @@ form{
         justify-content: center;
         align-items: center;
 
-        .promo-percentage{
-            width: 15px;
-            height: 17px;
+        .card-icon{
+            width: 24px;
+            height: 24px;
             margin-right: 13px;
-            fill: $mm-secondary-color;
+            stroke: $mm-secondary-color;
         }
     
         .promo-text{
             display: flex;
             flex-direction: column;
+
+            .card-num{
+                display: flex;
+                align-items: center;
+
+                .card-hidden-circles{
+                    width: 127px;
+                    height: 5px;
+                    fill: $mm-primary-color;
+                    margin-right: 16px;
+                }
+            }
 
             .title{
                 font-size: 12px;
@@ -1446,8 +1459,6 @@ form{
             }
         }
     }
-
-    
 
     .promo-arrow{
         width: 24px;

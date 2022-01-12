@@ -1450,6 +1450,7 @@ form button {
 .cart-wrapper .cart-items .cart-item .title-desc .desc {
   margin-left: 6px;
   font-size: 12px;
+  line-height: 13px !important;
 }
 
 .cart-wrapper .cart-items .cart-item .title-desc .extras {
@@ -1690,11 +1691,11 @@ form button {
           align-items: center;
 }
 
-.cart-card-box .promo-content .promo-percentage {
-  width: 15px;
-  height: 17px;
+.cart-card-box .promo-content .card-icon {
+  width: 24px;
+  height: 24px;
   margin-right: 13px;
-  fill: #45AC34;
+  stroke: #45AC34;
 }
 
 .cart-card-box .promo-content .promo-text {
@@ -1705,6 +1706,22 @@ form button {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+}
+
+.cart-card-box .promo-content .promo-text .card-num {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.cart-card-box .promo-content .promo-text .card-num .card-hidden-circles {
+  width: 127px;
+  height: 5px;
+  fill: #1A2340;
+  margin-right: 16px;
 }
 
 .cart-card-box .promo-content .promo-text .title {

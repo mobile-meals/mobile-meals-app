@@ -146,7 +146,8 @@ router.get('/cart',async function (req, res) {
 
     res.render('Cart', {
         restaurantData,
-        cartItems
+        cartItems,
+        utilHelpers
     });
 });
 
