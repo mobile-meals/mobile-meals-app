@@ -10,6 +10,7 @@
   color: #1A2340;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
+  text-shadow: none !important;
 }
 
 .ui-page .ui-header {
@@ -124,6 +125,20 @@ p {
   letter-spacing: 2px;
 }
 
+.alert {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.alert .ui-btn {
+  background-color: transparent;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+  border: none;
+  text-shadow: none;
+}
+
 /* Navbars
 -----------------------------------------------------------------------------------------------------------*/
 .ui-header {
@@ -177,6 +192,7 @@ p {
           box-shadow: none;
   border: none;
   padding: 0;
+  text-shadow: none;
 }
 
 .top-nav-main .ui-btn svg {
@@ -242,6 +258,7 @@ p {
           box-shadow: none;
   border: none;
   padding: 0;
+  text-shadow: none;
 }
 
 .top-nav-restaurant .ui-btn svg {
@@ -305,6 +322,7 @@ p {
           align-items: center;
   background-color: transparent;
   width: 36px;
+  text-shadow: none;
 }
 
 .footer-icon-bar .ui-btn svg {
@@ -407,6 +425,7 @@ p {
   font-size: 18px;
   font-weight: 600;
   letter-spacing: 2px;
+  text-shadow: none !important;
 }
 
 .ui-btn span {
@@ -425,6 +444,7 @@ p {
 
 .ui-content .ui-btn {
   margin: 9px 0px;
+  text-shadow: none;
 }
 
 .ui-content .ui-btn:focus {
@@ -624,6 +644,7 @@ form .input-group .ui-checkbox .ui-btn {
   font-weight: 400;
   margin-left: 10px;
   margin-top: 25px;
+  text-shadow: none;
 }
 
 form .input-group .ui-checkbox input[type="checkbox"] {
@@ -652,6 +673,7 @@ form .input-group .ui-select .ui-btn {
   -webkit-box-shadow: none;
           box-shadow: none;
   padding: 0px;
+  text-shadow: none;
 }
 
 form .input-group .ui-select .ui-focus {
@@ -841,6 +863,7 @@ form button {
 
 #get-started-form .select-country-wrapper .ui-btn {
   opacity: 0;
+  text-shadow: none;
 }
 
 #get-started-form .select-country-wrapper__select {
@@ -1263,6 +1286,7 @@ form button {
   padding: 6px 4px 6px 9px;
   border-top-left-radius: 5px;
   border-bottom-left-radius: 5px;
+  text-shadow: none !important;
 }
 
 .restautant-widget-single .widget-info {
@@ -1687,6 +1711,7 @@ form button {
   border: none;
   font-weight: 400;
   margin-left: 10px;
+  text-shadow: none;
 }
 
 .dish-extras .extra-item .item-check .ui-checkbox input[type="checkbox"] {
@@ -1765,5 +1790,167 @@ form button {
   font-size: 12px;
   margin: 0 auto;
   margin-top: -5px;
+}
+
+.cart-wrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.cart-wrapper .cart-header {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+}
+
+.cart-wrapper .cart-header .cart-menu-btn {
+  width: 121px;
+  height: 45px;
+  margin-top: 0px;
+}
+
+.cart-wrapper .cart-header .cart-menu-btn svg {
+  width: 24px;
+  height: 24px;
+  stroke: #fff;
+}
+
+.cart-wrapper .cart-items {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  margin: 21px 0px 16px;
+  text-shadow: none;
+}
+
+.cart-wrapper .cart-items .cart-item {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background-color: #F4F4F4;
+  margin: 9px 0px;
+  padding: 7px 6px;
+  border-radius: 5px;
+}
+
+.cart-wrapper .cart-items .cart-item .title-desc {
+  width: 200px;
+}
+
+.cart-wrapper .cart-items .cart-item .title-desc .desc {
+  margin-left: 6px;
+  font-size: 12px;
+}
+
+.cart-wrapper .cart-items .cart-item .title-desc .extras {
+  background-color: #45AC34;
+  padding: 7px 6px;
+  border-radius: 5px;
+  margin: 13px 0px 7px 6px;
+}
+
+.cart-wrapper .cart-items .cart-item .title-desc .extras .extra {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  color: #fff;
+}
+
+.cart-wrapper .cart-items .cart-item .title-desc .extras .extra span {
+  color: #fff;
+  text-shadow: none !important;
+  font-size: 12px;
+}
+
+.cart-wrapper .cart-items .cart-item .qty-price {
+  text-align: center;
+  padding: 9px 5px;
+  background-color: #fff;
+  border-radius: 5px;
+}
+
+.recent-search .tag-item {
+  margin: 5px 5px;
+}
+
+.search-categories {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row wrap;
+          flex-flow: row wrap;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  list-style: none;
+  row-gap: 21px;
+  -webkit-column-gap: 21px;
+          column-gap: 21px;
+}
+
+.search-categories .search-category {
+  max-width: 100px;
+  height: 110px;
+  position: relative;
+}
+
+.search-categories .search-category img {
+  width: 100%;
+  height: 110px;
+  -o-object-fit: cover;
+     object-fit: cover;
+  overflow: hidden;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+
+.search-categories .search-category .widget-info {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  font-size: 12px;
+  text-align: center;
+  position: absolute;
+  height: 37px;
+  background-color: #fff;
+  bottom: 0;
+  width: 100px;
+  font-size: 12px;
+  z-index: 5;
 }
 /*# sourceMappingURL=main.css.map */

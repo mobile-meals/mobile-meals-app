@@ -1,0 +1,35 @@
+<div data-role="page" id="search">
+    <%- include ("./partials/headers/SearchNavBar"); %>
+        <div data-role="content" class="ui-content content-main">
+
+            <div class="recent-search">
+                <% if(typeof recentSeachTerms !=='undefined' ){ %>
+                    <% recentSeachTerms.forEach((searchTerm, index)=> { %>
+                        <a href="#">
+                            <%- include ("./partials/Tab_Item", {item: searchTerm }); %>
+                        </a>
+                        <% }); %>
+                            <% }; %>
+            </div>
+
+            <hr>
+
+            <h5>Categories</h5>
+
+            <div class="search-categories">
+                <% if(typeof dishCategories !=='undefined' ){ %>
+                    <% dishCategories.forEach((category, index)=> { %>
+                        <div class="card search-category" style="width: 18rem;">
+                            <img src="<%= category.imageUrl %>"
+                                class="card-img-top" alt="...">
+                            <div class="card-body widget-info">
+                                <%= category.name %>
+                            </div>
+                        </div>
+                    <% }); %>
+                <% }; %>
+            </div>
+
+        </div><!-- /content -->
+
+</div><!-- /page -->
