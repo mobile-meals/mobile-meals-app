@@ -22,11 +22,10 @@
                                     <span class="desc"><%= item.description %></span>
                                 <% } %>
                                 <% if(typeof item.extras !== 'undefined' && item.extras.length !== 0 ) {%> 
-                                    <div>came here</div>
                                     <div class="extras">
                                         <% item.extras.forEach( (extra) => {%>
                                             <div class="extra">
-                                                <span><%= extra.qty %> X <%= extra.name %></span>
+                                                <span>1 X <%= extra.name %></span>
                                                 <span>LKR <%= extra.price %></span>
                                             </div>
                                         <% }); %>
@@ -40,13 +39,85 @@
                         </div>
                     <% }); %>
                 <% } %>
-
-                
-
-                
             </div>
 
 
+            <a href="#" class="cart-add-more-btn">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                Add More
+            </a>
+
+            <hr>
+
+            <div>
+				<label for="dish-note">Delivery Notes</label>
+				<textarea class="form-control" id="dish-note" placeholder="Write special notes for the Rider" rows="20"></textarea>
+			</div>
+
+            <div class="cart-address">
+                <span>Delivery Address</span>
+                <div class="address-holder">
+                    Mr. John Smith<bt>
+                    154/95 A<br>
+                    Darley Road,<br>
+                    Colombo 10<br>
+                    10521<br>
+                    +94 77 152 4262<br>
+                </div>
+            </div>
+
+            <div class="address-holder cart-promo-box">
+                <div class="promo-content">
+                    <svg class="promo-percentage" viewBox="0 0 15 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M14.1505 2.19351C14.3597 2.40767 14.3597 2.75489 14.1505 2.96904L1.82905 15.5819C1.61984 15.7961 1.28065 15.7961 1.07144 15.5819C0.862228 15.3678 0.862229 15.0206 1.07144 14.8064L13.3929 2.19351C13.6021 1.97935 13.9413 1.97935 14.1505 2.19351Z"/>
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M3.21429 5.48387C4.39775 5.48387 5.35714 4.50179 5.35714 3.29032C5.35714 2.07886 4.39775 1.09677 3.21429 1.09677C2.03082 1.09677 1.07143 2.07886 1.07143 3.29032C1.07143 4.50179 2.03082 5.48387 3.21429 5.48387ZM3.21429 6.58065C4.98949 6.58065 6.42857 5.10752 6.42857 3.29032C6.42857 1.47313 4.98949 0 3.21429 0C1.43908 0 0 1.47313 0 3.29032C0 5.10752 1.43908 6.58065 3.21429 6.58065Z"/>
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M11.7857 15.9032C12.9692 15.9032 13.9286 14.9211 13.9286 13.7097C13.9286 12.4982 12.9692 11.5161 11.7857 11.5161C10.6022 11.5161 9.64286 12.4982 9.64286 13.7097C9.64286 14.9211 10.6022 15.9032 11.7857 15.9032ZM11.7857 17C13.5609 17 15 15.5269 15 13.7097C15 11.8925 13.5609 10.4194 11.7857 10.4194C10.0105 10.4194 8.57143 11.8925 8.57143 13.7097C8.57143 15.5269 10.0105 17 11.7857 17Z"/>
+                        </svg>
+                        
+                        
+                    <div class="promo-text">
+                        <span class="title">Promotions</span>
+                        <span class="desc">5 Available</span>
+                    </div>
+                </div>
+                <svg class="promo-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+            </div>
+            
+            <div class="cart-calculations">
+                <div class="calculate-item">
+                   <p class="item-title">Sub Total</p>
+                   <p class="item-value"><span>LKR </span>2080.00</p> 
+                </div>
+                <div class="calculate-item">
+                    <p class="item-title">Sub Total</p>
+                    <p class="item-value"><span>LKR </span>2080.00</p> 
+                 </div>
+                 <div class="calculate-item">
+                    <p class="item-title">Sub Total</p>
+                    <p class="item-value"><span>LKR </span>2080.00</p> 
+                 </div>
+                 <div class="calculate-item">
+                    <p class="item-title">Sub Total</p>
+                    <p class="item-value"><span>LKR </span>2080.00</p> 
+                 </div>
+            </div>
+
+            <div class="address-holder cart-card-box">
+                <div class="promo-content">
+                    <svg class="promo-percentage" viewBox="0 0 15 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M14.1505 2.19351C14.3597 2.40767 14.3597 2.75489 14.1505 2.96904L1.82905 15.5819C1.61984 15.7961 1.28065 15.7961 1.07144 15.5819C0.862228 15.3678 0.862229 15.0206 1.07144 14.8064L13.3929 2.19351C13.6021 1.97935 13.9413 1.97935 14.1505 2.19351Z"/>
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M3.21429 5.48387C4.39775 5.48387 5.35714 4.50179 5.35714 3.29032C5.35714 2.07886 4.39775 1.09677 3.21429 1.09677C2.03082 1.09677 1.07143 2.07886 1.07143 3.29032C1.07143 4.50179 2.03082 5.48387 3.21429 5.48387ZM3.21429 6.58065C4.98949 6.58065 6.42857 5.10752 6.42857 3.29032C6.42857 1.47313 4.98949 0 3.21429 0C1.43908 0 0 1.47313 0 3.29032C0 5.10752 1.43908 6.58065 3.21429 6.58065Z"/>
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M11.7857 15.9032C12.9692 15.9032 13.9286 14.9211 13.9286 13.7097C13.9286 12.4982 12.9692 11.5161 11.7857 11.5161C10.6022 11.5161 9.64286 12.4982 9.64286 13.7097C9.64286 14.9211 10.6022 15.9032 11.7857 15.9032ZM11.7857 17C13.5609 17 15 15.5269 15 13.7097C15 11.8925 13.5609 10.4194 11.7857 10.4194C10.0105 10.4194 8.57143 11.8925 8.57143 13.7097C8.57143 15.5269 10.0105 17 11.7857 17Z"/>
+                        </svg>
+                        
+                        
+                    <div class="promo-text">
+                        <span class="title">Promotions</span>
+                        <span class="desc">5 Available</span>
+                    </div>
+                </div>
+                <svg class="promo-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+            </div>
 		</div><!-- /content -->
 		<%- include ("./partials/BottomNavBars/DishBottomNavBar"); %>
 </div><!-- /page -->

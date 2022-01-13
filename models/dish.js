@@ -19,6 +19,10 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'category_id',
         onDelete: 'CASCADE'
       });
+
+      Dish.hasMany(models.Extra, {
+        foreignKey: 'dish_id',
+      })
     }
   };
   Dish.init({

@@ -71,6 +71,8 @@ router.post('/login', async function (req, res) {
 
     if (isMatched){
         req.session.isAuth = true;
+        req.session.currentUser = utilHelpers.getSecureUserObj(userRef.dataValues);
+        console.log(req.session);
         return res.redirect('/');
     }else{
         req.flash(
@@ -134,6 +136,7 @@ router.post('/register', async function (req, res) {
 
     
     req.session.isAuth = true;
+    req.session.currentUser = utilHelpers.getSecureUserObj(userCreated.dataValues);
     return res.redirect('/auth/vendor-consent');
 });
 
@@ -144,5 +147,13 @@ router.get('/partner-registration', (req, res) => res.render('auth/PartnerRegist
 router.get('/partner-identity-confirmation', (req, res) => res.render('auth/PartnerIdentityConfirmation'));
 
 router.get('/partner-registration-confirm', (req, res) => res.render('auth/PartnerRegistrationConfirm'));
+
+
+router.post('/logout', function (req, res) {
+    req.session.destroy((err) => {
+        if (err) throw err;
+        res.redirect("/");
+    });
+});
 
 module.exports = router;

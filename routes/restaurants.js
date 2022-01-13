@@ -93,6 +93,7 @@ router.get('/:id', async function (req, res) {
 });
 
 router.get('/:resId/dish/:dishId', async function (req, res) {
+    var extras = [];
 
     var dishData = await models.Dish.findOne({ where: { id: req.params.dishId }})
         .then(dishRecieved => {
@@ -108,28 +109,46 @@ router.get('/:resId/dish/:dishId', async function (req, res) {
         })
         .catch(err => console.log(err));
 
-    var extras = [
-        {
-            name: 'Extra Cheese',
-            slug: 'extra-cheese',
-            price: parseFloat(60).toFixed(2)
-        },
-        {
-            name: 'Extra Beef',
-            slug: 'extra-beef',
-            price: parseFloat(160).toFixed(2)
-        },
-        {
-            name: 'Extra Vegies',
-            slug: 'extra-vegies',
-            price: parseFloat(20).toFixed(2)
-        }
-    ];
+    var extraFromDB = await models.Extra.findAll({ where: { dish_id: req.params.dishId }})
+        .then(extrasRecieved => {
+            extrasRecieved.forEach(item => {
+                extras.push({
+                    id: item.id,
+                    name: item.name,
+                    slug: utilHelpers.slugifyText(item.name),
+                    price: parseFloat(item.price).toFixed(2)
+                });
+            });
+
+        })
+        .catch(err => console.log(err));
 
     res.render('SingleDish', {
         dishData,
         extras
     });
+});
+
+router.post('/add-to-cart', async function (req, res) {
+    
+    const { dishId, notes, quantity } = req.body;
+
+    var extras = (typeof req.body['extras[]'] === 'undefined') ? []:req.body['extras[]'] ;
+
+    var cartItem = {
+        dishId: parseInt(dishId),
+        qty: parseInt(quantity),
+        notes: notes,
+        extras:[]
+    }
+
+    extras.forEach((id) => {
+        cartItem.extras.push(parseInt(id));
+    });
+
+    req.session.currentUser.cartItems.push(cartItem);
+
+    res.redirect('/cart');
 });
 
 module.exports = router;
