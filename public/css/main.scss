@@ -1,4 +1,6 @@
 
+
+
 @font-face {
     font-family: 'Poppins', sans-serif;
     src: url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
@@ -19,7 +21,11 @@ $input-field-border-focus: #45AC34;
 * {
 	margin: 0;
 	font-family: 'Poppins', sans-serif;
-    font-size: 16px;
+    
+    font-size: 16px; 
+    @include ipad-portrait {
+        font-size: 32px;
+    }
     color: $mm-primary-color;
     box-sizing: border-box;
 }
@@ -49,6 +55,8 @@ $input-field-border-focus: #45AC34;
     margin-top: 60px;
 	margin-left: 24px;
 	margin-right: 24px;
+
+
 }
 
 .ui-loader {
@@ -70,33 +78,52 @@ h1{
     font-size: 40px;
 
     /* Example To use media queries */
-    // @include iphone-landscape{
-    //     font-size: 100px;
-    // }
+   @include ipad-portrait{
+       font-size: 60px;
+   }
 }
 
 h2{
     font-size: 24px;
+    @include ipad-portrait{
+        font-size: 50px;
+    }
 }
 
 h3{
     font-size: 20px;
+    @include ipad-portrait{
+        font-size: 38px;
+    }
 }
 
 h4{
     font-size: 18px;
+    @include ipad-portrait{
+        font-size: 32px;
+    }
 }
 
 h5{
     font-size: 16px;
+    @include ipad-portrait{
+        font-size: 32px;
+    }
 }
 
 h6{
     font-size: 12px;
+    @include ipad-portrait{
+        font-size: 24px;
+    }
 }
 
 p{
     font-size: 16px;
+
+    @include ipad-portrait {
+        font-size: 32px;
+    }
 }
 
 .text-primary{
@@ -171,6 +198,7 @@ p{
         box-shadow: none;
         border: none;
         padding: 0;
+        
 
         svg{
             width: 36px;
@@ -365,6 +393,10 @@ p{
     text-transform: uppercase;
     text-align: center;
     font-size: 18px;
+
+    @include ipad-portrait {
+        font-size: 24px;
+    }
     font-weight: 600;
     letter-spacing: 2px;
 
@@ -379,6 +411,7 @@ p{
 
 
 .ui-content{
+   
     .ui-link{
         display: inline;
         color: $mm-secondary-color;
@@ -430,6 +463,9 @@ p{
 .switch-profile-button{
     height: 63px;
     font-size: 16px;
+    @include ipad-portrait {
+        font-size: 32px;
+    }
     font-weight: 600;
     background-color: $mm-secondary-color !important;
     border: none !important;
@@ -464,6 +500,9 @@ p{
 .logout-button{
     height: 43px;
     font-size: 16px;
+    @include ipad-portrait {
+        font-size: 32px;
+    }
     font-weight: 600;
     background-color: $mm-danger-color !important;
     border: none !important;
@@ -485,6 +524,9 @@ p{
 -----------------------------------------------------------------------------------------------------------*/
 input{
     font-size: 20px;
+    @include ipad-portrait{
+        font-size: 26px;
+    }
     color: $mm-primary-color;
     padding-top: 8px;
     padding-bottom: 8px;
@@ -518,6 +560,10 @@ form{
             box-shadow: none;
             width: 100%;
             margin-bottom: 16px;
+            // @include ipad-portrait{
+            //     height: 60px;
+            //     width: 350px;
+            // }
         }
         
         .ui-focus{
@@ -540,6 +586,9 @@ form{
 
         label{
             font-size: 16px;
+            @include ipad-portrait {
+                font-size: 28px;
+            }
             color: $mm-primary-color;
             line-height: 1.5em;
             margin-left: 10px;
@@ -551,10 +600,13 @@ form{
             justify-content: start;
             align-items: center;
             border-radius: 5px;
-
+           
             .ui-btn{
                 display: inline;
                 font-size: 16px;
+                @include ipad-portrait {
+                    font-size: 28px;
+                }
                 background-color: transparent;
                 text-align: left;
                 color: $mm-primary-color;
@@ -570,6 +622,11 @@ form{
             input[type="checkbox"]{
                 width: 24px;
                 height: 24px;
+                @include ipad-portrait{
+                    width: 30px;
+                    height: 30px;
+                    margin-top: 10px;
+                }
                 border-radius: 5px;
                 border: 2px solid red;
             }
@@ -616,6 +673,13 @@ form{
         align-items: center;
     }
 
+    // h1{
+
+    //     @include ipad-portrait{
+    //         font-size: 500px;
+    //     }
+    // }
+   
 
 	input[type='text'] {
 		max-width: 244px;
@@ -633,6 +697,10 @@ form{
         align-items: center;
         width: 84px;
         height: 44px;
+        @include ipad-portrait{
+            width: 120px;
+            height: 60px;
+        }
         position: relative;
         
 
@@ -652,6 +720,10 @@ form{
     .select-country-wrapper__flags {
         width: 3.75rem;
         height: 2.75rem;
+        @include ipad-portrait{
+            width: 4.75rem;
+            height: 3.75rem;
+        }
         position: absolute;
         top: 0;
         left: 0;
@@ -668,6 +740,247 @@ form{
     }
     
 }
+
+
+@include ipad-portrait{
+    #get-started{
+        
+            .nobar-content{
+                margin-top: 383px;
+                margin-left: 250px;
+                margin-right: 250px;
+            }
+           
+        
+            form{
+               
+                .input-group{
+                    
+                    
+                    .ui-input-text{
+                       
+                        @include ipad-portrait{
+                            height: 60px;
+                            width: 350px;
+                            text-align: center;
+
+                           
+                            
+                        }
+                    }     
+                  }
+    
+            }
+
+            .btn{
+                position: absolute;
+                 width: 523px;
+                 height: 70px;
+                 left: 250px;
+                 top: 700px;
+                border-radius: 5px;
+                font-size: 24px;
+                    
+                }
+
+
+    }
+
+    #otp{
+
+        .content-main {
+            margin-top: 280px;
+            margin-left: 251px;
+            margin-right: 251px;
+
+           
+
+        }
+
+        .ui-btn{
+            position: absolute;
+            width: 523px;
+            height: 70px;
+            left: 250px;
+            top: 800px;
+            border-radius: 5px;
+            font-size: 24px;
+                
+            }
+
+           
+    }
+
+#register{
+    a{
+        font-size: 28px;
+    }
+
+    h1{
+        margin-bottom: 20px;
+    }
+
+    p{
+        margin-bottom: 35px;
+    }
+
+    label{
+        margin-left: 2px;
+    }
+    
+    .content-main {
+       /// margin-top: 280px;
+        margin-left: 170px;
+        margin-right: 170px;
+
+    }
+
+    .ui-content{
+        margin-left: 120px;
+        margin-right: 120px;
+    }
+
+    #dp-block{
+        width: 691px;
+        height: 48px;
+        margin-bottom: 20px;
+        font-family: Poppins;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 32px;
+        line-height: 48px;
+        display: flex;
+        align-items: center;
+    }
+
+    #identity-doc{
+        font-size: 24px;
+    }
+
+    #accept-terms{
+      margin-right: 10px;
+    }
+
+   .input-group{
+       font-size: 32px;
+   }
+   .ui-btn{
+       margin-top: 20px;
+   }
+   .button-icon{
+       size: 24;
+   }
+}
+
+#login{
+    a{
+        font-size: 24px;
+    }
+    .content-main {
+         margin-top: 280px;
+         margin-left: 170px;
+         margin-right: 170px;
+     }
+
+}
+
+
+#partner-identity-confirmation{
+
+    .content-main {
+        margin-left: 170px;
+        margin-right: 170px;
+       // padding-top: 100px;
+        //padding-bottom: 50px;
+    }
+    h1{
+        margin-bottom: 50px;
+        margin-top: -100px;
+    }
+
+    p{
+       
+        margin-left: 35px;
+        top: 140px;
+        align-items: center;
+        font-family: Poppins;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 32px;
+        line-height: 48px;
+
+     }
+
+    .file-upload-container{
+        margin-top: 50px;
+        margin-bottom: 50px;
+    }
+
+    .ui-btn{
+        margin-top: 30px;
+        //font-size: 32px;
+    }
+}
+    
+#vendor-consent{
+    width: 92.5%;
+	max-width: 800px;
+	margin: 10% auto 15px auto;
+	padding: 0;
+	position: relative;
+	top: -15px;
+    //text-align: center;
+    //align-content: center;
+
+  .nobar-content {
+    margin-top: 60px; 
+    margin-left: 40px;
+    margin-right: 40px;
+    margin-bottom: 60px;
+}
+
+    .ui-content{
+        width: 90%;
+      
+        h3{
+           // position: absolute;
+           margin-top: 30px;
+    
+        }
+    
+    p{
+
+       margin-top: 30px;
+       margin-left: 40px;
+       margin-bottom: 60px;
+       width: 90%;
+    }
+    
+    #btn-secondary-color{
+
+        background: #1A2340;
+    
+    }
+    .ui-btn{
+        background: #45AC34;
+        margin-bottom: 20px;
+    }
+
+  
+    }
+
+   
+}
+
+
+#partner-registration-confirm{
+    h3{
+        font-size: 60px;
+    }
+}
+
+}
+
 
 
 #otp-form{
@@ -771,6 +1084,9 @@ form{
             color: white;
             font-weight: 500;
             font-size: 16px;
+            @include ipad-portrait {
+                font-size: 32px;
+            }
             text-align: center;
             padding: 6px 4px 6px 9px;
             border-top-left-radius: 5px;
@@ -1090,6 +1406,9 @@ form{
                 .ui-btn{
                     display: inline;
                     font-size: 16px;
+                    @include ipad-portrait {
+                        font-size: 24px;
+                    }
                     background-color: transparent;
                     text-align: left;
                     color: $mm-primary-color;
@@ -1163,6 +1482,6 @@ form{
             font-size: 12px;
             margin: 0 auto;
             margin-top: -5px;
-        }
+        }  
     }
 }
