@@ -25,7 +25,7 @@
 					<div class="extra-item">
 						<div class="item-check">
 							<label for="<%= extra.slug %>"><%= extra.name %></label>
-							<input type="checkbox" id="<%= extra.slug %>" name="<%= extra.slug %>" required>
+							<input type="checkbox" id="<%= extra.slug %>" name="<%= extra.id %>" required>
 						</div>
 						<div>
 							LKR <%= extra.price %>
@@ -62,7 +62,32 @@ document.getElementById("qty-minus").addEventListener("click", function() {
 });
 
 document.getElementById("add-to-cart").addEventListener("click", function() {
-  alert(extras);
+	var baseUrl = "<%=baseURL%>";
+	var checkedBoxes = document.querySelectorAll('input[type=checkbox]:checked');
+	var notes = document.getElementById('dish-note').value;
+
+	var payload = {
+		dishId : parseInt("<%=dishData.id%>"),
+		quantity: qty,
+		notes: notes,
+		extras: []
+	}
+
+	
+	checkedBoxes.forEach((item) =>{
+		payload.extras.push(parseInt(item.name));
+	});
+	
+	console.log(payload);
+
+	$.ajax({
+		type: "POST",
+		url: "/restaurants/add-to-cart",
+		data: payload,
+		success: function(){
+			window.location.href = baseUrl + "/cart";
+		}
+	});
 });
 
 </script>

@@ -3,24 +3,24 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class DishCategory extends Model {
+  class Session extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      DishCategory.hasMany(models.Dish, {
-        foreignKey: 'category_id',
-      })
+      // define association here
     }
   };
-  DishCategory.init({
-    name: DataTypes.STRING,
-    image_url: DataTypes.STRING,
+  Session.init({
+    sid: DataTypes.STRING,
+    userID: DataTypes.STRING,
+    expires: DataTypes.DATE,
+    data: DataTypes.TEXT
   }, {
     sequelize,
-    modelName: 'DishCategory',
+    modelName: 'Session',
   });
-  return DishCategory;
+  return Session;
 };
