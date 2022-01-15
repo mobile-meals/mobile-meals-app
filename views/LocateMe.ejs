@@ -1,0 +1,101 @@
+<div data-role="page" id="locate-me" class="pt-top-none">
+    <%- include ("./partials/headers/TopNavBarBackOnly", {title:'Locate Me'}); %>
+        <div data-role="content" class="ui-content content-main ">
+
+            <div class="map-container" id="map">
+                <a onclick="locateUser()" href="#" class="locate-button" id="locate-user">
+                    <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M26.175 13.75C25.6 8.5375 21.4625 4.4 16.25 3.825V1.25H13.75V3.825C8.5375 4.4 4.4 8.5375 3.825 13.75H1.25V16.25H3.825C4.4 21.4625 8.5375 25.6 13.75 26.175V28.75H16.25V26.175C21.4625 25.6 25.6 21.4625 26.175 16.25H28.75V13.75H26.175ZM15 23.75C10.1687 23.75 6.25 19.8312 6.25 15C6.25 10.1687 10.1687 6.25 15 6.25C19.8312 6.25 23.75 10.1687 23.75 15C23.75 19.8312 19.8312 23.75 15 23.75Z" fill="white"/>
+                        </svg>
+                        
+                </a>
+            </div>
+
+            <p>Move the map marker to select your location and then proceed.</p>
+
+            <a class="ui-btn ui-widget ui-corner-all" id="submit-location">Proceed<span class="button-icon"><svg
+                        class="button-icon" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="m14 5 7 7m0 0-7 7m7-7H3" />
+                    </svg></span></a>
+
+        </div><!-- /content -->
+</div><!-- /page -->
+
+<script>
+    mapboxgl.accessToken = 'pk.eyJ1IjoidWRpMTdsaXZlIiwiYSI6ImNreWYyZ3dhdTA4bGEycG5hbnF3cTBlZnEifQ.o1t-JIOClx1NOY0lsjmb5A';
+    
+
+    const map = new mapboxgl.Map({
+        container: 'map',
+        style: 'mapbox://styles/mapbox/streets-v11',
+        center: [79.856962, 6.9204233],
+        zoom: 15
+    });
+
+    const el = document.createElement('div');
+    el.className = 'marker';
+
+     // make a marker for each feature and add to the map
+    var marker = new mapboxgl.Marker({element:el, draggable: true}).setLngLat([79.856962, 6.9204233]).addTo(map);
+
+    function onDragEnd() {
+        const lngLat = marker.getLngLat();
+    }
+    marker.on('dragend', onDragEnd);
+
+    window.onload = async function(event) {
+        locateUser();
+    }
+
+    map.on('click', (e) => {
+        marker.setLngLat([e.lngLat.lng,e.lngLat.lat]);
+    });
+
+    document.getElementById("submit-location").addEventListener("click", function() {
+        var baseUrl = "<%=baseURL%>";
+        var currentPosition = marker.getLngLat();
+
+        var payload = {
+            latitude: currentPosition.lat,
+            longitude: currentPosition.lng
+        }
+
+        $.ajax({
+        	type: "POST",
+        	url: "/locate",
+        	data: payload,
+        	success: function(){
+        		window.location.href = baseUrl + "/add-address";
+        	}
+        });
+    });
+
+    function locateUser(){
+        var options = {
+            enableHighAccuracy: true,
+            trackUserLocation: true,
+            timeout: 6000,
+            maximumAge: 0
+        };
+
+        navigator.geolocation.getCurrentPosition(onSuccess, onError, options);
+    }
+
+    function onError() {
+        console.log("Error");
+    }
+    
+    function onSuccess(position) {
+        const loc= {
+            latitude,
+            longitude
+        } = position.coords;
+
+        map.flyTo({
+            center:[longitude,latitude]
+        });
+
+        marker.setLngLat([longitude,latitude]);
+    }
+</script>

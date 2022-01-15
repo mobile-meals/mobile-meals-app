@@ -1,0 +1,48 @@
+<div data-role="page" id="add-address" class="pt-top-none">
+    <%- include ("./partials/headers/TopNavBarBackOnly", {title:'Add New Address'}); %>
+        <div data-role="content" class="ui-content content-main ">
+            <form id="vendor-register-form" action="/add-address" method="POST" data-ajax="false">
+                <div class="input-group">
+                    <label for="name">Reciever's Name*</label>
+                    <input type="text" id="name" name="name" placeholder="My Restaurant" required>
+    
+                    <label for="phone">Reciever's Phone Number*</label>
+                    <input type="text" id="phone" name="phone" placeholder="077 123 4567" maxlength="10" pattern="[0-9]+" required>
+    
+                    <label for="address_1">Address Line 1*</label>
+                    <input type="text" id="address_1" name="address_1" placeholder="154/4" value="<%= typeof prefilledData.house_number !== 'undefined' ? prefilledData.house_number : '' %>" required>
+
+                    <label for="address_2">Address Line 2</label>
+                    <input type="text" id="address_2" name="address_2" value="<%= typeof prefilledData.road !== 'undefined' ? prefilledData.road : '' %>" placeholder="Darley Road">
+
+                    <label for="suburb">Suburb</label>
+                    <input type="text" id="suburb" name="suburb" placeholder="Maradana"  value="<%= typeof prefilledData.suburb !== 'undefined' ? prefilledData.suburb : '' %>">
+
+                    <label for="city">City *</label>
+                    <input type="text" id="city" name="city" placeholder="Colombo 10" value="<%= typeof prefilledData.city !== 'undefined' ? prefilledData.city : '' %>" required>
+    
+                    <label for="zipcode">Postal Code*</label>
+                    <input type="text" id="zipcode" name="zipcode" maxlength="4" pattern="[0-9]+" placeholder="10135"  value="<%= typeof prefilledData.postcode !== 'undefined' ? prefilledData.postcode : '' %>" required>
+
+                    <label for="tag">Address Tag*</label>
+                    <select id="tag" name="tag" class="form-select" aria-label="Select Document" required>
+                        <option value="HOME">Home</option>
+                        <option value="OFFICE">Office</option>
+                        <option value="OTHER">Other</option>
+                    </select>
+                    
+
+                    <label for="is_default">Make this my Default Address for future orders</label>
+                    <input type="checkbox" id="is_default" name="is_default" <%= isDefault ? 'checked': ''%> <%= isDisabled ? 'disabled': ''%> required>
+    
+                </div>
+                <button class="ui-widget ui-corner-all" type="submit">Add Address<span class="button-icon"><svg
+                            class="button-icon" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="m14 5 7 7m0 0-7 7m7-7H3" />
+                        </svg></span></button>
+            </form>
+            
+
+        </div><!-- /content -->
+</div><!-- /page -->

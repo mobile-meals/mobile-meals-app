@@ -68,6 +68,7 @@ document.getElementById("add-to-cart").addEventListener("click", function() {
 
 	var payload = {
 		dishId : parseInt("<%=dishData.id%>"),
+		restaurantId: parseInt("<%= dishData.restaurantId %>"),
 		quantity: qty,
 		notes: notes,
 		extras: []
@@ -78,7 +79,7 @@ document.getElementById("add-to-cart").addEventListener("click", function() {
 		payload.extras.push(parseInt(item.name));
 	});
 	
-	console.log(payload);
+	console.log(typeof payload.extras);
 
 	$.ajax({
 		type: "POST",

@@ -1,0 +1,25 @@
+<div data-role="page" id="login" class="dialog-page">
+    <%- include ("./partials/headers/TopNavVariant2", {title:'My Addresses', actionIcon: 'add', actionUrl:'/locate'}); %>
+        <div data-role="content" class="ui-content content-main ">
+
+            <% if (typeof existingAddressesforUser !== 'undefined' && existingAddressesforUser.length > 0) {%>
+
+                <% existingAddressesforUser.forEach( address => {%>
+                    <div class="address-holder">
+                        <div class="tag"><%= address.tag %></div>
+                        <% if (address.isDefault) {%>
+                            <div class="default leading-2">Default</div>
+                        <%}%>
+                        <%- address.address %>
+                    </div>
+                <% });%>
+            <%}else {%>
+
+                <div class="empty-cart">
+                    No Addresses found for this user! Add one First.
+                </div>
+
+            <% } %>
+            
+        </div><!-- /content -->
+</div><!-- /page -->

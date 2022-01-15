@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const axios = require('axios');
 
 const models = require('../models');
 
@@ -35,7 +36,7 @@ router.get('/', async function (req, res) {
             var dealsArray = [];
             dealsRecieved = dealsRecieved.sort((a, b) => b - a).slice(0, 4);
 
-            
+
             dealsRecieved.forEach((item) => {
                 dealsArray.push({
                     restaurantId: item.id,
@@ -60,10 +61,9 @@ router.get('/', async function (req, res) {
 
 router.get('/components', (req, res) => res.render('components'));
 
-router.get('/menu', (req, res) => res.render('Menu', {utilHelpers}));
+router.get('/menu', (req, res) => res.render('Menu', { utilHelpers }));
 
-router.get('/search',async function (req, res) { 
-    console.log(req.session);
+router.get('/search', async function (req, res) {
     var recentSeachTerms = [
         'Pepperoni Pizza', 'Mango Juice', 'The American Touch', 'Biriyani', 'Sri Lankan'
     ];
@@ -91,27 +91,37 @@ router.get('/search',async function (req, res) {
     })
 });
 
-router.get('/cart',async function (req, res) {
-    var restaurantData = {
-        id: 1,
-        name:'The American Touch'
-    };
+router.get('/cart', async function (req, res) {
+
+    if (typeof req.session.currentUser.restaurantId !== 'undefined') {
+        var restaurantData = await models.Restaurant.findOne({ where: { id: req.session.currentUser.restaurantId } })
+            .then(resRecieved => {
+                return {
+                    id: resRecieved.dataValues.id,
+                    name: resRecieved.dataValues.name
+                };
+            })
+            .catch(err => console.log(err));
+    }
+
 
     var cartItems = [];
 
     var cartItemsInSession = (typeof req.session.currentUser.cartItems == 'undefined') ? [] : req.session.currentUser.cartItems;
 
-    for (const item of cartItemsInSession){
-        var dishData = await models.Dish.findOne({ where: { id: item.dishId }})
-        .then(dishRecieved => {
-            return dishRecieved.dataValues;
-        })
-        .catch(err => console.log(err));
+
+
+    for (const item of cartItemsInSession) {
+        var dishData = await models.Dish.findOne({ where: { id: item.dishId } })
+            .then(dishRecieved => {
+                return dishRecieved.dataValues;
+            })
+            .catch(err => console.log(err));
 
         var extraItems = [];
 
-        for(const extra of item.extras){
-            var extraItemData = await models.Extra.findOne({ where: { id: extra }})
+        for (const extra of item.extras) {
+            var extraItemData = await models.Extra.findOne({ where: { id: extra } })
                 .then(extraItemRecieved => {
                     return extraItemRecieved.dataValues;
                 })
@@ -134,6 +144,7 @@ router.get('/cart',async function (req, res) {
 
         cartItems.push(
             {
+                cartItemId: item.cartItemId,
                 dishId: dishData.id,
                 name: dishData.name,
                 qty: item.qty,
@@ -146,8 +157,212 @@ router.get('/cart',async function (req, res) {
 
     res.render('Cart', {
         restaurantData,
-        cartItems
+        cartItems,
+        utilHelpers
     });
+});
+
+router.get('/edit-cart-item/:item', async function (req, res) {
+    var item = JSON.parse(req.params.item);
+
+    var extrasForDish = await models.Extra.findAll({ where: { dish_id: item.dishId } })
+        .then(extraItemsRecieved => {
+            var extrasForDishArr = [];
+
+            extraItemsRecieved.forEach(extraItem => {
+                extrasForDishArr.push({
+                    id: extraItem.dataValues.id,
+                    name: extraItem.dataValues.name,
+                    price: parseFloat(extraItem.dataValues.price).toFixed(2),
+                    isChecked: false
+                });
+            });
+
+            return extrasForDishArr;
+        })
+        .catch(err => console.log(err));
+
+    item.extras.forEach(e => {
+        if (extrasForDish, e.id) {
+            extrasForDish[utilHelpers.getObjectIndexByIdFromArray(extrasForDish, e.id)].isChecked = true;
+        }
+    });
+
+
+    var item = {
+        cartItemId: item.cartItemId,
+        dishId: item.dishId,
+        name: item.name,
+        qty: item.qty,
+        price: item.price,
+        description: item.description,
+        extras: extrasForDish
+    };
+
+    console.log(item);
+
+    res.render('partials/dialogs/EditCartItem', {
+        item
+    });
+});
+
+router.get('/my-addresses',async function(req, res){
+    currentUserId = req.session.currentUser.id;
+
+    var existingAddressesforUser = await models.Address.findAll({
+        where: { user_id: currentUserId }
+    }).then(existingAddresses => {
+        var addresses = [];
+        console.log("Recieved: ",existingAddresses);
+
+        if (existingAddresses instanceof Array){
+            existingAddresses.forEach(address =>{
+                console.log("Array");
+                console.log("add: ", address);
+                var formattedAddress = utilHelpers.formatAddress(address.dataValues);
+
+                var addressObj = {
+                    isDefault: address.dataValues.is_default,
+                    tag: address.dataValues.tag,
+                    address: formattedAddress,
+                    coords: [address.dataValues.longitude, address.dataValues.latitude]
+                }
+
+                addresses.push(addressObj);
+            });
+        }else{
+            console.log("OBJECT");
+            var formattedAddress = utilHelpers.formatAddress(existingAddresses.dataValues);
+
+            var addressObj = {
+                isDefault: existingAddresses.dataValues.is_default,
+                tag: existingAddresses.dataValues.tag,
+                address: formattedAddress,
+                coords: [existingAddresses.dataValues.longitude, existingAddresses.dataValues.latitude]
+            }
+
+            addresses.push(addressObj);
+        }
+
+        return addresses;
+    })
+    .catch(err => console.log(err));
+
+    existingAddressesforUser.sort(function(x, y) { return x - y });
+
+    existingAddressesforUser.reverse();
+
+    res.render('Address', {
+        existingAddressesforUser
+    });
+});
+
+router.get('/locate', (req, res) => {
+    res.render('LocateMe');
+});
+
+router.post('/locate', (req, res) => {
+    const { longitude, latitude } = req.body;
+
+    req.session.currentUser.location = [
+        longitude, latitude
+    ];
+
+    res.redirect('/add-address');
+});
+
+router.get('/add-address', async function (req, res) {
+
+    const lnglat = typeof req.session.currentUser.location !== 'undefined' ? req.session.currentUser.location : [];
+
+    let prefilledData = {};
+
+    if (lnglat.length > 0) {
+
+        const url = `https://eu1.locationiq.com/v1/reverse.php?key=pk.9e3258d85f622591c06d831ff0f2724c&lat=${lnglat[1]}&lon=${lnglat[0]}&format=json`;
+
+        try{
+            const response = await axios.get(url);
+            prefilledData = response.data instanceof Array ? response.data[0].address : response.data.address;
+        }catch(err){
+            console.error(err);
+        }
+    }
+
+    currentUserId = req.session.currentUser.id;
+
+    const countOfAddressesforUser = await models.Address.count({ where: { user_id: currentUserId }});
+
+    var isDisabled = countOfAddressesforUser === 0 ? true:false;
+    
+    var isDefault = isDisabled ? true:false;
+
+    res.render('AddAddress', {
+        prefilledData,
+        isDisabled,
+        isDefault
+    });
+});
+
+
+router.post('/add-address', async function (req, res) {
+
+    const lnglat = typeof req.session.currentUser.location !== 'undefined' ? req.session.currentUser.location : [];
+
+    const { name, phone, address_1, address_2, suburb, city, zipcode, tag, is_default} = req.body;
+
+    var currentUserId = req.session.currentUser.id;
+
+    //Check if user has previous addresses.
+    const countOfAddressesforUser = await models.Address.count({ where: { user_id: currentUserId }});
+
+    var def = is_default === 'on' ? true: false;
+
+    let isDefault = countOfAddressesforUser === 0 ? true: def;
+
+    if (isDefault && countOfAddressesforUser !== 0){
+        // Get All Ids for previous addresses
+        var existingAddressIds = await models.Address.findAll({
+            where: { user_id: currentUserId },
+            attributes: ['id']
+        }).then(existingAddresses => {
+            var ids = [];
+    
+            if (existingAddresses instanceof Array){
+                existingAddresses.forEach(address =>{
+                    ids.push(address.dataValues.id);
+                });
+            }else{
+                ids.push(existingAddresses.dataValues.id);
+            }
+    
+            return ids;
+        })
+        .catch(err => console.log(err));
+
+        const update = await models.Address.update({ is_default: false },{where: {id: existingAddressIds}});
+    }
+
+    var newAddress = {
+        longitude: lnglat[0],
+        latitude: lnglat[1],
+        user_id: currentUserId,
+        name: name,
+        phone: phone,
+        address_1: address_1,
+        address_2: address_2,
+        suburb: suburb,
+        city: city,
+        post_code: zipcode,
+        is_default: isDefault,
+        tag: tag,
+        createdAt: new Date(),
+        updateddAt: new Date()
+    }
+
+    const addressCreated = await models.Address.create(newAddress);
+
+    res.redirect('/my-addresses');
 });
 
 module.exports = router;
