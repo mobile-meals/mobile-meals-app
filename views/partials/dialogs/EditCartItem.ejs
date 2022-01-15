@@ -1,0 +1,151 @@
+<%
+
+   
+
+%>
+
+
+<div data-role="dialog" data-url="edit-cart-item" id="edit-cart-items">
+    <div data-role="content">
+
+        <div class="dialog-header">
+            <h2>Edit Item</h2>
+            <a href="/cart" data-ajax="false">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </a>
+        </div>
+
+        <% if(typeof item !=='undefined' ) {%>
+
+            <div class="cart-dialog-content">
+                <h3><%= item.name %></h3>
+
+                <div class="cart-dialog-notes">
+                    <label for="dish-note">Notes</label>
+                    <textarea class="form-control" id="dish-note" placeholder="Write special notes for the Rider"
+                        rows="20" ><%= item.description %></textarea>
+                </div>
+
+                <div class="dish-extras">
+                    <% item.extras.forEach((extra) =>{ %>
+                        <div class="extra-item">
+                            <div class="item-check">
+                                <label for="<%= extra.id %>"><%= extra.name %></label>
+                                <input type="checkbox" id="<%= extra.id %>" name="<%= extra.id %>" <%= extra.isChecked ? 'checked': '' %> required>
+                            </div>
+                            <div>
+                                LKR <%= extra.price %>
+                            </div>
+                        </div>
+                    <% }); %>
+                </div>
+
+                <div class="qty-selector-area">
+                    <div class="qty-selector">
+                        <a href="#" id="qty-add">
+                            <svg class="qty-btn" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0z" />
+                            </svg>
+                        </a>
+                        <input type="text" id="qty" name="qty" placeholder="1" value="<%= item.qty %>" maxlength="2" pattern="[0-9]+" required>
+                        <a href="#" id="qty-minus" >
+                            <svg class="qty-btn" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M15 12H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0z" />
+                            </svg>
+                        </a>
+                        
+                    </div>
+                </div>
+
+                
+            </div>
+            
+            <div class="cart-dialog-footer">
+                <a href="#" class="trash-button" id="delete-item">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                </a>
+                <a href="#" class="ui-btn change-button" id="edit-item">
+                    Change
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                </a>
+            </div>
+
+        <% }else{ %>
+            <div>
+                Invalid Item
+            </div>
+
+        <% } %>
+
+    </div>
+</div>
+
+<script>
+    var qtyField = document.getElementById("qty");
+    var qty = parseInt(qtyField.value);
+
+    document.getElementById("qty-add").addEventListener("click", function() {
+        qty = qty + 1;
+        qtyField.setAttribute('value', qty);
+    });
+
+    document.getElementById("qty-minus").addEventListener("click", function() {
+        qty = qty - 1;
+        if (qty < 1){
+            qty = 1;
+        }
+        qtyField.setAttribute('value', qty);
+    });
+
+
+    document.getElementById("edit-item").addEventListener("click", function() {
+        var baseUrl = "<%=baseURL%>";
+        var checkedBoxes = document.querySelectorAll('input[type=checkbox]:checked');
+
+        var notes = document.getElementById('dish-note').value;
+
+        var payload = {
+            cartItemId : "<%= item.cartItemId %>", 
+            quantity: qty,
+            notes: notes,
+            extras: []
+        }
+        
+        checkedBoxes.forEach((item) =>{
+            payload.extras.push(parseInt(item.name));
+        });
+        
+
+        $.ajax({
+            type: "POST",
+            url: "/restaurants/edit-cart-item",
+            data: payload,
+		    success: function(){
+			    window.location.href = baseUrl + "/cart";
+		    }
+        });
+    });
+
+    document.getElementById("delete-item").addEventListener("click", function() {
+        var baseUrl = "<%=baseURL%>";
+
+        var payload = {
+            cartItemId : "<%= item.cartItemId %>"
+        }
+
+        $.ajax({
+            type: "POST",
+            url: "/restaurants/delete-cart-item",
+            data: payload,
+		    success: function(){
+			    window.location.href = baseUrl + "/cart";
+		    }
+        });
+    });
+</script>

@@ -8,9 +8,9 @@
             <form id="otp-form" action="/auth/otp" method="POST" data-ajax="false">
                 <div class="input-group">
                     <div class="otp-fields-group">
-                        <input type="text" id="otp_1" name="otp_1" placeholder="0"  maxlength="1" pattern="[0-9]+" required>
-                        <input type="text" id="otp_2" name="otp_2" placeholder="0"  maxlength="1" pattern="[0-9]+" required>
-                        <input type="text" id="otp_3" name="otp_3" placeholder="0"  maxlength="1" pattern="[0-9]+" required>
+                        <input type="text" id="otp_1" name="otp_1" placeholder="0"  maxlength="1" pattern="[0-9]+" onkeyup="moveCursor(this, 'otp_2')" required>
+                        <input type="text" id="otp_2" name="otp_2" placeholder="0"  maxlength="1" pattern="[0-9]+" onkeyup="moveCursor(this, 'otp_3')" required>
+                        <input type="text" onkeyup="moveCursor(this, 'otp_4')" id="otp_3" name="otp_3" placeholder="0"  maxlength="1" pattern="[0-9]+" required>
                         <input type="text" id="otp_4" name="otp_4" placeholder="0"  maxlength="1" pattern="[0-9]+" required>
                     </div>
                 </div>
@@ -24,3 +24,14 @@
             </form>
         </div><!-- /content -->
 </div><!-- /page -->
+
+
+<script>
+
+function moveCursor(field, moveTo){
+    if (field.value.length >= field.maxLength){
+        document.getElementById(moveTo).focus();
+    }
+}
+
+</script>

@@ -1,9 +1,11 @@
 const express = require('express');
 const router = express.Router();
+const { v4: uuidv4 } = require('uuid');
 
 const models = require('../models');
 const dish = require('../models/dish');
 const utilHelpers = require('../helpers/utils');
+const { checkIdinArray, getObjectByIdFromArray } = require('../helpers/utils');
 // Welcome Page
 router.get('/:id', async function (req, res) {
     var categoryIds = [];
@@ -103,7 +105,7 @@ router.get('/:resId/dish/:dishId', async function (req, res) {
                 imageUrl: dishRecieved.image_url,
                 description: dishRecieved.description,
                 price: parseFloat(dishRecieved.price).toFixed(2),
-                restaurantId: dishRecieved.restaurantId,
+                restaurantId: dishRecieved.restaurant_id,
                 categoryId: dishRecieved.categoryId,
             };
         })
@@ -131,24 +133,95 @@ router.get('/:resId/dish/:dishId', async function (req, res) {
 
 router.post('/add-to-cart', async function (req, res) {
     
-    const { dishId, notes, quantity } = req.body;
+    const { dishId, notes, quantity, restaurantId } = req.body;
+
+    if (typeof req.session.currentUser.restaurantId !== 'undefined'){
+        if (req.session.currentUser.restaurantId !== restaurantId){
+            req.session.currentUser.restaurantId = restaurantId;
+            req.session.currentUser.cartItems = [];
+        }
+    }else{
+        req.session.currentUser.restaurantId = restaurantId;
+    }
 
     var extras = (typeof req.body['extras[]'] === 'undefined') ? []:req.body['extras[]'] ;
 
+    cartItemId = uuidv4(); 
+
     var cartItem = {
+        cartItemId: cartItemId,
         dishId: parseInt(dishId),
         qty: parseInt(quantity),
         notes: notes,
         extras:[]
     }
 
-    extras.forEach((id) => {
-        cartItem.extras.push(parseInt(id));
-    });
+    if(typeof extras !== 'string'){
+        extras.forEach((id) => {
+            cartItem.extras.push(parseInt(id));
+        });
+    }else{
+        cartItem.extras.push(parseInt(extras));
+    }
 
     req.session.currentUser.cartItems.push(cartItem);
 
     res.redirect('/cart');
 });
+
+
+router.post('/edit-cart-item', async function (req, res) {
+    
+    const { cartItemId, notes, quantity } = req.body;
+
+    var cartItemInSession = req.session.currentUser.cartItems.find(obj => {
+        return obj.cartItemId === cartItemId;
+    });
+    
+    var cartItemInSessionIndex = req.session.currentUser.cartItems.findIndex(obj => {
+        return obj.cartItemId === cartItemId;
+    });
+    
+    req.session.currentUser.cartItems.splice(cartItemInSessionIndex, 1);
+
+    var extras = (typeof req.body['extras[]'] === 'undefined') ? []:req.body['extras[]'] ;
+
+    var cartItem = {
+        cartItemId: cartItemId,
+        dishId: parseInt(cartItemInSession.dishId),
+        qty: parseInt(quantity),
+        notes: notes,
+        extras:[]
+    }
+
+    if(typeof extras !== 'string'){
+        extras.forEach((id) => {
+            cartItem.extras.push(parseInt(id));
+        });
+    }else{
+        cartItem.extras.push(parseInt(extras));
+    }
+
+    req.session.currentUser.cartItems.push(cartItem);
+
+    res.redirect('/cart');
+});
+
+router.post('/delete-cart-item', async function (req, res) {
+    
+    const { cartItemId } = req.body;
+    
+    var cartItemInSessionIndex = req.session.currentUser.cartItems.findIndex(obj => {
+        return obj.cartItemId === cartItemId;
+    });
+    
+    req.session.currentUser.cartItems.splice(cartItemInSessionIndex, 1);
+
+
+    console.log("Cart Items in Session when deleted: ",req.session.currentUser.cartItems);
+
+    res.redirect('/cart');
+});
+
 
 module.exports = router;
