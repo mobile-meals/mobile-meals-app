@@ -1,35 +1,36 @@
-<div data-role="page" id="register" class="pt-top-none">
+<div data-role="page" id="register" class="">
 	<%- include ("../partials/headers/TopNavBarBackOnly", {uri:'/auth/get-started'}); %>
 		<div data-role="content" class="ui-content content-main">
 			<h1>Welcome</h1>
 			<p>Fill in the form to onboard you to Mobile Meals</p>
 			<%- include ("../partials/messages"); %>
-			<form id="register-form" action="/auth/register" method="POST" data-ajax="false">
-				<div class="input-group">
-                    <label for="f_name">First Name</label>
-					<input type="text" id="f_name" name="f_name" placeholder="John" required>
+				<form id="register-form" action="/auth/register" method="POST" data-ajax="false">
+					<div class="input-group">
+						<label for="f_name">First Name</label>
+						<input type="text" id="f_name" name="f_name" placeholder="John" required>
 
-                    <label for="l_name">Last Name</label>
-					<input type="text" id="l_name" name="l_name" placeholder="Smith" required>
+						<label for="l_name">Last Name</label>
+						<input type="text" id="l_name" name="l_name" placeholder="Smith" required>
 
-					<label for="email">Email</label>
-					<input type="email" id="email" name="email" placeholder="Email" required>
+						<label for="email">Email</label>
+						<input type="email" id="email" name="email" placeholder="Email" required>
 
-                    <label for="password">Password</label>
-					<input type="password" id="password" name="password" placeholder="Password" required>
+						<label for="password">Password</label>
+						<input type="password" id="password" name="password" placeholder="Password" required>
 
-                    <label for="confirm_password">Confirm Password</label>
-					<input type="password" id="confirm_password" name="confirm_password" placeholder="Confirm Password" required>
+						<label for="confirm_password">Confirm Password</label>
+						<input type="password" id="confirm_password" name="confirm_password"
+							placeholder="Confirm Password" required>
 
-                    <label for="accept_terms">I accept the <a href="#">Terms & Conditions</a> and <a href="#">Privacy Policy</a>.</label>
-					<input type="checkbox" id="accept_terms" name="accept_terms" required>
-				</div>
-				<button class="ui-widget ui-corner-all" type="submit">Get Started<span
-						class="button-icon"><svg class="button-icon" fill="none" viewBox="0 0 24 24"
-							xmlns="http://www.w3.org/2000/svg">
-							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-								d="m14 5 7 7m0 0-7 7m7-7H3" />
-						</svg></span></button>
-			</form>
+						<label for="accept_terms">I accept the <a href="#">Terms & Conditions</a> and <a
+								href="#">Privacy Policy</a>.</label>
+						<input type="checkbox" id="accept_terms" name="accept_terms" required>
+					</div>
+					<button class="ui-widget ui-corner-all" type="submit">Get Started<span class="button-icon"><svg
+								class="button-icon" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+									d="m14 5 7 7m0 0-7 7m7-7H3" />
+							</svg></span></button>
+				</form>
 		</div><!-- /content -->
 </div><!-- /page -->

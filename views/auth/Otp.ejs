@@ -1,26 +1,29 @@
-<div data-role="page" id="otp" class="pt-top-none">
+<div data-role="page" id="otp" class="pt-top-none pt-top">
     <%- include ("../partials/headers/TopNavBarBackOnly",{uri:'/auth/get-started'}); %>
         <div data-role="content" class="ui-content content-main">
             <h1>OTP</h1>
             <p>We have sent a One Time Pin to your
                 mobile phone you entered.</p>
             <%- include ("../partials/messages"); %>
-            <form id="otp-form" action="/auth/otp" method="POST" data-ajax="false">
-                <div class="input-group">
-                    <div class="otp-fields-group">
-                        <input type="text" id="otp_1" name="otp_1" placeholder="0"  maxlength="1" pattern="[0-9]+" required>
-                        <input type="text" id="otp_2" name="otp_2" placeholder="0"  maxlength="1" pattern="[0-9]+" required>
-                        <input type="text" id="otp_3" name="otp_3" placeholder="0"  maxlength="1" pattern="[0-9]+" required>
-                        <input type="text" id="otp_4" name="otp_4" placeholder="0"  maxlength="1" pattern="[0-9]+" required>
+                <form id="otp-form" action="/auth/otp" method="POST" data-ajax="false">
+                    <div class="input-group">
+                        <div class="otp-fields-group">
+                            <input type="text" id="otp_1" name="otp_1" placeholder="0" maxlength="1" pattern="[0-9]+"
+                                required>
+                            <input type="text" id="otp_2" name="otp_2" placeholder="0" maxlength="1" pattern="[0-9]+"
+                                required>
+                            <input type="text" id="otp_3" name="otp_3" placeholder="0" maxlength="1" pattern="[0-9]+"
+                                required>
+                            <input type="text" id="otp_4" name="otp_4" placeholder="0" maxlength="1" pattern="[0-9]+"
+                                required>
+                        </div>
                     </div>
-                </div>
-                <button class="ui-widget ui-corner-all" type="submit">Proceed<span
-                        class="button-icon"><svg class="button-icon" fill="none" viewBox="0 0 24 24"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="m14 5 7 7m0 0-7 7m7-7H3" />
-                        </svg></span></button>
+                    <button class="ui-widget ui-corner-all" type="submit">Proceed<span class="button-icon"><svg
+                                class="button-icon" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="m14 5 7 7m0 0-7 7m7-7H3" />
+                            </svg></span></button>
 
-            </form>
+                </form>
         </div><!-- /content -->
 </div><!-- /page -->

@@ -2,13 +2,18 @@
 	<%- include ("./partials/headers/RestaurantNavBar.ejs"); %>
 		<div data-role="content" class="ui-content content-main">
 
-            <div class="restaurant-header">
+            <div class=" aa  restaurant-header">
+
                 <img src="<%= restaurantData.imageUrl %>" alt="">
+
+                <div>
 
                 <div class="header-2cols">
                     <h4><%= restaurantData.name %></h4>
                     <div class="tag">OPEN</div>
                 </div>
+
+
 
                 <div class="header-2cols">
                     <div class="icon-text">
@@ -23,6 +28,10 @@
                         <div><%= restaurantData.operationTimes.open %> - <%= restaurantData.operationTimes.close %></div>
                     </div>
                 </div>
+
+                </div>
+
+
                 <hr>
             </div>
 

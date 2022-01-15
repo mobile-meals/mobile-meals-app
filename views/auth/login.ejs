@@ -1,24 +1,23 @@
-<div data-role="page" id="login" class="pt-top-none">
+<div data-role="page" id="login" class="pt-top-none pt-top">
 	<%- include ("../partials/headers/TopNavBarBackOnly", {uri:'/auth/get-started'}); %>
 		<div data-role="content" class="ui-content content-main">
 			<h3 class="text-regular">Welcome Back</h3>
 			<h2>+94 77 123 4596</h2>
 			<p>Enter your password to login</p>
 			<%- include ("../partials/messages"); %>
-			<form id="login-form" action="/auth/login" method="POST" data-ajax="false">
-				<div class="input-group">
-					<label for="password">Password</label>
-					<input type="password" id="password" name="password" placeholder="password" required>
-					<div class="forgot-pw-link">
-						<a href="/auth/password-reset" data-ajax="false">Forgot Password?</a>
+				<form id="login-form" action="/auth/login" method="POST" data-ajax="false">
+					<div class="input-group">
+						<label for="password">Password</label>
+						<input type="password" id="password" name="password" placeholder="password" required>
+						<div class="forgot-pw-link">
+							<a href="/auth/password-reset" data-ajax="false">Forgot Password?</a>
+						</div>
 					</div>
-				</div>
-				<button class="ui-widget ui-corner-all" type="submit">Proceed<span
-						class="button-icon"><svg class="button-icon" fill="none" viewBox="0 0 24 24"
-							xmlns="http://www.w3.org/2000/svg">
-							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-								d="m14 5 7 7m0 0-7 7m7-7H3" />
-						</svg></span></button>
-			</form>
+					<button class="ui-widget ui-corner-all" type="submit">Proceed<span class="button-icon"><svg
+								class="button-icon" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+									d="m14 5 7 7m0 0-7 7m7-7H3" />
+							</svg></span></button>
+				</form>
 		</div><!-- /content -->
 </div><!-- /page -->

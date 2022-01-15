@@ -106,3 +106,6 @@ dist
 #Database Files
 *.db
 *.sqlite
+
+#Mac Os Specific 
+.DS_Store

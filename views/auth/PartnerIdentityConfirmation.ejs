@@ -44,14 +44,14 @@
     const fileInputBtn = document.getElementById("file-upload-btn");
     const fileInputText = document.getElementById("file-text");
 
-    fileInputBtn.addEventListener("click", function() {
+    fileInputBtn.addEventListener("click", function () {
         fileInputBtnDef.click();
     });
 
-    fileInputBtnDef.addEventListener("change", function() {
-        if (fileInputBtnDef.value){
+    fileInputBtnDef.addEventListener("change", function () {
+        if (fileInputBtnDef.value) {
             fileInputText.innerHTML = fileInputBtnDef.value.match(/[\/\\]([\w\d\s\.\-\(\)]+)$/);
-        }else{
+        } else {
             fileInputText.innerHTML = "Select Image File(s)";
         }
     });
