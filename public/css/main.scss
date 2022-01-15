@@ -804,6 +804,7 @@ form{
 
     a{
         display: inline-block;
+        text-decoration: none !important;
     }
 }
 
@@ -921,13 +922,17 @@ form{
 /* Restaurant Item Card */
 
 .restaurant-item-card{
-    max-width: 342px;
+    width: 342px;
     background-color: $gray-item-card;
     display: flex;
     justify-content: space-between;
     align-items: stretch;
     border-radius: 5px;
     margin: 12px 6px;
+
+    @include ipad-portrait{
+        width: 600px;
+    }
     
     
     .item-card-img{
@@ -1057,11 +1062,36 @@ form{
     align-items: center;
     justify-content: flex-start;
 
+    @include ipad-portrait{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+    }
+
     img{
         width: 342px;
         height: 172px;
         object-fit: cover;
         border-radius: 5px;
+
+        @include ipad-portrait{
+            width: 392px;
+            height: 241px;
+            margin-right: 34px;
+        }
+    }
+
+    .header-info{
+        width: 100%;
+
+        @include ipad-portrait{
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: flex-start;
+            height: 241px;
+        }
     }
 
     .header-2cols{
@@ -1071,6 +1101,13 @@ form{
         align-items: center;
         margin-top: 9px;
         margin-bottom: 3px;
+
+        @include ipad-portrait{
+            flex-direction: column-reverse;
+            justify-content: flex-start;
+            align-items: flex-start;
+            gap: 20px;
+        }
     }
 
     .tag{
@@ -1088,6 +1125,35 @@ form{
             width: 20px;
             height: 20px;
             margin-right: 3px;
+        }
+    }
+}
+
+.restaurant-content-area{
+    @include ipad-portrait{
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .x-scroll-container{
+        @include ipad-portrait{
+            overflow-x: none;
+            overflow-y: scroll;
+            white-space: nowrap;
+            width: 234px;
+
+            a{
+                display: block;
+                margin: 16px 0;
+            }
+        }
+    }
+
+    .restaurant-dishes{
+        @include ipad-portrait{
+            width: 718px;
+            padding-left: 41px;
+            border-left: 2px solid $input-field-border;
         }
     }
 }
@@ -1662,3 +1728,28 @@ form{
     border-radius: 50%;
     cursor: pointer;
   }
+
+.card-holder{
+    min-height: 178px;
+    position: relative;
+    background: linear-gradient(105.59deg, $mm-secondary-color 2.9%, $mm-primary-color 94.29%);
+
+
+    .card-details{
+        position: absolute;
+        bottom:12px;
+        width: 100%;
+
+        .card-num{
+            font-size: 24px;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .card-exp{
+            font-size: 18px;
+            color: #fff;
+        }
+    }
+
+}

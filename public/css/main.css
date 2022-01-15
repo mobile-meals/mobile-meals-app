@@ -873,6 +873,7 @@ form button {
 
 .x-scroll-container a {
   display: inline-block;
+  text-decoration: none !important;
 }
 
 .restautant-widget-single {
@@ -997,7 +998,7 @@ form button {
 
 /* Restaurant Item Card */
 .restaurant-item-card {
-  max-width: 342px;
+  width: 342px;
   background-color: #F4F4F4;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -1010,6 +1011,12 @@ form button {
           align-items: stretch;
   border-radius: 5px;
   margin: 12px 6px;
+}
+
+@media (min-width: 845px) {
+  .restaurant-item-card {
+    width: 600px;
+  }
 }
 
 .restaurant-item-card .item-card-img {
@@ -1180,12 +1187,61 @@ form button {
           justify-content: flex-start;
 }
 
+@media (min-width: 845px) {
+  .restaurant-header {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+  }
+}
+
 .restaurant-header img {
   width: 342px;
   height: 172px;
   -o-object-fit: cover;
      object-fit: cover;
   border-radius: 5px;
+}
+
+@media (min-width: 845px) {
+  .restaurant-header img {
+    width: 392px;
+    height: 241px;
+    margin-right: 34px;
+  }
+}
+
+.restaurant-header .header-info {
+  width: 100%;
+}
+
+@media (min-width: 845px) {
+  .restaurant-header .header-info {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-pack: start;
+        -ms-flex-pack: start;
+            justify-content: flex-start;
+    -webkit-box-align: start;
+        -ms-flex-align: start;
+            align-items: flex-start;
+    height: 241px;
+  }
 }
 
 .restaurant-header .header-2cols {
@@ -1201,6 +1257,22 @@ form button {
           align-items: center;
   margin-top: 9px;
   margin-bottom: 3px;
+}
+
+@media (min-width: 845px) {
+  .restaurant-header .header-2cols {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: reverse;
+        -ms-flex-direction: column-reverse;
+            flex-direction: column-reverse;
+    -webkit-box-pack: start;
+        -ms-flex-pack: start;
+            justify-content: flex-start;
+    -webkit-box-align: start;
+        -ms-flex-align: start;
+            align-items: flex-start;
+    gap: 20px;
+  }
 }
 
 .restaurant-header .tag {
@@ -1223,6 +1295,38 @@ form button {
   width: 20px;
   height: 20px;
   margin-right: 3px;
+}
+
+@media (min-width: 845px) {
+  .restaurant-content-area {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+  }
+}
+
+@media (min-width: 845px) {
+  .restaurant-content-area .x-scroll-container {
+    overflow-x: none;
+    overflow-y: scroll;
+    white-space: nowrap;
+    width: 234px;
+  }
+  .restaurant-content-area .x-scroll-container a {
+    display: block;
+    margin: 16px 0;
+  }
+}
+
+@media (min-width: 845px) {
+  .restaurant-content-area .restaurant-dishes {
+    width: 718px;
+    padding-left: 41px;
+    border-left: 2px solid #DBDBDB;
+  }
 }
 
 .dish-group {
@@ -1959,5 +2063,28 @@ form button {
   height: 50px;
   border-radius: 50%;
   cursor: pointer;
+}
+
+.card-holder {
+  min-height: 178px;
+  position: relative;
+  background: linear-gradient(105.59deg, #45AC34 2.9%, #1A2340 94.29%);
+}
+
+.card-holder .card-details {
+  position: absolute;
+  bottom: 12px;
+  width: 100%;
+}
+
+.card-holder .card-details .card-num {
+  font-size: 24px;
+  font-weight: 700;
+  color: #fff;
+}
+
+.card-holder .card-details .card-exp {
+  font-size: 18px;
+  color: #fff;
 }
 /*# sourceMappingURL=main.css.map */
