@@ -1,4 +1,3 @@
-const { mapValueFieldNames } = require("sequelize/dist/lib/utils");
 
 module.exports = {
     slugifyText:function(text) {
@@ -34,5 +33,23 @@ module.exports = {
     },
     calculateDiscount(total, discountVal){
         return parseFloat(total*(discountVal/100)).toFixed(2);
+    },
+    checkIdinArray(array, id){
+        return array.some(function(el) {
+            return el.id === id;
+        });
+    },
+    getObjectIndexByIdFromArray(array, id){
+        return array.findIndex(obj => {
+            return obj.id === id;
+        });
+    },
+    getObjectByIdFromArray(array, id){
+        return array.find(obj => {
+            return obj.id === id;
+        });
+    },
+    formatAddress(address){
+        return `${address.name}<br>${address.phone}<br>${address.address_1}<br>${address.address_2}<br>${address.suburb},${address.city}<br>${address.post_code}`;
     }
 }

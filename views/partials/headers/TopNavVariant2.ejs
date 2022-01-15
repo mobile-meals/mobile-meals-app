@@ -1,0 +1,19 @@
+<div data-role="header" class="top-nav-main">
+    <a href="#" data-ajax="false" data-rel="back">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+    </a>
+
+    <% if(typeof title !== 'undefined'){ %>
+        <h4><%= title %></h4>
+    <% } %>
+
+    <% if(typeof actionIcon !== 'undefined'){ %>
+        <a href="<%= typeof actionUrl !== 'undefined' ? actionUrl: '#' %>" data-ajax="false">
+            <% if(actionIcon === 'add'){ %>
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
+            <% }else if(actionIcon === 'inbox'){ %>
+                <svg  fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"></path></svg>
+            <% } %>
+        </a>    
+    <% } %>
+</div><!-- /header -->

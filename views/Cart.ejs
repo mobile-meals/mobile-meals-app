@@ -1,160 +1,232 @@
-<div data-role="page" id="Cart">
-	<%- include ("./partials/headers/TopNavBarBackOnly.ejs",{title: 'Cart'}); %>
-		<div data-role="content" class="ui-content content-main pt-top-none cart-wrapper">
+<% var subTotal=0; var discount=0; var deliveryCharge=50; var total=0; if(typeof cartItems !=='undefined' &&
+    cartItems.length !==0){ cartItems.forEach((item)=> {
+    subTotal += parseFloat(item.price);
+    });
+    }
 
-            <div class="cart-header">
-                <h4 class="leading-2"><%= restaurantData.name  %></h4>
-                <button class="btn cart-menu-btn">
-                    Menu
-                    <span>
-                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-                    </span>
-                </button>
-            </div>
+    discount = parseFloat(utilHelpers.calculateDiscount(subTotal, 15));
 
-            <div class="cart-items">
-                <% if(typeof cartItems !== 'undefined' && cartItems.length !== 0 ) {%>
-                    <% cartItems.forEach ( (item, index) => { %>
-                        <div class="cart-item">
-                            <div class="title-desc">
-                                <h6><%= item.name %></h6>
-                                <% if(typeof item.description !== 'undefined' && Boolean(item.description) !== false ) {%>
-                                    <span class="desc"><%= item.description %></span>
-                                <% } %>
-                                <% if(typeof item.extras !== 'undefined' && item.extras.length !== 0 ) {%> 
-                                    <div class="extras">
-                                        <% item.extras.forEach( (extra) => {%>
-                                            <div class="extra">
-                                                <span>1 X <%= extra.name %></span>
-                                                <span>LKR <%= extra.price %></span>
-                                            </div>
-                                        <% }); %>
-                                    </div>
-                                <% } %>   
-                            </div>
-                            <div class="qty-price">
-                                QTY <br> <%= item.qty %>
-                            </div>
-                            <div class="qty-price text-bold">LKR <br> <%= item.price %></div>
-                        </div>
-                    <% }); %>
-                <% } %>
-            </div>
+    total = (subTotal - discount) + deliveryCharge;
 
-            <a href="#" class="cart-add-more-btn">
-                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                Add More
-            </a>
+    subTotal = parseFloat(subTotal).toFixed(2);
+    total = parseFloat(total).toFixed(2);
+    discount = parseFloat(discount).toFixed(2);
+    deliveryCharge = parseFloat(deliveryCharge).toFixed(2);
 
-            <hr>
+    %>
 
-            <div>
-				<label for="dish-note">Delivery Notes</label>
-				<textarea class="form-control" id="dish-note" placeholder="Write special notes for the Rider" rows="20"></textarea>
-			</div>
-
-            <div class="cart-address">
-                <span>Delivery Address</span>
-                <div class="address-holder">
-                    Mr. John Smith<bt>
-                    154/95 A<br>
-                    Darley Road,<br>
-                    Colombo 10<br>
-                    10521<br>
-                    +94 77 152 4262<br>
-                </div>
-            </div>
-
-            <div class="address-holder cart-promo-box">
-                <div class="promo-content">
-                    <svg class="promo-percentage" viewBox="0 0 15 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd" clip-rule="evenodd" d="M14.1505 2.19351C14.3597 2.40767 14.3597 2.75489 14.1505 2.96904L1.82905 15.5819C1.61984 15.7961 1.28065 15.7961 1.07144 15.5819C0.862228 15.3678 0.862229 15.0206 1.07144 14.8064L13.3929 2.19351C13.6021 1.97935 13.9413 1.97935 14.1505 2.19351Z"/>
-                        <path fill-rule="evenodd" clip-rule="evenodd" d="M3.21429 5.48387C4.39775 5.48387 5.35714 4.50179 5.35714 3.29032C5.35714 2.07886 4.39775 1.09677 3.21429 1.09677C2.03082 1.09677 1.07143 2.07886 1.07143 3.29032C1.07143 4.50179 2.03082 5.48387 3.21429 5.48387ZM3.21429 6.58065C4.98949 6.58065 6.42857 5.10752 6.42857 3.29032C6.42857 1.47313 4.98949 0 3.21429 0C1.43908 0 0 1.47313 0 3.29032C0 5.10752 1.43908 6.58065 3.21429 6.58065Z"/>
-                        <path fill-rule="evenodd" clip-rule="evenodd" d="M11.7857 15.9032C12.9692 15.9032 13.9286 14.9211 13.9286 13.7097C13.9286 12.4982 12.9692 11.5161 11.7857 11.5161C10.6022 11.5161 9.64286 12.4982 9.64286 13.7097C9.64286 14.9211 10.6022 15.9032 11.7857 15.9032ZM11.7857 17C13.5609 17 15 15.5269 15 13.7097C15 11.8925 13.5609 10.4194 11.7857 10.4194C10.0105 10.4194 8.57143 11.8925 8.57143 13.7097C8.57143 15.5269 10.0105 17 11.7857 17Z"/>
-                        </svg>
-                        
-                        
-                    <div class="promo-text">
-                        <span class="title">Promotions</span>
-                        <span class="desc">5 Available</span>
-                    </div>
-                </div>
-                <svg class="promo-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-            </div>
-
-            <% 
-                var subTotal = 0;
-                var discount = 0;
-                var deliveryCharge = 50;
-                var total = 0;
-
-                if(typeof cartItems !== 'undefined' && cartItems.length !== 0){
-                    cartItems.forEach((item)=> {
-                        subTotal += parseFloat(item.price);
-                    });
-                }
-
-                discount = parseFloat(utilHelpers.calculateDiscount(subtotal, 20));
-
-                total = (subTotal - discount) + deliveryCharge;
-
-                subTotal = parseFloat(subTotal).toFixed(2);
-                total = parseFloat(total).toFixed(2);
-                discount = parseFloat(discount).toFixed(2);
-                deliveryCharge = parseFloat(deliveryCharge).toFixed(2);
-            
-            %>  
-             
-            <div class="cart-calculations">
-                <div class="calculate-item">
-                   <p class="item-title">Sub Total</p>
-                   <p class="item-value"><span>LKR </span><%= typeof subTotal !== 'undefined' ? subTotal : '0.00'  %></p> 
-                </div>
-                <div class="calculate-item">
-                    <p class="item-title">Discount</p>
-                    <p class="item-value"><span>LKR </span><%= typeof discount !== 'undefined' ? discount : '0.00'  %></p> 
-                 </div>
-                 <div class="calculate-item">
-                    <p class="item-title">Delivery Charge</p>
-                    <p class="item-value"><span>LKR </span><%= typeof deliveryCharge !== 'undefined' ? deliveryCharge : '0.00'  %></p> 
-                 </div>
-                 <div class="calculate-item">
-                    <p class="item-title">Total</p>
-                    <p class="item-value"><span>LKR </span><%= typeof total !== 'undefined' ? total : '0.00'  %></p> 
-                 </div>
-            </div>
-
-            <div class="address-holder cart-card-box">
-                <div class="promo-content">
-                    <svg class="card-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"></path></svg>
-                        
-                        
-                    <div class="promo-text">
-                        <div class="card-num">
-                            <svg class="card-hidden-circles" viewBox="0 0 127 5" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M5 2.5C5 3.88071 3.88071 5 2.5 5C1.11929 5 0 3.88071 0 2.5C0 1.11929 1.11929 0 2.5 0C3.88071 0 5 1.11929 5 2.5Z" fill="#1A2340"/>
-                                <path d="M51 2.5C51 3.88071 49.8807 5 48.5 5C47.1193 5 46 3.88071 46 2.5C46 1.11929 47.1193 0 48.5 0C49.8807 0 51 1.11929 51 2.5Z" fill="#1A2340"/>
-                                <path d="M97 2.5C97 3.88071 95.8807 5 94.5 5C93.1193 5 92 3.88071 92 2.5C92 1.11929 93.1193 0 94.5 0C95.8807 0 97 1.11929 97 2.5Z" fill="#1A2340"/>
-                                <path d="M15 2.5C15 3.88071 13.8807 5 12.5 5C11.1193 5 10 3.88071 10 2.5C10 1.11929 11.1193 0 12.5 0C13.8807 0 15 1.11929 15 2.5Z" fill="#1A2340"/>
-                                <path d="M61 2.5C61 3.88071 59.8807 5 58.5 5C57.1193 5 56 3.88071 56 2.5C56 1.11929 57.1193 0 58.5 0C59.8807 0 61 1.11929 61 2.5Z" fill="#1A2340"/>
-                                <path d="M107 2.5C107 3.88071 105.881 5 104.5 5C103.119 5 102 3.88071 102 2.5C102 1.11929 103.119 0 104.5 0C105.881 0 107 1.11929 107 2.5Z" fill="#1A2340"/>
-                                <path d="M25 2.5C25 3.88071 23.8807 5 22.5 5C21.1193 5 20 3.88071 20 2.5C20 1.11929 21.1193 0 22.5 0C23.8807 0 25 1.11929 25 2.5Z" fill="#1A2340"/>
-                                <path d="M71 2.5C71 3.88071 69.8807 5 68.5 5C67.1193 5 66 3.88071 66 2.5C66 1.11929 67.1193 0 68.5 0C69.8807 0 71 1.11929 71 2.5Z" fill="#1A2340"/>
-                                <path d="M117 2.5C117 3.88071 115.881 5 114.5 5C113.119 5 112 3.88071 112 2.5C112 1.11929 113.119 0 114.5 0C115.881 0 117 1.11929 117 2.5Z" fill="#1A2340"/>
-                                <path d="M35 2.5C35 3.88071 33.8807 5 32.5 5C31.1193 5 30 3.88071 30 2.5C30 1.11929 31.1193 0 32.5 0C33.8807 0 35 1.11929 35 2.5Z" fill="#1A2340"/>
-                                <path d="M81 2.5C81 3.88071 79.8807 5 78.5 5C77.1193 5 76 3.88071 76 2.5C76 1.11929 77.1193 0 78.5 0C79.8807 0 81 1.11929 81 2.5Z" fill="#1A2340"/>
-                                <path d="M127 2.5C127 3.88071 125.881 5 124.5 5C123.119 5 122 3.88071 122 2.5C122 1.11929 123.119 0 124.5 0C125.881 0 127 1.11929 127 2.5Z" fill="#1A2340"/>
+    <div data-role="page" id="Cart">
+        <%- include ("./partials/headers/TopNavBarBackOnly.ejs",{title: 'Cart', uri: '/' }); %>
+            <div data-role="content" class="ui-content content-main pt-top-none cart-wrapper">
+                <% if(typeof cartItems !=='undefined' && cartItems.length !==0 ) {%>
+                    <div class="cart-header">
+                        <h4 class="leading-2">
+                            <%= restaurantData.name %>
+                        </h4>
+                        <button class="btn cart-menu-btn">
+                            Menu
+                            <span>
+                                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
                                 </svg>
-                                
-                            <span class="title">5875</span>
-                        </div>
-                        <span class="desc">Payment Type</span>
+                            </span>
+                        </button>
                     </div>
-                </div>
-                <svg class="promo-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-            </div>
+
+                    <div class="cart-items">
+                        <% cartItems.forEach ( (item, index)=> { %>
+                            <a href="/edit-cart-item/<%= JSON.stringify(item) %>" class="cart-item" data-ajax="false">
+                                <div class="title-desc">
+                                    <h6>
+                                        <%= item.name %>
+                                    </h6>
+                                    <% if(typeof item.description !=='undefined' && Boolean(item.description) !==false )
+                                        {%>
+                                        <span class="desc">
+                                            <%= item.description %>
+                                        </span>
+                                        <% } %>
+                                            <% if(typeof item.extras !=='undefined' && item.extras.length !==0 ) {%>
+                                                <div class="extras">
+                                                    <% item.extras.forEach( (extra)=> {%>
+                                                        <div class="extra">
+                                                            <span>1 X <%= extra.name %></span>
+                                                            <span>LKR <%= extra.price %></span>
+                                                        </div>
+                                                        <% }); %>
+                                                </div>
+                                                <% } %>
+                                </div>
+                                <div class="qty-price">
+                                    QTY <br>
+                                    <%= item.qty %>
+                                </div>
+                                <div class="qty-price text-bold">LKR <br>
+                                    <%= item.price %>
+                                </div>
+                            </a>
+                            <% }); %>
+
+                    </div>
+
+                    <a href="#" class="cart-add-more-btn">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        Add More
+                    </a>
+
+                    <hr>
+
+                    <div>
+                        <label for="dish-note">Delivery Notes</label>
+                        <textarea class="form-control" id="dish-note" placeholder="Write special notes for the Rider"
+                            rows="20"></textarea>
+                    </div>
+
+                    <div class="cart-address">
+                        <span>Delivery Address</span>
+                        <div class="address-holder">
+                            Mr. John Smith<bt>
+                                154/95 A<br>
+                                Darley Road,<br>
+                                Colombo 10<br>
+                                10521<br>
+                                +94 77 152 4262<br>
+                        </div>
+                    </div>
+
+                    <div class="address-holder cart-promo-box">
+                        <div class="promo-content">
+                            <svg class="promo-percentage" viewBox="0 0 15 17" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                    d="M14.1505 2.19351C14.3597 2.40767 14.3597 2.75489 14.1505 2.96904L1.82905 15.5819C1.61984 15.7961 1.28065 15.7961 1.07144 15.5819C0.862228 15.3678 0.862229 15.0206 1.07144 14.8064L13.3929 2.19351C13.6021 1.97935 13.9413 1.97935 14.1505 2.19351Z" />
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                    d="M3.21429 5.48387C4.39775 5.48387 5.35714 4.50179 5.35714 3.29032C5.35714 2.07886 4.39775 1.09677 3.21429 1.09677C2.03082 1.09677 1.07143 2.07886 1.07143 3.29032C1.07143 4.50179 2.03082 5.48387 3.21429 5.48387ZM3.21429 6.58065C4.98949 6.58065 6.42857 5.10752 6.42857 3.29032C6.42857 1.47313 4.98949 0 3.21429 0C1.43908 0 0 1.47313 0 3.29032C0 5.10752 1.43908 6.58065 3.21429 6.58065Z" />
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                    d="M11.7857 15.9032C12.9692 15.9032 13.9286 14.9211 13.9286 13.7097C13.9286 12.4982 12.9692 11.5161 11.7857 11.5161C10.6022 11.5161 9.64286 12.4982 9.64286 13.7097C9.64286 14.9211 10.6022 15.9032 11.7857 15.9032ZM11.7857 17C13.5609 17 15 15.5269 15 13.7097C15 11.8925 13.5609 10.4194 11.7857 10.4194C10.0105 10.4194 8.57143 11.8925 8.57143 13.7097C8.57143 15.5269 10.0105 17 11.7857 17Z" />
+                            </svg>
 
 
-		</div><!-- /content -->
-		<%- include ("./partials/BottomNavBars/DishBottomNavBar"); %>
-</div><!-- /page -->
+                            <div class="promo-text">
+                                <span class="title">Promotions</span>
+                                <span class="desc">5 Available</span>
+                            </div>
+                        </div>
+                        <svg class="promo-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                        </svg>
+                    </div>
+
+                    <div class="cart-calculations">
+                        <div class="calculate-item">
+                            <p class="item-title">Sub Total</p>
+                            <p class="item-value"><span>LKR </span>
+                                <%= typeof subTotal !=='undefined' ? subTotal : '0.00' %>
+                            </p>
+                        </div>
+                        <div class="calculate-item">
+                            <p class="item-title">Discount</p>
+                            <p class="item-value"><span>LKR </span>
+                                <%= typeof discount !=='undefined' ? discount : '0.00' %>
+                            </p>
+                        </div>
+                        <div class="calculate-item">
+                            <p class="item-title">Delivery Charge</p>
+                            <p class="item-value"><span>LKR </span>
+                                <%= typeof deliveryCharge !=='undefined' ? deliveryCharge : '0.00' %>
+                            </p>
+                        </div>
+                        <div class="calculate-item">
+                            <p class="item-title">Total</p>
+                            <p class="item-value"><span>LKR </span>
+                                <%= typeof total !=='undefined' ? total : '0.00' %>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="address-holder cart-card-box">
+                        <div class="promo-content">
+                            <svg class="card-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z">
+                                </path>
+                            </svg>
+
+
+                            <div class="promo-text">
+                                <div class="card-num">
+                                    <svg class="card-hidden-circles" viewBox="0 0 127 5" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M5 2.5C5 3.88071 3.88071 5 2.5 5C1.11929 5 0 3.88071 0 2.5C0 1.11929 1.11929 0 2.5 0C3.88071 0 5 1.11929 5 2.5Z"
+                                            fill="#1A2340" />
+                                        <path
+                                            d="M51 2.5C51 3.88071 49.8807 5 48.5 5C47.1193 5 46 3.88071 46 2.5C46 1.11929 47.1193 0 48.5 0C49.8807 0 51 1.11929 51 2.5Z"
+                                            fill="#1A2340" />
+                                        <path
+                                            d="M97 2.5C97 3.88071 95.8807 5 94.5 5C93.1193 5 92 3.88071 92 2.5C92 1.11929 93.1193 0 94.5 0C95.8807 0 97 1.11929 97 2.5Z"
+                                            fill="#1A2340" />
+                                        <path
+                                            d="M15 2.5C15 3.88071 13.8807 5 12.5 5C11.1193 5 10 3.88071 10 2.5C10 1.11929 11.1193 0 12.5 0C13.8807 0 15 1.11929 15 2.5Z"
+                                            fill="#1A2340" />
+                                        <path
+                                            d="M61 2.5C61 3.88071 59.8807 5 58.5 5C57.1193 5 56 3.88071 56 2.5C56 1.11929 57.1193 0 58.5 0C59.8807 0 61 1.11929 61 2.5Z"
+                                            fill="#1A2340" />
+                                        <path
+                                            d="M107 2.5C107 3.88071 105.881 5 104.5 5C103.119 5 102 3.88071 102 2.5C102 1.11929 103.119 0 104.5 0C105.881 0 107 1.11929 107 2.5Z"
+                                            fill="#1A2340" />
+                                        <path
+                                            d="M25 2.5C25 3.88071 23.8807 5 22.5 5C21.1193 5 20 3.88071 20 2.5C20 1.11929 21.1193 0 22.5 0C23.8807 0 25 1.11929 25 2.5Z"
+                                            fill="#1A2340" />
+                                        <path
+                                            d="M71 2.5C71 3.88071 69.8807 5 68.5 5C67.1193 5 66 3.88071 66 2.5C66 1.11929 67.1193 0 68.5 0C69.8807 0 71 1.11929 71 2.5Z"
+                                            fill="#1A2340" />
+                                        <path
+                                            d="M117 2.5C117 3.88071 115.881 5 114.5 5C113.119 5 112 3.88071 112 2.5C112 1.11929 113.119 0 114.5 0C115.881 0 117 1.11929 117 2.5Z"
+                                            fill="#1A2340" />
+                                        <path
+                                            d="M35 2.5C35 3.88071 33.8807 5 32.5 5C31.1193 5 30 3.88071 30 2.5C30 1.11929 31.1193 0 32.5 0C33.8807 0 35 1.11929 35 2.5Z"
+                                            fill="#1A2340" />
+                                        <path
+                                            d="M81 2.5C81 3.88071 79.8807 5 78.5 5C77.1193 5 76 3.88071 76 2.5C76 1.11929 77.1193 0 78.5 0C79.8807 0 81 1.11929 81 2.5Z"
+                                            fill="#1A2340" />
+                                        <path
+                                            d="M127 2.5C127 3.88071 125.881 5 124.5 5C123.119 5 122 3.88071 122 2.5C122 1.11929 123.119 0 124.5 0C125.881 0 127 1.11929 127 2.5Z"
+                                            fill="#1A2340" />
+                                    </svg>
+
+                                    <span class="title">5875</span>
+                                </div>
+                                <span class="desc">Payment Type</span>
+                            </div>
+                        </div>
+                        <svg class="promo-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                        </svg>
+                    </div>
+
+                    <% }else{ %>
+
+            
+                    <div class="empty-cart">
+                        Cart is Empty. Visit a restaurant to add items to the cart.
+                    </div>
+
+                    <% } %>
+
+
+            </div><!-- /content -->
+            <% if(typeof cartItems !== 'undefined' && cartItems.length !== 0 ) {%>
+                <%- include ("./partials/BottomNavBars/CartBottomNavBar", {total : total}); %>
+            <% } %>
+    </div><!-- /page -->
