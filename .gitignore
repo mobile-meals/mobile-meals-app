@@ -106,3 +106,7 @@ dist
 #Database Files
 *.db
 *.sqlite
+
+#CSS Files
+public/css/main.css
+public/css/main.css.map
