@@ -1,0 +1,36 @@
+<div data-role="page" id="login" class="dialog-page">
+    <%- include ("./partials/headers/TopNavVariant2", {title:'My Cards', actionIcon: 'add' , actionUrl:'/add-card'});
+        %>
+        <div data-role="content" class="ui-content content-main ">
+
+
+            <% if (typeof existingCardsforUser !== 'undefined' && existingCardsforUser.length > 0) {%>
+
+                <% existingCardsforUser.forEach( card => {%>
+                    <div class="address-holder card-holder">
+                        <div class="tag"><%- card.type %></div>
+                        <% if (card.isDefault) {%>
+                            <div class="default leading-2">Default</div>
+                        <%}%>
+        
+                        <div class="card-details">
+                            <div class="card-num">
+                                **** **** **** <%- card.cardNumberFormatted %>
+                            </div>
+                            <div class="card-exp">
+                                EXP: <%- card.exp %>
+                            </div>
+                        </div>
+                    </div>
+                <% });%>    
+
+            <%}else {%>
+
+                <div class="empty-cart">
+                    No Cards found for this user! Add one First.
+                </div>
+
+            <% } %>
+
+        </div><!-- /content -->
+</div><!-- /page -->

@@ -365,4 +365,127 @@ router.post('/add-address', async function (req, res) {
     res.redirect('/my-addresses');
 });
 
+
+router.get('/my-cards',async function(req, res){
+    var currentUserId = req.session.currentUser.id;
+
+    var existingCardsforUser = await models.Card.findAll({
+        where: { user_id: currentUserId }
+    }).then(existingCards => {
+        var cards = [];
+
+        if (existingCards instanceof Array){
+            existingCards.forEach(card =>{
+
+                var cardNumberFormatted = utilHelpers.getLast4DigitsOfCard(card.dataValues.card_number);
+
+                var cardObject = {
+                    cardNumberFormatted: cardNumberFormatted,
+                    exp: card.dataValues.exp_date,
+                    type: card.dataValues.type,
+                    isDefault: card.dataValues.is_default
+                }
+
+                cards.push(cardObject);
+            });
+        }else{
+            var cardNumberFormatted = utilHelpers.getLast4DigitsOfCard(existingCards.dataValues.card_number);
+
+            var cardObject = {
+                cardNumberFormatted: cardNumberFormatted,
+                exp: existingCards.dataValues.exp_date,
+                type: existingCards.dataValues.type,
+                isDefault: existingCards.dataValues.is_default
+            }
+
+            cards.push(cardObject);
+        }
+
+        return cards;
+    })
+    .catch(err => console.log(err));
+
+    existingCardsforUser.sort(function(x, y) { return x - y });
+
+    existingCardsforUser.reverse();
+
+    res.render('CreditCards', {
+        existingCardsforUser
+    });
+});
+
+router.get('/add-card',async function(req, res){
+    currentUserId = req.session.currentUser.id;
+
+    const countOfCardsforUser = await models.Card.count({ where: { user_id: currentUserId }});
+
+    var isDisabled = countOfCardsforUser === 0 ? true:false;
+    
+    var isDefault = isDisabled ? true:false;
+
+    res.render('AddCard', {
+        isDisabled,
+        isDefault
+    });
+});
+
+router.post('/add-card',async function(req, res){
+    const cardTypes = [
+        'VISA', 'MASTER CARD', 'AMEX'
+    ];
+
+    const { name, card_no, exp, cvc, is_default} = req.body;
+
+    var currentUserId = req.session.currentUser.id;
+
+    const countOfCardsForUser = await models.Card.count({ where: { user_id: currentUserId }});
+
+    var def = is_default === 'on' ? true: false;
+
+    let isDefault = countOfCardsForUser === 0 ? true: def;
+
+    if (isDefault && countOfCardsForUser !== 0){
+        // Get All Ids for previous cards
+        var existingCardIds = await models.Card.findAll({
+            where: { user_id: currentUserId },
+            attributes: ['id']
+        }).then(existingCards => {
+            var ids = [];
+    
+            if (existingCards instanceof Array){
+                existingCards.forEach(card =>{
+                    ids.push(card.dataValues.id);
+                });
+            }else{
+                ids.push(existingCards.dataValues.id);
+            }
+    
+            return ids;
+        })
+        .catch(err => console.log(err));
+
+        const update = await models.Card.update({ is_default: false },{where: {id: existingCardIds}});
+    }
+
+    const random = Math.floor(Math.random() * cardTypes.length);
+
+    var cardType = cardTypes[random];
+
+    var newCard = {
+        user_id: currentUserId,
+        cardholder_name: name,
+        card_number: card_no,
+        exp_date: exp,
+        cvc:cvc,
+        type:cardType,
+        is_default: isDefault,
+        createdAt: new Date(),
+        updateddAt: new Date()
+    }
+
+    const cardCreated = await models.Card.create(newCard);
+
+    res.redirect('/my-cards');
+});
+
 module.exports = router;

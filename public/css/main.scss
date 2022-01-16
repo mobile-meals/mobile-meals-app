@@ -326,6 +326,7 @@ p{
         background-color: transparent;
         width:36px;
         text-shadow: none;
+        box-shadow: none;
 
         svg{
             position: absolute;
@@ -628,7 +629,7 @@ form{
                 text-shadow: none;
             }
 
-            input[type="checkbox"]{
+            input[type=checkbox]{
                 width: 24px;
                 height: 24px;
                 border-radius: 5px;
@@ -787,6 +788,17 @@ form{
         align-items: center;
         justify-content: center;
     }
+}
+
+.form-2-cols{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    input[type=text]{
+        max-width: 157px !important;
+    }
+    
 }
 
 
@@ -1040,7 +1052,7 @@ form{
     a{
         display: flex;
         align-items: center;
-        text-decoration: none;
+        text-decoration: none !important;
         
         span{
             color: $gray-dark-1;

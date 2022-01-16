@@ -51,5 +51,8 @@ module.exports = {
     },
     formatAddress(address){
         return `${address.name}<br>${address.phone}<br>${address.address_1}<br>${address.address_2}<br>${address.suburb},${address.city}<br>${address.post_code}`;
+    },
+    getLast4DigitsOfCard(cardNumber){
+        return cardNumber.slice(-4);
     }
 }
