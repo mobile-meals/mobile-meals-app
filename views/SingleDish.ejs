@@ -1,11 +1,11 @@
-<div data-role="page" id="home">
+<div data-role="page" id="single-dish">
 	<%- include ("./partials/headers/RestaurantNavBar.ejs"); %>
 		<div data-role="content" class="ui-content content-main">
 
 			<div class="dish-header">
 				<img src="<%= dishData.imageUrl %>" alt="<%= dishData.name %>">
 
-				<div>
+				<div class="food-item-info">
 					<h4>
 						<%= dishData.name %>
 					</h4>

@@ -12,13 +12,38 @@
 					<div class="forgot-pw-link">
 						<a href="/auth/password-reset" data-ajax="false">Forgot Password?</a>
 					</div>
+					<button class="ui-widget ui-corner-all" type="submit">Proceed<span
+							class="button-icon"><svg class="button-icon" fill="none" viewBox="0 0 24 24"
+								xmlns="http://www.w3.org/2000/svg">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+									d="m14 5 7 7m0 0-7 7m7-7H3" />
+							</svg></span></button>
+				</form>
+			</div><!-- /content -->
+	</div><!-- /page -->
+
+	<!-- <div data-role="dialog" id="reset-password" style="position: absolute;">
+		<div data-role="content" class="ui-content content-main">
+			<h1>Password Reset</h1>
+			<p>Enter your email here and we will send you a password reset email.</p>
+			<form id="password-reset-form" action="#">
+				<div class="input-group">
+					<label for="email">Email</label>
+					<input type="email" id="email" name="email" placeholder="email" required>
 				</div>
-				<button class="ui-widget ui-corner-all" type="submit">Proceed<span
+				<button class="ui-widget ui-corner-all" type="submit">Reset password<span
 						class="button-icon"><svg class="button-icon" fill="none" viewBox="0 0 24 24"
 							xmlns="http://www.w3.org/2000/svg">
 							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
 								d="m14 5 7 7m0 0-7 7m7-7H3" />
 						</svg></span></button>
 			</form>
-		</div><!-- /content -->
-</div><!-- /page -->
+		</div>
+	</div> -->
+</div>
+
+<script>
+	function openDialog(){
+		document.getElementById("reset-password").style.display = "inherit"
+	}
+</script>

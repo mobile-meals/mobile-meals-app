@@ -1,16 +1,8 @@
-<script>
-    window.onload = function() {
-        var mainDiv = document.getElementsByClassName("dialog-page");
-        var role = window.outerWidth <= 390 ? 'page': 'dialog';
-        mainDiv[0].setAttribute("data-role", role);
-      };
-</script>
-
-<div data-role="page" id="login" class="dialog-page">
+<div data-role="page" id="menu">
     <%- include ("./partials/headers/TopNavBarBackOnly", {title:' Menu'}); %>
         <div data-role="content" class="ui-content content-main pt-top-none">
             <div class="rewards-container">
-                <img class="" data-country-code="LK" src="http://localhost:5000/img/Silver.svg">
+                <img class="current-tier" data-country-code="LK" src="http://localhost:5000/img/Silver.svg">
                 <div class="rewards-data">
                     <h5 class="uppercase">Mobile Meals Silver</h5>
 
@@ -133,11 +125,10 @@
                 </a>
             </div>
 
-            <form action="auth/logout" method="POST" data-ajax="false">
-                <button type="submit" class="logout-button">
-                    Log Out
-                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
-                </button>
-            </form>
+            <button href="dialog" class="logout-button">
+                Log Out
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
+            </button>
         </div><!-- /content -->
 </div><!-- /page -->
+
