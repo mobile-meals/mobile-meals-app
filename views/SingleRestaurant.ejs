@@ -1,5 +1,5 @@
 <div data-role="page" id="single-restaurant">
-	<%- include ("./partials/headers/RestaurantNavBar.ejs"); %>
+	<%- include ("./partials/headers/RestaurantNavBar.ejs", {restaurantWidgetData: restaurantData}); %>
 		<div data-role="content" class="ui-content content-main">
 
             <div class="restaurant-header">
@@ -44,7 +44,7 @@
                             <div id="<%= categoryAndDish.slug %>" class="dish-group">
                                 <h5><%= categoryAndDish.name %></h5>
                                 <% categoryAndDish.dishes.forEach((dish)=> { %>
-                                    <a href="<%= baseURL + '/restaurants/'+ restaurantData.id + '/dish/' + dish.id %>" data-ajax="false">
+                                    <a href="<%= baseURL + '/restaurants/'+ restaurantData.restaurantId + '/dish/' + dish.id %>" data-ajax="false">
                                         <%- include ("./partials/RestaurantDishWidget", {widgetData: dish }); %>
                                     </a>
                                 <% }); %>

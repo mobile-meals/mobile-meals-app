@@ -2,21 +2,21 @@
     <%- include ("./partials/headers/TopNavBarBackOnly", {title:' Menu'}); %>
         <div data-role="content" class="ui-content content-main pt-top-none">
             <div class="rewards-container">
-                <img class="current-tier" data-country-code="LK" src="http://localhost:5000/img/Silver.svg">
+                <img class="" data-country-code="LK" src="<%= currentTierImageURL %>">
                 <div class="rewards-data">
-                    <h5 class="uppercase">Mobile Meals Silver</h5>
+                    <h5 class="uppercase">Mobile Meals <%= userRewardItem.tier %></h5>
 
                     <div class="progress-bar-wrapper">
-                        <img class="" src="http://localhost:5000/img/Silver.svg">
+                        <img class="" src="<%= currentTierImageURL %>">
 
                         <div class="progress">
-                            <div class="progress-bar" role="progressbar" style="width: 50%" aria-valuenow="50"
+                            <div class="progress-bar" role="progressbar" style="width: <%= percentageOfPoints %>%" aria-valuenow="<%= percentageOfPoints %>"
                                 aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
 
-                        <img class="" data-country-code="LK" src="http://localhost:5000/img/Gold.svg">
+                        <img class="" data-country-code="LK" src="<%= nextTierImageURL %>">
                     </div>
-                    <span class="text-bold points uppercase">320 of 400 points</span>
+                    <span class="text-bold points uppercase"><%= parseInt(userRewardItem.points) %> of <%= nextTierMinPoints %> points</span>
 
                     <button class="offers-button">
                         View Offers
@@ -31,14 +31,14 @@
             <div class="links-group">
                 <h4>Profile</h4>
 
-                <a href="#" class="menu-link" data-ajax="false">
+                <a href="/my-addresses" class="menu-link" data-ajax="false">
                     <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m18 17-5 4a2 2 0 0 1-2 0l-5-4a8 8 0 1 1 12 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/></svg>
                     <span>
                         My Addresses
                     </span>
                 </a>
 
-                <a href="#" class="menu-link" data-ajax="false">
+                <a href="/my-cards" class="menu-link" data-ajax="false">
                     <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 0 0 3-3V8a3 3 0 0 0-3-3H6a3 3 0 0 0-3 3v8a3 3 0 0 0 3 3z"/></svg>
                     <span>
                         Credit/Debit Card

@@ -8,6 +8,7 @@ const utilHelpers = require('../helpers/utils');
 const dish = require('../models/dish');
 // Welcome Page
 router.get('/', async function (req, res) {
+    const currentUserId = req.session.currentUser.id;
 
     var topRestaurants = await models.Restaurant.findAll({ order: [['rating', 'DESC']] })
         .then(topRestaurantsRecieved => {
@@ -30,6 +31,25 @@ router.get('/', async function (req, res) {
         })
         .catch(err => console.log(err));
 
+    for (const restaurant of topRestaurants) {
+        var isFavourite = await models.FavouriteRestaurant.findOne({
+            where: {
+                user_id: currentUserId,
+                restaurant_id: restaurant.restaurantId
+            }
+        })
+            .then(favRes => {
+                return favRes.dataValues;
+            })
+            .catch(err => console.log(err));
+
+        if (typeof isFavourite !== 'undefined') {
+            restaurant.isFavoriteItem = true;
+        } else {
+            restaurant.isFavoriteItem = false;
+        }
+    }
+
 
     var deals = await models.Restaurant.findAll({ where: { is_promotion: true } })
         .then(dealsRecieved => {
@@ -45,7 +65,7 @@ router.get('/', async function (req, res) {
                     restaurantRating: parseFloat(item.rating).toFixed(1),
                     isBanner: item.is_promotion,
                     bannerText: item.promotion_text,
-                    isFavoriteItem: false
+                    isFavoriteItem: false,
                 });
             });
 
@@ -53,15 +73,139 @@ router.get('/', async function (req, res) {
         })
         .catch(err => console.log(err));
 
+
+    for (const restaurant of deals) {
+        var isFavourite = await models.FavouriteRestaurant.findOne({
+            where: {
+                user_id: currentUserId,
+                restaurant_id: restaurant.restaurantId
+            }
+        })
+            .then(favRes => {
+                return favRes.dataValues;
+            })
+            .catch(err => console.log(err));
+
+        if (typeof isFavourite !== 'undefined') {
+            restaurant.isFavoriteItem = true;
+        } else {
+            restaurant.isFavoriteItem = false;
+        }
+    }
+
+    //Getting Fav Dishes
+    var favouriteDishes = await models.Dish.findAll()
+        .then(async function(favDishesReceived) {
+            var favDishesArray = [];
+            // favDishesReceived = favDishesReceived.sort((a, b) => b - a).slice(0, 4);
+
+            for (const dish of favDishesReceived){
+
+                var favDish = await models.FavouriteDish.findOne({
+                    where:{
+                        user_id: currentUserId,
+                        dish_id: dish.dataValues.id
+                    }
+                }).then(fav => {
+                    console.log(fav);
+                    return fav.dataValues;
+                }).catch(err => console.log(err));
+
+                if (typeof favDish !== 'undefined'){
+                    var restaurantData = await models.Restaurant.findOne({
+                        where:{
+                            id: dish.dataValues.restaurant_id
+                        }
+                    }).then(restaurantDataRecieved => {
+                        return restaurantDataRecieved.dataValues;
+                    }).catch(err => console.log(err));
+
+                    favDishesArray.push({
+                        id: dish.dataValues.id,
+                        name: dish.dataValues.name,
+                        imageUrl: dish.dataValues.image_url,
+                        price: dish.dataValues.price,
+                        restaurantName: restaurantData.name,
+                        restaurantId: restaurantData.id,
+                        isFavourite: true
+                    });
+                }
+            }
+
+            return favDishesArray;
+        })
+        .catch(err => console.log(err));
+
+    console.log(favouriteDishes);
+
     res.render('home', {
         topRestaurants,
-        deals
+        deals,
+        favouriteDishes
     });
 });
 
 router.get('/components', (req, res) => res.render('components'));
 
-router.get('/menu', (req, res) => res.render('Menu', { utilHelpers }));
+router.get('/menu', async function (req, res) {
+    const currentUserId = req.session.currentUser.id;
+
+    const tiers = {
+        "GREEN": 'http://localhost:5000/img/Green.svg',
+        "BRONZE": 'http://localhost:5000/img/Bronze.svg',
+        "SILVER": 'http://localhost:5000/img/Silver.svg',
+        "GOLD": 'http://localhost:5000/img/Gold.svg',
+    }
+
+    var rewardItemForUser = await models.Reward.findOne({ where: { user_id: currentUserId } })
+        .then(rewardItem => {
+            return rewardItem.dataValues;
+        })
+        .catch(err => console.log(err));
+
+    var userRewardItem = null;
+
+
+    if (typeof rewardItemForUser !== 'undefined') {
+        userRewardItem = rewardItemForUser;
+    } else {
+        var tier = utilHelpers.getUserLoyaltyTier(0);
+
+        var rewardsEntry = {
+            user_id: currentUserId,
+            points: 0.00,
+            tier: tier,
+            createdAt: new Date(),
+            updateddAt: new Date()
+        }
+
+        const rewardItemCreated = await models.Reward.create(rewardsEntry);
+
+        userRewardItem = rewardItemCreated.dataValues;
+    }
+
+    var currentTierImageURL = tiers[userRewardItem.tier];
+
+    var nextTierImageURL = tiers[utilHelpers.getNextTier(userRewardItem.tier)];
+
+    const currentTierMinPoints = utilHelpers.getCurrentTierMinPoints(userRewardItem.tier);
+    const nextTierMinPoints = utilHelpers.getNextTierMinPoints(userRewardItem.tier);
+
+    var percentageOfPoints = parseInt(((parseInt(userRewardItem.points) - currentTierMinPoints) / (nextTierMinPoints - currentTierMinPoints)) * 100);
+
+    console.log(userRewardItem.tier);
+    console.log(nextTierMinPoints);
+
+
+    res.render('Menu', {
+        utilHelpers,
+        userRewardItem,
+        currentTierImageURL,
+        nextTierImageURL,
+        nextTierMinPoints,
+        percentageOfPoints
+    })
+});
 
 router.get('/search', async function (req, res) {
     var recentSeachTerms = [
@@ -155,11 +299,144 @@ router.get('/cart', async function (req, res) {
         );
     }
 
+    const currentUserId = req.session.currentUser.id;
+
+    var defaultFormattedAddress = await models.Address.findOne({ where: { user_id: currentUserId, is_default: true } })
+        .then(addressReceived => {
+            req.session.currentUser.defaultAddressId = addressReceived.dataValues.id;
+
+            return {
+                id: addressReceived.dataValues.id,
+                address: utilHelpers.formatAddress(addressReceived.dataValues)
+            };
+        })
+        .catch(err => console.log(err));
+
+    var defaultCard = await models.Card.findOne({ where: { user_id: currentUserId, is_default: true } })
+        .then(cardReceived => {
+            req.session.currentUser.defaultCardId = cardReceived.dataValues.id;
+
+            return {
+                id: cardReceived.dataValues.id,
+                lastDigits: utilHelpers.getLast4DigitsOfCard(cardReceived.dataValues.card_number)
+            };
+        })
+        .catch(err => console.log(err));
+
+    console.log(defaultFormattedAddress);
+
+
     res.render('Cart', {
         restaurantData,
         cartItems,
-        utilHelpers
+        utilHelpers,
+        defaultFormattedAddress,
+        defaultCard
     });
+});
+
+router.post('/cart', async function (req, res) {
+    const currentUserId = req.session.currentUser.id;
+    const defaultAddressId = req.session.currentUser.defaultAddressId;
+    const defaultCardId = req.session.currentUser.defaultCardId;
+    const orderStatus = 'PREPARING';
+    const restaurantId = req.session.currentUser.restaurantId;
+
+    const { notes, subTotal, discount, deliveryCharge, total } = req.body;
+
+    const cartItemsInSession = req.session.currentUser.cartItems;
+
+    // Creating the Order Entry in DB
+    var newOrderEntry = {
+        notes: notes,
+        status: orderStatus,
+        address_id: parseInt(defaultAddressId),
+        payment_type_id: parseInt(defaultCardId),
+        sub_total: parseFloat(subTotal),
+        discount: parseFloat(discount),
+        delivery_charge: parseFloat(deliveryCharge),
+        total: parseFloat(total),
+        restaurant_id: parseInt(restaurantId),
+        order_date_time: new Date(),
+        user_id: currentUserId,
+        createdAt: new Date(),
+        updateddAt: new Date()
+    }
+
+    const orderCreated = await models.Order.create(newOrderEntry);
+
+    const orderId = orderCreated.dataValues.id;
+
+    //Create Entries for Cart Items
+    for (const cartItem of cartItemsInSession) {
+        var cartItemEntry = {
+            dish_id: cartItem.dishId,
+            qty: cartItem.qty,
+            price: parseFloat(cartItem.price),
+            note: cartItem.notes,
+            order_id: orderId,
+            createdAt: new Date(),
+            updateddAt: new Date()
+        }
+
+        const cartItemCreated = await models.CartItem.create(cartItemEntry);
+
+        const cartItemCreatedId = cartItemCreated.dataValues.id;
+
+        for (cartItemExtraId of cartItem.extras) {
+            var extraItemData = await models.Extra.findOne({ where: { id: cartItemExtraId } })
+                .then(extraItemRecieved => {
+                    return extraItemRecieved.dataValues;
+                })
+                .catch(err => console.log(err));
+
+            var cartExtraItemEntry = {
+                cart_item_id: cartItemCreatedId,
+                extra_id: extraItemData.id,
+                qty: 1,
+                price: parseFloat(1 * extraItemData.price),
+                createdAt: new Date(),
+                updateddAt: new Date()
+            }
+
+            const cartItemExtraCreated = await models.CartItemExtra.create(cartExtraItemEntry);
+        }
+    }
+
+    var rewardsPointsEarned = parseFloat(newOrderEntry.total / 100);
+
+
+
+    var rewardItemForUser = await models.Reward.findOne({ where: { user_id: currentUserId } })
+        .then(rewardItem => {
+            return rewardItem.dataValues;
+        })
+        .catch(err => console.log(err));
+
+    console.log(rewardItemForUser);
+
+    if (typeof rewardItemForUser !== 'undefined') {
+        var points = parseFloat(rewardItemForUser.points + rewardsPointsEarned);
+
+        var tier = utilHelpers.getUserLoyaltyTier(points);
+
+        const update = await models.Reward.update({ points: points, tier: tier }, { where: { user_id: currentUserId } });
+    } else {
+        var tier = utilHelpers.getUserLoyaltyTier(rewardsPointsEarned);
+        var rewardsEntry = {
+            user_id: currentUserId,
+            points: rewardsPointsEarned,
+            tier: tier,
+            createdAt: new Date(),
+            updateddAt: new Date()
+        }
+
+        const rewardItemCreated = await models.Reward.create(rewardsEntry);
+    }
+
+    req.session.currentUser.cartItems = [];
+
+    res.redirect('/review');
 });
 
 router.get('/edit-cart-item/:item', async function (req, res) {
@@ -199,24 +476,22 @@ router.get('/edit-cart-item/:item', async function (req, res) {
         extras: extrasForDish
     };
 
-    console.log(item);
-
     res.render('partials/dialogs/EditCartItem', {
         item
     });
 });
 
-router.get('/my-addresses',async function(req, res){
+router.get('/my-addresses', async function (req, res) {
     currentUserId = req.session.currentUser.id;
 
     var existingAddressesforUser = await models.Address.findAll({
         where: { user_id: currentUserId }
     }).then(existingAddresses => {
         var addresses = [];
-        console.log("Recieved: ",existingAddresses);
+        console.log("Recieved: ", existingAddresses);
 
-        if (existingAddresses instanceof Array){
-            existingAddresses.forEach(address =>{
+        if (existingAddresses instanceof Array) {
+            existingAddresses.forEach(address => {
                 console.log("Array");
                 console.log("add: ", address);
                 var formattedAddress = utilHelpers.formatAddress(address.dataValues);
@@ -230,7 +505,7 @@ router.get('/my-addresses',async function(req, res){
 
                 addresses.push(addressObj);
             });
-        }else{
+        } else {
             console.log("OBJECT");
             var formattedAddress = utilHelpers.formatAddress(existingAddresses.dataValues);
 
@@ -246,9 +521,9 @@ router.get('/my-addresses',async function(req, res){
 
         return addresses;
     })
-    .catch(err => console.log(err));
+        .catch(err => console.log(err));
 
-    existingAddressesforUser.sort(function(x, y) { return x - y });
+    existingAddressesforUser.sort(function (x, y) { return x - y });
 
     existingAddressesforUser.reverse();
 
@@ -281,21 +556,21 @@ router.get('/add-address', async function (req, res) {
 
         const url = `https://eu1.locationiq.com/v1/reverse.php?key=pk.9e3258d85f622591c06d831ff0f2724c&lat=${lnglat[1]}&lon=${lnglat[0]}&format=json`;
 
-        try{
+        try {
             const response = await axios.get(url);
             prefilledData = response.data instanceof Array ? response.data[0].address : response.data.address;
-        }catch(err){
+        } catch (err) {
             console.error(err);
         }
     }
 
     currentUserId = req.session.currentUser.id;
 
-    const countOfAddressesforUser = await models.Address.count({ where: { user_id: currentUserId }});
+    const countOfAddressesforUser = await models.Address.count({ where: { user_id: currentUserId } });
 
-    var isDisabled = countOfAddressesforUser === 0 ? true:false;
-    
-    var isDefault = isDisabled ? true:false;
+    var isDisabled = countOfAddressesforUser === 0 ? true : false;
+
+    var isDefault = isDisabled ? true : false;
 
     res.render('AddAddress', {
         prefilledData,
@@ -309,38 +584,38 @@ router.post('/add-address', async function (req, res) {
 
     const lnglat = typeof req.session.currentUser.location !== 'undefined' ? req.session.currentUser.location : [];
 
-    const { name, phone, address_1, address_2, suburb, city, zipcode, tag, is_default} = req.body;
+    const { name, phone, address_1, address_2, suburb, city, zipcode, tag, is_default } = req.body;
 
     var currentUserId = req.session.currentUser.id;
 
     //Check if user has previous addresses.
-    const countOfAddressesforUser = await models.Address.count({ where: { user_id: currentUserId }});
+    const countOfAddressesforUser = await models.Address.count({ where: { user_id: currentUserId } });
 
-    var def = is_default === 'on' ? true: false;
+    var def = is_default === 'on' ? true : false;
 
-    let isDefault = countOfAddressesforUser === 0 ? true: def;
+    let isDefault = countOfAddressesforUser === 0 ? true : def;
 
-    if (isDefault && countOfAddressesforUser !== 0){
+    if (isDefault && countOfAddressesforUser !== 0) {
         // Get All Ids for previous addresses
         var existingAddressIds = await models.Address.findAll({
             where: { user_id: currentUserId },
             attributes: ['id']
         }).then(existingAddresses => {
             var ids = [];
-    
-            if (existingAddresses instanceof Array){
-                existingAddresses.forEach(address =>{
+
+            if (existingAddresses instanceof Array) {
+                existingAddresses.forEach(address => {
                     ids.push(address.dataValues.id);
                 });
-            }else{
+            } else {
                 ids.push(existingAddresses.dataValues.id);
             }
-    
+
             return ids;
         })
-        .catch(err => console.log(err));
+            .catch(err => console.log(err));
 
-        const update = await models.Address.update({ is_default: false },{where: {id: existingAddressIds}});
+        const update = await models.Address.update({ is_default: false }, { where: { id: existingAddressIds } });
     }
 
     var newAddress = {
@@ -363,6 +638,369 @@ router.post('/add-address', async function (req, res) {
     const addressCreated = await models.Address.create(newAddress);
 
     res.redirect('/my-addresses');
+});
+
+
+router.get('/my-cards', async function (req, res) {
+    var currentUserId = req.session.currentUser.id;
+
+    var existingCardsforUser = await models.Card.findAll({
+        where: { user_id: currentUserId }
+    }).then(existingCards => {
+        var cards = [];
+
+        if (existingCards instanceof Array) {
+            existingCards.forEach(card => {
+
+                var cardNumberFormatted = utilHelpers.getLast4DigitsOfCard(card.dataValues.card_number);
+
+                var cardObject = {
+                    cardNumberFormatted: cardNumberFormatted,
+                    exp: card.dataValues.exp_date,
+                    type: card.dataValues.type,
+                    isDefault: card.dataValues.is_default
+                }
+
+                cards.push(cardObject);
+            });
+        } else {
+            var cardNumberFormatted = utilHelpers.getLast4DigitsOfCard(existingCards.dataValues.card_number);
+
+            var cardObject = {
+                cardNumberFormatted: cardNumberFormatted,
+                exp: existingCards.dataValues.exp_date,
+                type: existingCards.dataValues.type,
+                isDefault: existingCards.dataValues.is_default
+            }
+
+            cards.push(cardObject);
+        }
+
+        return cards;
+    })
+        .catch(err => console.log(err));
+
+    existingCardsforUser.sort(function (x, y) { return x - y });
+
+    existingCardsforUser.reverse();
+
+    res.render('CreditCards', {
+        existingCardsforUser
+    });
+});
+
+router.get('/add-card', async function (req, res) {
+    currentUserId = req.session.currentUser.id;
+
+    const countOfCardsforUser = await models.Card.count({ where: { user_id: currentUserId } });
+
+    var isDisabled = countOfCardsforUser === 0 ? true : false;
+
+    var isDefault = isDisabled ? true : false;
+
+    res.render('AddCard', {
+        isDisabled,
+        isDefault
+    });
+});
+
+router.post('/add-card', async function (req, res) {
+    const cardTypes = [
+        'VISA', 'MASTER CARD', 'AMEX'
+    ];
+
+    const { name, card_no, exp, cvc, is_default } = req.body;
+
+    var currentUserId = req.session.currentUser.id;
+
+    const countOfCardsForUser = await models.Card.count({ where: { user_id: currentUserId } });
+
+    var def = is_default === 'on' ? true : false;
+
+    let isDefault = countOfCardsForUser === 0 ? true : def;
+
+    if (isDefault && countOfCardsForUser !== 0) {
+        // Get All Ids for previous cards
+        var existingCardIds = await models.Card.findAll({
+            where: { user_id: currentUserId },
+            attributes: ['id']
+        }).then(existingCards => {
+            var ids = [];
+
+            if (existingCards instanceof Array) {
+                existingCards.forEach(card => {
+                    ids.push(card.dataValues.id);
+                });
+            } else {
+                ids.push(existingCards.dataValues.id);
+            }
+
+            return ids;
+        })
+            .catch(err => console.log(err));
+
+        const update = await models.Card.update({ is_default: false }, { where: { id: existingCardIds } });
+    }
+
+    const random = Math.floor(Math.random() * cardTypes.length);
+
+    var cardType = cardTypes[random];
+
+    var newCard = {
+        user_id: currentUserId,
+        cardholder_name: name,
+        card_number: card_no,
+        exp_date: exp,
+        cvc: cvc,
+        type: cardType,
+        is_default: isDefault,
+        createdAt: new Date(),
+        updateddAt: new Date()
+    }
+
+    const cardCreated = await models.Card.create(newCard);
+
+    res.redirect('/my-cards');
+});
+
+router.get('/review', async function (req, res) {
+    const currentUserId = req.session.currentUser.id;
+    const restaurantId = req.session.currentUser.restaurantId;
+
+    var restaurantData = await models.Restaurant.findOne({ where: { id: restaurantId } })
+        .then(restaurantItem => {
+            return restaurantItem.dataValues;
+        })
+        .catch(err => console.log(err));
+
+    console.log(restaurantData);
+
+
+    res.render('Review', {
+        restaurantData
+    });
+});
+
+router.get('/done-review', function (req, res) {
+    res.render('partials/dialogs/ReviewCompleted');
+});
+
+router.get('/favourites', async function (req, res) {
+    const currentUserId = req.session.currentUser.id;
+    var favRestaurants = [];
+    var favDishes = [];
+
+    var favRestaurantIds = await models.FavouriteRestaurant.findAll({
+        where: { user_id: currentUserId },
+        attributes: ['restaurant_id']
+    }).then(favRestaurantsRecieved => {
+        var ids = [];
+
+        if (favRestaurantsRecieved instanceof Array) {
+            favRestaurantsRecieved.forEach(restaurant => {
+                ids.push(restaurant.dataValues.restaurant_id);
+            });
+        } else {
+            ids.push(favRestaurantsRecieved.dataValues.restaurant_id);
+        }
+
+        return ids;
+    })
+        .catch(err => console.log(err));
+
+    if (typeof favRestaurantIds !== 'undefined' || favRestaurantIds.length !== 0){
+        favRestaurants = await models.Restaurant.findAll({
+            where: { id: favRestaurantIds }
+        }).then(RestaurantsRecieved => {
+            var restaurantsArr = [];
+
+            if (RestaurantsRecieved instanceof Array) {
+                RestaurantsRecieved.forEach(restaurant => {
+                    restaurantsArr.push({
+                        id: restaurant.dataValues.id,
+                        name: restaurant.dataValues.name,
+                        rating: restaurant.dataValues.rating,
+                        imageUrl: restaurant.dataValues.image_url,
+                    });
+                });
+            } else {
+                restaurantsArr.push({
+                    id: RestaurantsRecieved.dataValues.id,
+                    name: RestaurantsRecieved.dataValues.name,
+                    rating: RestaurantsRecieved.dataValues.rating,
+                    imageUrl: RestaurantsRecieved.dataValues.image_url,
+                });
+            }
+            
+            return restaurantsArr;
+        })
+            .catch(err => console.log(err));
+        
+    }
+
+    // Favourite Dishes
+    var favDishIds = await models.FavouriteDish.findAll({
+        where: { user_id: currentUserId },
+        attributes: ['dish_id']
+    }).then(favDishRecieved => {
+        var ids = [];
+
+        if (favDishRecieved instanceof Array) {
+            favDishRecieved.forEach(dish => {
+                ids.push(dish.dataValues.dish_id);
+            });
+        } else {
+            ids.push(favDishRecieved.dataValues.dish_id);
+        }
+
+        return ids;
+    })
+        .catch(err => console.log(err));
+
+    if (typeof favDishIds !== 'undefined' || favDishIds.length !== 0){
+        favDishes = await models.Dish.findAll({
+            where: { id: favDishIds }
+        }).then(async function (dishRecieved) {
+            var dishArr = [];
+
+            if (dishRecieved instanceof Array) {
+                for (const dish of dishRecieved){
+                    var restaurantData = await models.Restaurant.findOne({
+                        where:{
+                            id: dish.dataValues.restaurant_id
+                        },
+                        attributes: ['name']
+                    }).then(restaurantDataRecieved => {
+                        return restaurantDataRecieved.dataValues;
+                    }).catch(err => console.log(err));
+
+
+                    dishArr.push({
+                        id: dish.dataValues.id,
+                        name: dish.dataValues.name,
+                        restaurantName: restaurantData.name,
+                        restaurantId: dish.dataValues.restaurant_id,
+                        price: dish.dataValues.price,
+                        imageUrl: dish.dataValues.image_url,
+                    });
+                }
+            } else {
+                var restaurantData = await models.Restaurant.findOne({
+                    where:{
+                        id: dishRecieved.dataValues.restaurant_id
+                    },
+                    attributes: ['name']
+                }).then(restaurantDataRecieved => {
+                    return restaurantDataRecieved.dataValues;
+                }).catch(err => console.log(err));
+
+                dishArr.push({
+                    id: dishRecieved.dataValues.id,
+                    name: dishRecieved.dataValues.name,
+                    restaurantName: restaurantData.name,
+                    restaurantId: dishRecieved.dataValues.restaurant_id,
+                    price: dishRecieved.dataValues.price,
+                    imageUrl: dishRecieved.dataValues.image_url,
+                });
+            }
+            
+            return dishArr;
+        })
+            .catch(err => console.log(err));
+        
+    }
+    res.render('Favourites', {
+        favRestaurants,
+        favDishes
+    });
+});
+
+router.post('/add-favourite-restaurant', async function (req, res) {
+    const currentUserId = req.session.currentUser.id;
+
+    const { resData, url } = req.body;
+    var data = JSON.parse(resData);
+
+    var favouriteRestaurant = await models.FavouriteRestaurant.findOne({ where: { user_id: currentUserId, restaurant_id: data.restaurantId } })
+        .then(favRes => {
+            return favRes.dataValues;
+        })
+        .catch(err => console.log(err));
+
+    if (typeof favouriteRestaurant !== 'undefined') {
+        let deleteItem = await models.FavouriteRestaurant.destroy(
+            {
+                where: { restaurant_id: data.restaurantId, user_id: currentUserId }
+            }
+        );
+    } else {
+        var entry = {
+            restaurant_id: data.restaurantId,
+            user_id: currentUserId
+        }
+        await models.FavouriteRestaurant.create(entry);
+    }
+
+    res.redirect('back');
+});
+
+router.post('/add-favourite-dish', async function (req, res) {
+    const currentUserId = req.session.currentUser.id;
+
+    const { dishData, url } = req.body;
+    var data = JSON.parse(dishData);
+
+    var favouriteRestaurant = await models.FavouriteDish.findOne({ where: { user_id: currentUserId, dish_id: data.id } })
+        .then(favRes => {
+            return favRes.dataValues;
+        })
+        .catch(err => console.log(err));
+
+    if (typeof favouriteRestaurant !== 'undefined') {
+        let deleteItem = await models.FavouriteDish.destroy(
+            {
+                where: { dish_id: data.id, user_id: currentUserId }
+            }
+        );
+    } else {
+        var entry = {
+            dish_id: data.id,
+            user_id: currentUserId
+        }
+        await models.FavouriteDish.create(entry);
+    }
+
+    res.redirect('back');
+});
+
+
+router.post('/remove-favourite', async function (req, res) {
+    const currentUserId = req.session.currentUser.id;
+
+    const {type, restaurantId} = req.body;
+
+    console.log("Dish Id: ", restaurantId);
+
+
+    if (type === 'restaurant'){
+        let deleteItemRes = await models.FavouriteRestaurant.destroy(
+            {
+                where: { restaurant_id: parseInt(restaurantId), user_id: currentUserId }
+            }
+        );
+
+        console.log(deleteItemRes);
+    }else{
+        let deleteItemDish = await models.FavouriteDish.destroy(
+            {
+                where: { dish_id: parseInt(restaurantId), user_id: currentUserId }
+            }
+        );
+
+        console.log(deleteItemDish);
+    }
+
+    res.redirect('back');
 });
 
 module.exports = router;

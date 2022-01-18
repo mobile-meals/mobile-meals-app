@@ -1,0 +1,41 @@
+<div data-role="page" id="add-address" class="pt-top-none">
+    <%- include ("./partials/headers/TopNavBarBackOnly", {title:'Add New Card'}); %>
+        <div data-role="content" class="ui-content content-main ">
+            <form id="add-card" action="/add-card" method="POST" data-ajax="false">
+                <div class="input-group">
+                    <label for="name">Cardholder's Name*</label>
+                    <input type="text" id="name" name="name" placeholder="John Smith" required>
+
+                    <label for="card_no">Card Number</label>
+                    <input type="text" id="card_no" name="card_no" placeholder="4242 4242 4242 4242" maxlength="16"
+                        pattern="[0-9]+" required>
+
+                    <div class="input-group form-2-cols">
+                        <div>
+                            <label for="exp">Expiry Date</label>
+                            <input type="text" id="exp" name="exp" placeholder="05/21" maxlength="5" required>
+                        </div>
+
+                        <div>
+                            <label for="cvc">CVC</label>
+                            <input type="text" id="cvc" name="cvc" placeholder="111" maxlength="3" pattern="[0-9]+"
+                                required>
+                        </div>
+                    </div>
+
+
+                    <label for="is_default">Make this my Default Card for future orders</label>
+                    <input type="checkbox" id="is_default" name="is_default" <%=isDefault ? 'checked' : '' %>
+                     <%= isDisabled ? 'disabled' : '' %> required>
+
+                </div>
+                <button class="ui-widget ui-corner-all" type="submit">Add Card<span class="button-icon"><svg
+                            class="button-icon" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="m14 5 7 7m0 0-7 7m7-7H3" />
+                        </svg></span></button>
+            </form>
+
+
+        </div><!-- /content -->
+</div><!-- /page -->

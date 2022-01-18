@@ -1,0 +1,21 @@
+<div class="card restautant-widget-single dish-card  max-width-wrapper">
+    <div class="card-img-top image-and-banner">
+        <img src="<%= dish.imageUrl %>"
+            class="" alt="...">
+        <div class="banner">LKR <%= parseFloat(dish.price).toFixed(2) %></div>
+    </div>
+    <div class="card-body widget-info">
+        <div class="widget-text">
+            <h5><%= dish.name %></h5>
+            <h6><%= dish.restaurantName %></h6>
+        </div>
+
+        <form id="add-as-favourite" action="/remove-favourite" method="POST" data-ajax="false">
+            <input type="hidden" id="restaurantId" name="restaurantId" value="<%= dish.id %>">
+            <input type="hidden" id="type" name="type" value="dish">
+            <button type="submit">
+                <svg class="delete-button" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+            </button>
+        </form>
+    </div>
+</div>

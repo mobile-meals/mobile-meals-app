@@ -33,19 +33,10 @@ $input-field-border-focus: #45ac34;
   }
 }
 
-// .ui-dialog {
-//     margin-top: -150vh;
-//     padding: .2em;
-//     width: 100vw;
-//     background-color: rgba(255,255,255,0.3) !important;
-//     overflow: hidden;
-//     z-index: 10;
-// }
-
-.ui-dialog {
-  top: 50%;
-  left: 50%;
-  margin: 30px 24px;
+.ui-dialog{
+    top: 50%;
+    left: 50%;
+    margin: 30px 24px;
 
   .ui-content {
     padding: 24px;
@@ -372,9 +363,15 @@ p {
     stroke: $mm-primary-color;
   }
 
-  h4 {
-    color: $mm-primary-color;
-  }
+    h4{
+        color: $mm-primary-color;
+    }
+
+    .action-items{
+        display: flex;
+        align-items: flex-start;
+        gap: 8px;
+    }
 }
 
 .footer-icon-bar {
@@ -402,6 +399,10 @@ p {
     @include ipad-portrait {
       width: 56px;
     }
+    padding: 0px 24px;
+    z-index: 1000;
+
+    box-shadow: none;
 
     svg {
       position: absolute;
@@ -432,9 +433,6 @@ p {
       height: 56px;
     }
     stroke: $mm-primary-color;
-
-    &:focus {
-    }
   }
 }
 
@@ -1104,6 +1102,11 @@ form {
                     font-size: 20px;
                     font-weight: 400;
                 }
+            input[type=checkbox]{
+                width: 24px;
+                height: 24px;
+                border-radius: 5px;
+                border: 2px solid red;
             }
         }
     }
@@ -1963,7 +1966,6 @@ div#get-started\ pt-top-none{
   .ui-input-text {
     opacity: 0;
   }
-
   .file-upload-container {
     width: 100%;
     display: flex;
@@ -1972,6 +1974,31 @@ div#get-started\ pt-top-none{
     justify-content: center;
   }
 }
+
+#add-as-favourite{
+    button{
+        background-color: transparent !important;
+        padding: 0;
+        border: none;
+        box-shadow: none;
+        margin: 0;
+    }
+}
+
+.form-2-cols{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    input[type=text]{
+        max-width: 157px !important;
+    }
+    
+}
+
+
+  
+
 
 /* UI Components
 -----------------------------------------------------------------------------------------------------------*/
@@ -1990,7 +2017,21 @@ div#get-started\ pt-top-none{
     }
 }
 
-  a {
+.favourite-icon{
+    stroke: $mm-primary-color !important;
+    fill: #fff !important;
+    width: 32px;
+    height: 32px;
+}
+
+.favourite-icon-selected{
+    width: 32px;
+    height: 32px;
+    fill: $mm-danger-color  !important;
+    stroke: $mm-danger-color  !important;
+}
+
+.restautant-widget-single{
     display: inline-block;
     text-decoration: none !important;
   }
@@ -2075,9 +2116,10 @@ div#get-started\ pt-top-none{
     }
 
     .favourite-icon {
-      stroke: $mm-primary-color;
       width: 32px;
       height: 32px;
+            stroke: $mm-primary-color !important;
+            fill: #fff !important;
       @include ipad-portrait {
         width: 40px;
         height: 40px;
@@ -2087,12 +2129,12 @@ div#get-started\ pt-top-none{
     .favourite-icon-selected {
       width: 32px;
       height: 32px;
+            fill: $mm-danger-color  !important;
+            stroke: $mm-danger-color  !important;
       @include ipad-portrait {
         width: 40px;
         height: 40px;
       }
-      fill: $mm-danger-color;
-      stroke: $mm-danger-color;
     }
 
     .widget-info-rating {
@@ -2116,8 +2158,8 @@ div#get-started\ pt-top-none{
   }
 }
 
-.dish-card {
-  max-width: 200px;
+.dish-card{
+    width: 200px;
 
   .widget-info {
     h6 {
@@ -2340,6 +2382,23 @@ div#get-started\ pt-top-none{
       align-items: flex-start;
       gap: 20px;
     }
+    // a{
+    //     display: flex;
+    //     align-items: center;
+    //     text-decoration: none !important;
+        
+    //     span{
+    //         color: $gray-dark-1;
+    //         text-decoration: none;
+    //     }
+
+    //     svg{
+    //         width: 16px;
+    //         height: 16px;
+    //         stroke: $gray-dark-1;
+    //         margin-left: 5px;
+    //     }
+    // }
   }
 
   .tag {
@@ -3380,4 +3439,93 @@ div#get-started\ pt-top-none{
             color: #fff;
         }
     }
+
+}
+
+.review-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    p{
+        font-size: 18px;
+        text-align: center;
+    }
+
+    .rating-stars{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 48px 0;
+
+        svg{
+            width: 45px;
+            height: 45px;
+        }
+
+        .star-active{
+            fill: $mm-primary-color;
+        }
+        
+    }
+
+    .comments{
+        margin-bottom: 54px;
+    }
+}
+
+
+.tabs-nav-wrapper {
+    .nav{
+        border-bottom: 0px;
+    }
+
+    .nav-tabs{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    
+        .nav-link{
+            background-color: $gray-placeholder !important;
+            width: fit-content !important;
+            color: $mm-primary-color !important;
+            border: none !important;
+            box-shadow: none !important;
+            font-size: 16px;
+            padding: 9px 13px;
+            margin: 0 5px 25px;
+            letter-spacing: normal;
+            text-transform: capitalize;
+        }
+
+        .active{
+            background-color: $mm-secondary-color !important;
+            color: #fff !important;
+        }
+    }
+}
+
+.tab-content{
+    padding: 0 !important
+}
+
+.max-width-wrapper{
+    width: 342px;
+    margin: 12px 0 ;
+
+    @include ipad-portrait{
+        width: 465px;
+    }
+
+    @include ipad-landscape{
+        width: 410px;
+    }
+
+    .delete-button{
+        width: 32px;
+        height: 32px;
+        stroke: $mm-primary-color;
+    }
+}
+
 }

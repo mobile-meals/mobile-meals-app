@@ -18,11 +18,11 @@
                     d="M9 13a3 3 0 0 0 0-2m0 2a3 3 0 1 1 0-2m0 2 6 4m-6-6 6-4m0 0a3 3 0 1 0 6-2 3 3 0 0 0-6 2zm0 10a3 3 0 1 0 6 2 3 3 0 0 0-6-2z" />
             </svg>
 
-            <form id="add-as-favourite" action="/add-favourite-restaurant" method="POST" data-ajax="false">
-                <input type="hidden" id="resData" name="resData" value="<%= JSON.stringify(restaurantWidgetData) %>">
+            <form id="add-as-favourite" action="/add-favourite-dish" method="POST" data-ajax="false">
+                <input type="hidden" id="dishData" name="dishData" value="<%= JSON.stringify(dishData) %>">
                 <input type="hidden" id="url" name="url" value="">
                 <button type="submit">
-                    <svg class="<%= restaurantWidgetData.isFavorite ? 'favourite-icon-selected':'favourite-icon' %>"  stroke="currentColor" viewBox="0 0 24 24"
+                    <svg class="<%= dishData.isFavorite ? 'favourite-icon-selected':'favourite-icon' %>"  stroke="currentColor" viewBox="0 0 24 24"
                     xmlns="http://www.w3.org/2000/svg">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                         d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z">

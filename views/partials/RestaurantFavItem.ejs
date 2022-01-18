@@ -1,0 +1,28 @@
+<div class="card restautant-widget-single max-width-wrapper">
+    <div class="card-img-top image-and-banner">
+        <img src="<%= restaurantData.imageUrl %>" class=""
+            alt="...">
+        <div class="banner <%= restaurantData.isBanner ? '':'hidden' %>"><%= restaurantData.bannerText %></div>
+    </div>
+    <div class="card-body widget-info">
+        <div>
+            <h5><%= restaurantData.name %></h5>
+            <div class="widget-info-rating">
+                <svg fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M9 3h2l1 3a1 1 0 0 0 1 1h3c1 0 2 1 1 2l-3 2a1 1 0 0 0 0 1l1 3c0 1-1 2-2 1l-2-2a1 1 0 0 0-2 0l-2 2c-1 1-2 0-2-1l1-3a1 1 0 0 0 0-1L3 9C2 8 3 7 4 7h3a1 1 0 0 0 1-1l1-3z" />
+                </svg>
+                <div><%= parseFloat(restaurantData.rating).toFixed(1) %></div>
+            </div>
+        </div>
+        
+
+        <form id="add-as-favourite" action="/remove-favourite" method="POST" data-ajax="false">
+            <input type="hidden" id="restaurantId" name="restaurantId" value="<%= restaurantData.id %>">
+            <input type="hidden" id="type" name="type" value="restaurant">
+            <button type="submit">
+                <svg class="delete-button" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+            </button>
+        </form>
+    </div>
+</div>

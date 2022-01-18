@@ -15,10 +15,20 @@
                 <div><%= restaurantWidgetData.restaurantRating %></div>
             </div>
         </div>
-        <svg class="<%= restaurantWidgetData.isFavoriteItem ? 'favourite-icon-selected':'favourite-icon' %>" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="M4 6a5 5 0 0 0 0 7l8 7 8-7a5 5 0 0 0-7-7l-1 2-1-2a5 5 0 0 0-7 0z" />
-        </svg>
+        <form id="add-as-favourite" action="/add-favourite-restaurant" method="POST" data-ajax="false">
+            <input type="hidden" id="resData" name="resData" value="<%= JSON.stringify(restaurantWidgetData) %>">
+            <input type="hidden" id="url" name="url" value="">
+            <button type="submit">
+                <svg class="<%= restaurantWidgetData.isFavoriteItem ? 'favourite-icon-selected':'favourite-icon' %>" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M4 6a5 5 0 0 0 0 7l8 7 8-7a5 5 0 0 0-7-7l-1 2-1-2a5 5 0 0 0-7 0z" />
+                </svg>
+            </button>
+        </form>
     </div>
 </div>
+
+<script>
+    document.getElementById('url').value = window.location.pathname;
+</script>
