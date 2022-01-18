@@ -72,27 +72,6 @@ $input-field-border-focus: #45ac34;
 //     z-index: 10;
 // }
 
-.ui-dialog{
-    top: 50%;
-    left: 50%;
-    margin: 30px 24px;
-
-    .ui-content{
-        padding: 24px;
-    }
-
-    .dialog-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-
-        svg{
-            width: 24px;
-            height: 24px;
-        }
-    }
-}
-
 .ui-bar-a {
   box-shadow: none !important;
 }
@@ -135,7 +114,7 @@ $input-field-border-focus: #45ac34;
     }
 
     label {
-      font-size: 28px !important;
+      font-size: 28px;
     }
   }
 }
@@ -514,6 +493,7 @@ p {
     button{
         height: 45px;
         width: 142px;
+    }
 
     input[type="text"] {
       width: 51px;
@@ -535,6 +515,7 @@ p {
         height: 52px;
         width: 52px;
       }
+    }
     .price-nav{
         width: 176px;
         margin-right: 21px;
@@ -873,6 +854,8 @@ form {
     h1 {
       margin-bottom: 40px;
     }
+  }
+}
 #home{
     @include ipad-landscape{
         h3{
@@ -950,23 +933,22 @@ div#passwordResetConfirm\ mobile_only{
     }
 }
 
-div#vendor-consent\ mobile_Only{
-    display: block;
-    // margin-top: -15%;
-    // height: 840px;
-    @include ipad-landscape{
-        display: none;
-    }
-}
+// #vendor-consent-ipad{
+//   display: block;
+//   @include ipad-portrait{
+//     display: none;
+//   }
+//   @include ipad-landscape{
+//     display: none;
+//   }
+// }
 
 #vendor-consent{
-    display: none;
     @include ipad-landscape{
         scroll-behavior:inherit;
-        display: block;
-        width: 30%;
+        width: 40%;
         height: 340px;
-        margin-left: 35%;
+        margin-left: 30%;
         margin-top: 20%;
 
         h3{
@@ -993,6 +975,9 @@ div#vendor-consent\ mobile_Only{
         .rewards-container{
             width: 100%;
             height: 150%;
+            img{
+              margin-left: 0%;
+            }
             .current-tier{
                  width: 20%;
                  height: 15%;
@@ -1358,13 +1343,15 @@ font-weight: 400;            }
         }
     }
 }
-
+div#get-started{
+  @include ipad-landscape{
+    margin-top: -10%;
+  }
+}
 div#get-started\ pt-top-none{
     @include ipad-landscape{
         .ui-content{
-            margin-top: 20%;
             margin-left: 50%;
-            margin-right: 12%;
 
             h1{
                 font-size: 60px;
@@ -1397,6 +1384,7 @@ div#get-started\ pt-top-none{
   }
 
   #partner-identity-confirmation {
+    @include ipad-landscape{
     h1 {
       margin-bottom: 40px;
     }
@@ -1405,12 +1393,11 @@ div#get-started\ pt-top-none{
       margin-bottom: 28px;
       padding-left: 20px;
       padding-right: 20px;
-	input[type='text'] {
-		max-width: 244px;
-        height: 42px;
-	}
-
-
+    }
+    input[type='text'] {
+      max-width: 244px;
+          height: 42px;
+    }
     .input-wrapper{
         padding-left: 5px;
 
@@ -1426,6 +1413,29 @@ div#get-started\ pt-top-none{
       padding-bottom: 80px;
       padding-top: 50px;
     }
+  }
+  @include ipad-portrait{
+    h1 {
+      margin-bottom: 40px;
+    }
+
+    p {
+      margin-bottom: 28px;
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+    input[type='text'] {
+      max-width: 244px;
+          height: 42px;
+    }
+    .input-wrapper{
+        padding-left: 5px;
+    }
+    .file-upload-container {
+      padding-bottom: 80px;
+      padding-top: 50px;
+    }
+  }
   }
 
   #Cart {
@@ -1448,7 +1458,7 @@ div#get-started\ pt-top-none{
       font-size: 24px;
     }
   }
-}
+
 
 #get-started-form {
   margin-top: 40px;
@@ -1479,6 +1489,8 @@ div#get-started\ pt-top-none{
     .ui-btn {
       opacity: 0;
       text-shadow: none;
+    }
+  }
     .select-country-wrapper__select {
         width: 60px;
         opacity: 0;
@@ -1509,12 +1521,25 @@ div#get-started\ pt-top-none{
 }
 
 #otp{
+  @include ipad-landscape{
+  .top-nav-main{
+      width: 100%;
+      margin-left: -20%;
+    }
+  }
+  @include ipad-portrait{
+    .top-nav-main{
+      width: 100%;
+      margin-left: -20%;
+    }
+  }
+  .content-main{
+    @include ipad-landscape{
+      margin-top: -25%;
+    }
+  }
     .ui-content{
         @include ipad-landscape{
-            margin-left: 50%;
-            margin-top: 13%;
-            
-
             h1{
                 font-size: 60px;
                 font-weight: 700;
@@ -1523,6 +1548,15 @@ div#get-started\ pt-top-none{
                 font-size: 32px;
                 font-weight: 500;
                 margin-right: 20%;
+            }
+            .input-group{
+              .otp-fields-group{
+                margin-right: 25%;
+                .ui-input-text{
+                  width: 63px;
+                  height: 63px;
+                }
+              }
             }
         }
         
@@ -1590,11 +1624,19 @@ div#get-started\ pt-top-none{
     //     width: 30%;
     //     height: 20%;
     // }
+    .top-nav-main{
+      @include ipad-landscape{
+        width: 100%;
+        margin-left: -20%;
+      }
+      @include ipad-portrait{
+        width: 100%;
+        margin-left: -20%;
+      }
+    }
     .ui-content{
         @include ipad-landscape{
-            margin-left: 50%;
-            margin-top: 13%;
-
+          margin-top: -25%;
             p{
                 font-weight: 500;
                 font-size: 32px;
@@ -1639,7 +1681,7 @@ div#get-started\ pt-top-none{
     // display:inline;
     @include ipad-landscape{
         .ui-content{
-            margin-left: 35%;
+            //margin-left: 35%;
             h1{
                 font-size: 60px;
                 font-weight: 700;
@@ -1734,23 +1776,29 @@ div#get-started\ pt-top-none{
         }
     }
 }
-div#partner-registration-confirm\ mobile_Only{
+#partner-registration-confirm{
     display: block;
     margin-top: -12%;
     @include ipad-landscape{
         display: none;
     }
+    @include ipad-portrait{
+      display: none;
+  }
 }
 
-#partner-registration-confirm{
+#partner-registration-confirm-ipad{
     display: none;
     @include ipad-landscape{
-        display: block;
-        width: 30%;
-        margin-left: 35%;
-        .ui-content{
-            margin-top: 50%;
-        }
+      width: 50%;
+      display: block;
+      margin-left: 25%;
+    }
+    @include ipad-portrait{
+      width: 55%;
+      display: block;
+      margin-left: 23%;
+      margin-top: 15%;
     }
 }
 
@@ -1763,29 +1811,25 @@ div#partner-registration-confirm\ mobile_Only{
 
 #partner-identity-confirmation{
     @include ipad-landscape{
-        width:30%;
-        margin-left: 35%;
         margin-top: 5%;
         
         h1{
             margin-left: 10%;
-        }
-        .top-nav-main{
-            width: 4%;
-            margin-top: 5%;
-
-            svg{
-                margin-right: 6%;
-            }
         }
     }
 }
 
 #partner-register{
     // display:inline;
-    @include ipad-landscape{
-        .ui-content{
-            margin-left: 35%;
+    .ui-content{
+      .zip-code-label{
+        margin-right: 50%;
+      }
+      .ui-link{
+        margin-top: 0;
+        margin-bottom: 0;
+      }
+      @include ipad-landscape{
             h1{
                 font-size: 60px;
                 font-weight: 700;
@@ -1876,33 +1920,7 @@ div#partner-registration-confirm\ mobile_Only{
         }
     }
   }
-  .select-country-wrapper__select {
-    width: 60px;
-    opacity: 0;
-    overflow: hidden;
-    overflow: -moz-hidden-unscrollable;
-    background: url(../img/flag_sl.svg) no-repeat right;
-    display: inline-block;
-    position: absolute;
-  }
-  .select-country-wrapper__flags {
-    width: 3.75rem;
-    height: 2.75rem;
-    position: absolute;
-    top: 0;
-    left: 0;
-    pointer-events: none;
-  }
-  .select-country-wrapper__flags__flag {
-    height: 100%;
-    border: 0px solid #ddd;
-    box-sizing: border-box;
-    display: none;
-  }
-  .select-country-wrapper__flags__flag.is-visible {
-    display: block;
-  }
-}
+
 
 #otp-form {
   .input-group {
@@ -1976,7 +1994,7 @@ div#partner-registration-confirm\ mobile_Only{
     display: inline-block;
     text-decoration: none !important;
   }
-}
+
 
 .restautant-widget-single {
   display: inline-block;
@@ -2202,31 +2220,6 @@ div#partner-registration-confirm\ mobile_Only{
         font-size: 12px;
         @include ipad-portrait {
           font-size: 22px;
-.restaurant-item-card{
-    width: 342px;
-    background-color: $gray-item-card;
-    display: flex;
-    justify-content: space-between;
-    align-items: stretch;
-    border-radius: 5px;
-    margin: 12px 6px;
-
-    @include ipad-portrait{
-        width: 600px;
-    }
-    
-    
-    .item-card-img{
-        width: 75px;
-        height: auto;
-        padding: 0;
-
-        img{
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-bottom-right-radius: 5px;
-            border-top-right-radius: 5px;
         }
       }
     }
@@ -2372,44 +2365,8 @@ div#partner-registration-confirm\ mobile_Only{
   @include ipad-portrait {
     display: flex;
     justify-content: space-between;
-
-    h5 {
-      margin-left: 15px;
-      margin-top: 10px;
-      margin-bottom: 5px;
-      font-size: 30px;
-    @include ipad-portrait{
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: space-between;
-    }
-
-    img{
-        width: 342px;
-        height: 172px;
-        object-fit: cover;
-        border-radius: 5px;
-
-        @include ipad-portrait{
-            width: 392px;
-            height: 241px;
-            margin-right: 34px;
+    
         }
-    }
-
-    .header-info{
-        width: 100%;
-
-        @include ipad-portrait{
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
-            align-items: flex-start;
-            height: 241px;
-        }
-    }
-  }
 
   .x-scroll-container {
     @include ipad-portrait {
@@ -2422,6 +2379,8 @@ div#partner-registration-confirm\ mobile_Only{
         display: block;
         margin: 16px 0;
       }
+    }
+  }
     .header-2cols{
         width: 100%;
         display: flex;
@@ -2437,7 +2396,7 @@ div#partner-registration-confirm\ mobile_Only{
             gap: 20px;
         }
     }
-  }
+  
 
   .restaurant-dishes {
     @include ipad-portrait {
@@ -2469,37 +2428,7 @@ div#partner-registration-confirm\ mobile_Only{
   display: flex;
   flex-direction: column;
   row-gap: 22px;
-.restaurant-content-area{
-    @include ipad-portrait{
-        display: flex;
-        justify-content: space-between;
-    }
 
-    .x-scroll-container{
-        @include ipad-portrait{
-            overflow-x: none;
-            overflow-y: scroll;
-            white-space: nowrap;
-            width: 234px;
-
-            a{
-                display: block;
-                margin: 16px 0;
-            }
-        }
-    }
-
-    .restaurant-dishes{
-        @include ipad-portrait{
-            width: 718px;
-            padding-left: 41px;
-            border-left: 2px solid $input-field-border;
-        }
-    }
-}
-
-.dish-group{
-    margin: 14px 0px;
 
   img {
     width: 342px;
@@ -2522,15 +2451,6 @@ div#partner-registration-confirm\ mobile_Only{
     border-radius: 5px;
     @include ipad-portrait {
       font-size: 32px;
-    }
-  }
-
-  @include ipad-portrait {
-    h4 {
-      font-size: 42px;
-    }
-    p {
-      font-size: 28px;
     }
   }
 }
@@ -2660,10 +2580,9 @@ div#partner-registration-confirm\ mobile_Only{
           width: 170px;
           height: 15px;
         }
-
-        .progress-bar {
-          background-color: $mm-secondary-color;
-    margin-bottom: 22px;
+      }
+    }
+  }
 }
 
 .extra-item{
@@ -2718,8 +2637,6 @@ div#partner-registration-confirm\ mobile_Only{
         margin-top: 15px;
       }
     }
-  }
-}
 
 .cart-wrapper {
   display: flex;
@@ -2919,47 +2836,6 @@ div#partner-registration-confirm\ mobile_Only{
   .tag-secondary {
     background-color: $gray-dark-1;
   }
-        .cart-item{
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background-color: $gray-item-card;
-            margin: 9px 0px;
-            padding: 7px 6px;
-            border-radius: 5px;
-            text-decoration: none !important;
-
-            .title-desc{
-                width: 200px;
-
-                .desc{
-                    margin-left: 6px;
-                    font-size: 12px;
-                    line-height: 13px !important;
-                }
-
-                .extras{
-                    background-color: $mm-secondary-color;
-                    padding: 7px 6px;
-                    border-radius: 5px;
-                    margin: 13px 0px 7px 6px;
-                    
-                    .extra{
-                        display: flex;
-                        justify-content: space-between;
-                        align-items: center;
-                        color: #fff;
-                        
-
-                        span{
-                            color: #fff;
-                            text-shadow: none !important;
-                            font-size: 12px;
-
-                        }
-                    }
-                }
-            }
 
   .default {
     position: absolute;
@@ -3060,6 +2936,7 @@ div#partner-registration-confirm\ mobile_Only{
       }
     }
   }
+}
 .address-holder{
     position: relative;
     background-color: $gray-item-card;
