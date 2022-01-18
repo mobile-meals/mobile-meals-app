@@ -8,6 +8,7 @@ const utilHelpers = require('../helpers/utils');
 const dish = require('../models/dish');
 // Welcome Page
 router.get('/', async function (req, res) {
+    const currentUserId = req.session.currentUser.id;
 
     var topRestaurants = await models.Restaurant.findAll({ order: [['rating', 'DESC']] })
         .then(topRestaurantsRecieved => {
@@ -30,6 +31,25 @@ router.get('/', async function (req, res) {
         })
         .catch(err => console.log(err));
 
+    for (const restaurant of topRestaurants) {
+        var isFavourite = await models.FavouriteRestaurant.findOne({
+            where: {
+                user_id: currentUserId,
+                restaurant_id: restaurant.restaurantId
+            }
+        })
+            .then(favRes => {
+                return favRes.dataValues;
+            })
+            .catch(err => console.log(err));
+
+        if (typeof isFavourite !== 'undefined') {
+            restaurant.isFavoriteItem = true;
+        } else {
+            restaurant.isFavoriteItem = false;
+        }
+    }
+
 
     var deals = await models.Restaurant.findAll({ where: { is_promotion: true } })
         .then(dealsRecieved => {
@@ -45,7 +65,7 @@ router.get('/', async function (req, res) {
                     restaurantRating: parseFloat(item.rating).toFixed(1),
                     isBanner: item.is_promotion,
                     bannerText: item.promotion_text,
-                    isFavoriteItem: false
+                    isFavoriteItem: false,
                 });
             });
 
@@ -53,9 +73,75 @@ router.get('/', async function (req, res) {
         })
         .catch(err => console.log(err));
 
+
+    for (const restaurant of deals) {
+        var isFavourite = await models.FavouriteRestaurant.findOne({
+            where: {
+                user_id: currentUserId,
+                restaurant_id: restaurant.restaurantId
+            }
+        })
+            .then(favRes => {
+                return favRes.dataValues;
+            })
+            .catch(err => console.log(err));
+
+        if (typeof isFavourite !== 'undefined') {
+            restaurant.isFavoriteItem = true;
+        } else {
+            restaurant.isFavoriteItem = false;
+        }
+    }
+
+    //Getting Fav Dishes
+    var favouriteDishes = await models.Dish.findAll()
+        .then(async function(favDishesReceived) {
+            var favDishesArray = [];
+            // favDishesReceived = favDishesReceived.sort((a, b) => b - a).slice(0, 4);
+
+            for (const dish of favDishesReceived){
+
+                var favDish = await models.FavouriteDish.findOne({
+                    where:{
+                        user_id: currentUserId,
+                        dish_id: dish.dataValues.id
+                    }
+                }).then(fav => {
+                    console.log(fav);
+                    return fav.dataValues;
+                }).catch(err => console.log(err));
+
+                if (typeof favDish !== 'undefined'){
+                    var restaurantData = await models.Restaurant.findOne({
+                        where:{
+                            id: dish.dataValues.restaurant_id
+                        }
+                    }).then(restaurantDataRecieved => {
+                        return restaurantDataRecieved.dataValues;
+                    }).catch(err => console.log(err));
+
+                    favDishesArray.push({
+                        id: dish.dataValues.id,
+                        name: dish.dataValues.name,
+                        imageUrl: dish.dataValues.image_url,
+                        price: dish.dataValues.price,
+                        restaurantName: restaurantData.name,
+                        restaurantId: restaurantData.id,
+                        isFavourite: true
+                    });
+                }
+            }
+
+            return favDishesArray;
+        })
+        .catch(err => console.log(err));
+
+    console.log(favouriteDishes);
+
     res.render('home', {
         topRestaurants,
-        deals
+        deals,
+        favouriteDishes
     });
 });
 
@@ -105,20 +191,20 @@ router.get('/menu', async function (req, res) {
     const currentTierMinPoints = utilHelpers.getCurrentTierMinPoints(userRewardItem.tier);
     const nextTierMinPoints = utilHelpers.getNextTierMinPoints(userRewardItem.tier);
 
-    var percentageOfPoints = parseInt(( (parseInt(userRewardItem.points)- currentTierMinPoints)/ (nextTierMinPoints - currentTierMinPoints) ) * 100);
+    var percentageOfPoints = parseInt(((parseInt(userRewardItem.points) - currentTierMinPoints) / (nextTierMinPoints - currentTierMinPoints)) * 100);
 
     console.log(userRewardItem.tier);
     console.log(nextTierMinPoints);
 
 
-    res.render('Menu', { 
+    res.render('Menu', {
         utilHelpers,
         userRewardItem,
         currentTierImageURL,
         nextTierImageURL,
         nextTierMinPoints,
         percentageOfPoints
-     })
+    })
 });
 
 router.get('/search', async function (req, res) {
@@ -697,6 +783,224 @@ router.get('/review', async function (req, res) {
 
 router.get('/done-review', function (req, res) {
     res.render('partials/dialogs/ReviewCompleted');
+});
+
+router.get('/favourites', async function (req, res) {
+    const currentUserId = req.session.currentUser.id;
+    var favRestaurants = [];
+    var favDishes = [];
+
+    var favRestaurantIds = await models.FavouriteRestaurant.findAll({
+        where: { user_id: currentUserId },
+        attributes: ['restaurant_id']
+    }).then(favRestaurantsRecieved => {
+        var ids = [];
+
+        if (favRestaurantsRecieved instanceof Array) {
+            favRestaurantsRecieved.forEach(restaurant => {
+                ids.push(restaurant.dataValues.restaurant_id);
+            });
+        } else {
+            ids.push(favRestaurantsRecieved.dataValues.restaurant_id);
+        }
+
+        return ids;
+    })
+        .catch(err => console.log(err));
+
+    if (typeof favRestaurantIds !== 'undefined' || favRestaurantIds.length !== 0){
+        favRestaurants = await models.Restaurant.findAll({
+            where: { id: favRestaurantIds }
+        }).then(RestaurantsRecieved => {
+            var restaurantsArr = [];
+
+            if (RestaurantsRecieved instanceof Array) {
+                RestaurantsRecieved.forEach(restaurant => {
+                    restaurantsArr.push({
+                        id: restaurant.dataValues.id,
+                        name: restaurant.dataValues.name,
+                        rating: restaurant.dataValues.rating,
+                        imageUrl: restaurant.dataValues.image_url,
+                    });
+                });
+            } else {
+                restaurantsArr.push({
+                    id: RestaurantsRecieved.dataValues.id,
+                    name: RestaurantsRecieved.dataValues.name,
+                    rating: RestaurantsRecieved.dataValues.rating,
+                    imageUrl: RestaurantsRecieved.dataValues.image_url,
+                });
+            }
+            
+            return restaurantsArr;
+        })
+            .catch(err => console.log(err));
+        
+    }
+
+    // Favourite Dishes
+    var favDishIds = await models.FavouriteDish.findAll({
+        where: { user_id: currentUserId },
+        attributes: ['dish_id']
+    }).then(favDishRecieved => {
+        var ids = [];
+
+        if (favDishRecieved instanceof Array) {
+            favDishRecieved.forEach(dish => {
+                ids.push(dish.dataValues.dish_id);
+            });
+        } else {
+            ids.push(favDishRecieved.dataValues.dish_id);
+        }
+
+        return ids;
+    })
+        .catch(err => console.log(err));
+
+    if (typeof favDishIds !== 'undefined' || favDishIds.length !== 0){
+        favDishes = await models.Dish.findAll({
+            where: { id: favDishIds }
+        }).then(async function (dishRecieved) {
+            var dishArr = [];
+
+            if (dishRecieved instanceof Array) {
+                for (const dish of dishRecieved){
+                    var restaurantData = await models.Restaurant.findOne({
+                        where:{
+                            id: dish.dataValues.restaurant_id
+                        },
+                        attributes: ['name']
+                    }).then(restaurantDataRecieved => {
+                        return restaurantDataRecieved.dataValues;
+                    }).catch(err => console.log(err));
+
+
+                    dishArr.push({
+                        id: dish.dataValues.id,
+                        name: dish.dataValues.name,
+                        restaurantName: restaurantData.name,
+                        restaurantId: dish.dataValues.restaurant_id,
+                        price: dish.dataValues.price,
+                        imageUrl: dish.dataValues.image_url,
+                    });
+                }
+            } else {
+                var restaurantData = await models.Restaurant.findOne({
+                    where:{
+                        id: dishRecieved.dataValues.restaurant_id
+                    },
+                    attributes: ['name']
+                }).then(restaurantDataRecieved => {
+                    return restaurantDataRecieved.dataValues;
+                }).catch(err => console.log(err));
+
+                dishArr.push({
+                    id: dishRecieved.dataValues.id,
+                    name: dishRecieved.dataValues.name,
+                    restaurantName: restaurantData.name,
+                    restaurantId: dishRecieved.dataValues.restaurant_id,
+                    price: dishRecieved.dataValues.price,
+                    imageUrl: dishRecieved.dataValues.image_url,
+                });
+            }
+            
+            return dishArr;
+        })
+            .catch(err => console.log(err));
+        
+    }
+    res.render('Favourites', {
+        favRestaurants,
+        favDishes
+    });
+});
+
+router.post('/add-favourite-restaurant', async function (req, res) {
+    const currentUserId = req.session.currentUser.id;
+
+    const { resData, url } = req.body;
+    var data = JSON.parse(resData);
+
+    var favouriteRestaurant = await models.FavouriteRestaurant.findOne({ where: { user_id: currentUserId, restaurant_id: data.restaurantId } })
+        .then(favRes => {
+            return favRes.dataValues;
+        })
+        .catch(err => console.log(err));
+
+    if (typeof favouriteRestaurant !== 'undefined') {
+        let deleteItem = await models.FavouriteRestaurant.destroy(
+            {
+                where: { restaurant_id: data.restaurantId, user_id: currentUserId }
+            }
+        );
+    } else {
+        var entry = {
+            restaurant_id: data.restaurantId,
+            user_id: currentUserId
+        }
+        await models.FavouriteRestaurant.create(entry);
+    }
+
+    res.redirect('back');
+});
+
+router.post('/add-favourite-dish', async function (req, res) {
+    const currentUserId = req.session.currentUser.id;
+
+    const { dishData, url } = req.body;
+    var data = JSON.parse(dishData);
+
+    var favouriteRestaurant = await models.FavouriteDish.findOne({ where: { user_id: currentUserId, dish_id: data.id } })
+        .then(favRes => {
+            return favRes.dataValues;
+        })
+        .catch(err => console.log(err));
+
+    if (typeof favouriteRestaurant !== 'undefined') {
+        let deleteItem = await models.FavouriteDish.destroy(
+            {
+                where: { dish_id: data.id, user_id: currentUserId }
+            }
+        );
+    } else {
+        var entry = {
+            dish_id: data.id,
+            user_id: currentUserId
+        }
+        await models.FavouriteDish.create(entry);
+    }
+
+    res.redirect('back');
+});
+
+
+router.post('/remove-favourite', async function (req, res) {
+    const currentUserId = req.session.currentUser.id;
+
+    const {type, restaurantId} = req.body;
+
+    console.log("Dish Id: ", restaurantId);
+
+
+    if (type === 'restaurant'){
+        let deleteItemRes = await models.FavouriteRestaurant.destroy(
+            {
+                where: { restaurant_id: parseInt(restaurantId), user_id: currentUserId }
+            }
+        );
+
+        console.log(deleteItemRes);
+    }else{
+        let deleteItemDish = await models.FavouriteDish.destroy(
+            {
+                where: { dish_id: parseInt(restaurantId), user_id: currentUserId }
+            }
+        );
+
+        console.log(deleteItemDish);
+    }
+
+    res.redirect('back');
 });
 
 module.exports = router;

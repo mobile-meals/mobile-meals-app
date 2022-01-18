@@ -294,6 +294,12 @@ p{
     h4{
         color: $mm-primary-color;
     }
+
+    .action-items{
+        display: flex;
+        align-items: flex-start;
+        gap: 8px;
+    }
 }
 
 
@@ -781,6 +787,16 @@ form{
     }
 }
 
+#add-as-favourite{
+    button{
+        background-color: transparent !important;
+        padding: 0;
+        border: none;
+        box-shadow: none;
+        margin: 0;
+    }
+}
+
 .form-2-cols{
     display: flex;
     justify-content: space-between;
@@ -809,6 +825,20 @@ form{
         display: inline-block;
         text-decoration: none !important;
     }
+}
+
+.favourite-icon{
+    stroke: $mm-primary-color !important;
+    fill: #fff !important;
+    width: 32px;
+    height: 32px;
+}
+
+.favourite-icon-selected{
+    width: 32px;
+    height: 32px;
+    fill: $mm-danger-color  !important;
+    stroke: $mm-danger-color  !important;
 }
 
 .restautant-widget-single{
@@ -847,7 +877,6 @@ form{
             text-shadow: none !important;
         }
     }
-    
 
     .widget-info{
         display: flex;
@@ -872,7 +901,8 @@ form{
         }
 
         .favourite-icon{
-            stroke: $mm-primary-color;
+            stroke: $mm-primary-color !important;
+            fill: #fff !important;
             width: 32px;
             height: 32px;
         }
@@ -880,8 +910,8 @@ form{
         .favourite-icon-selected{
             width: 32px;
             height: 32px;
-            fill: $mm-danger-color;
-            stroke: $mm-danger-color;
+            fill: $mm-danger-color  !important;
+            stroke: $mm-danger-color  !important;
         }
 
         .widget-info-rating{
@@ -903,7 +933,7 @@ form{
 }
 
 .dish-card{
-    max-width: 200px;
+    width: 200px;
 
     .widget-info{
 
@@ -1788,3 +1818,58 @@ form{
         margin-bottom: 54px;
     }
 }
+
+
+.tabs-nav-wrapper {
+    .nav{
+        border-bottom: 0px;
+    }
+
+    .nav-tabs{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    
+        .nav-link{
+            background-color: $gray-placeholder !important;
+            width: fit-content !important;
+            color: $mm-primary-color !important;
+            border: none !important;
+            box-shadow: none !important;
+            font-size: 16px;
+            padding: 9px 13px;
+            margin: 0 5px 25px;
+            letter-spacing: normal;
+            text-transform: capitalize;
+        }
+
+        .active{
+            background-color: $mm-secondary-color !important;
+            color: #fff !important;
+        }
+    }
+}
+
+.tab-content{
+    padding: 0 !important
+}
+
+.max-width-wrapper{
+    width: 342px;
+    margin: 12px 0 ;
+
+    @include ipad-portrait{
+        width: 465px;
+    }
+
+    @include ipad-landscape{
+        width: 410px;
+    }
+
+    .delete-button{
+        width: 32px;
+        height: 32px;
+        stroke: $mm-primary-color;
+    }
+}
+

@@ -9,15 +9,17 @@ const { checkIdinArray, getObjectByIdFromArray } = require('../helpers/utils');
 // Welcome Page
 router.get('/:id', async function (req, res) {
     var categoryIds = [];
-    var categoryNames = [{name: 'Best Sellers', slug:'best-sellers', dishes:[]}];
+    var categoryNames = [{ name: 'Best Sellers', slug: 'best-sellers', dishes: [] }];
+    const currentUserId = req.session.currentUser.id;
 
-    var restaurantData = await models.Restaurant.findOne({ where: { id: req.params.id }})
+    var restaurantData = await models.Restaurant.findOne({ where: { id: req.params.id } })
         .then(restaurant => {
             return {
-                id: restaurant.id,
+                restaurantId: restaurant.id,
                 name: restaurant.name,
                 imageUrl: restaurant.image_url,
                 rating: parseFloat(restaurant.rating).toFixed(1),
+                isFavourite: false,
                 operationTimes: {
                     open: restaurant.open_time,
                     close: restaurant.close_time,
@@ -26,7 +28,26 @@ router.get('/:id', async function (req, res) {
         })
         .catch(err => console.log(err));
 
-    var dishes = await models.Dish.findAll({ where: { restaurant_id: req.params.id }})
+
+
+    var isFavourite = await models.FavouriteRestaurant.findOne({
+        where: {
+            user_id: currentUserId,
+            restaurant_id: restaurantData.restaurantId
+        }
+    })
+        .then(favRes => {
+            return favRes.dataValues;
+        })
+        .catch(err => console.log(err));
+
+    if (typeof isFavourite !== 'undefined') {
+        restaurantData.isFavorite = true;
+    } else {
+        restaurantData.isFavorite = false;
+    }
+
+    var dishes = await models.Dish.findAll({ where: { restaurant_id: req.params.id } })
         .then(dishesRecieved => {
             var dishesArray = [];
 
@@ -49,12 +70,12 @@ router.get('/:id', async function (req, res) {
 
     categoryIds = categoryIds.filter((v, i, a) => a.indexOf(v) === i);
 
-    
-    var categoriesAndDishes = await models.DishCategory.findAll({ where: { id: categoryIds }})
+
+    var categoriesAndDishes = await models.DishCategory.findAll({ where: { id: categoryIds } })
         .then(categoriesRecieved => {
-            categoriesRecieved.forEach((category) =>{
+            categoriesRecieved.forEach((category) => {
                 categoryNames.push({
-                    id:category.id,
+                    id: category.id,
                     name: category.name,
                     slug: utilHelpers.slugifyText(category.name),
                     dishes: []
@@ -64,10 +85,10 @@ router.get('/:id', async function (req, res) {
         })
         .catch(err => console.log(err));
 
-    
+
     dishes.forEach((dish) => {
-        categoriesAndDishes.forEach((categoryAndDish)=>{
-            if (dish.category_id === categoryAndDish.id){
+        categoriesAndDishes.forEach((categoryAndDish) => {
+            if (dish.category_id === categoryAndDish.id) {
                 categoryAndDish.dishes.push(dish);
             }
         });
@@ -78,16 +99,16 @@ router.get('/:id', async function (req, res) {
     var randNum1 = Math.floor(Math.random() * max);
     var randNum2 = 0;
 
-    do{
+    do {
         randNum2 = Math.floor(Math.random() * max);
-    }while (randNum1 === randNum2)
+    } while (randNum1 === randNum2)
 
     categoriesAndDishes[0].dishes.push(dishes[randNum1]);
     categoriesAndDishes[0].dishes[0].orderCount = 14;
     categoriesAndDishes[0].dishes.push(dishes[randNum2]);
     categoriesAndDishes[0].dishes[1].orderCount = 25;
     // End
-    
+
     res.render('SingleRestaurant', {
         restaurantData,
         categoriesAndDishes
@@ -96,8 +117,9 @@ router.get('/:id', async function (req, res) {
 
 router.get('/:resId/dish/:dishId', async function (req, res) {
     var extras = [];
+    const currentUserId = req.session.currentUser.id;
 
-    var dishData = await models.Dish.findOne({ where: { id: req.params.dishId }})
+    var dishData = await models.Dish.findOne({ where: { id: req.params.dishId } })
         .then(dishRecieved => {
             return {
                 id: dishRecieved.id,
@@ -105,13 +127,31 @@ router.get('/:resId/dish/:dishId', async function (req, res) {
                 imageUrl: dishRecieved.image_url,
                 description: dishRecieved.description,
                 price: parseFloat(dishRecieved.price).toFixed(2),
+                isFavorite:false,
                 restaurantId: dishRecieved.restaurant_id,
                 categoryId: dishRecieved.categoryId,
             };
         })
         .catch(err => console.log(err));
 
-    var extraFromDB = await models.Extra.findAll({ where: { dish_id: req.params.dishId }})
+    var isFavourite = await models.FavouriteDish.findOne({
+        where: {
+            user_id: currentUserId,
+            dish_id: dishData.id
+        }
+    })
+        .then(favDish => {
+            return favDish.dataValues;
+        })
+        .catch(err => console.log(err));
+
+    if (typeof isFavourite !== 'undefined') {
+        dishData.isFavorite = true;
+    } else {
+        dishData.isFavorite = false;
+    }
+
+    var extraFromDB = await models.Extra.findAll({ where: { dish_id: req.params.dishId } })
         .then(extrasRecieved => {
             extrasRecieved.forEach(item => {
                 extras.push({
@@ -132,35 +172,35 @@ router.get('/:resId/dish/:dishId', async function (req, res) {
 });
 
 router.post('/add-to-cart', async function (req, res) {
-    
+
     const { dishId, notes, quantity, restaurantId } = req.body;
 
-    if (typeof req.session.currentUser.restaurantId !== 'undefined'){
-        if (req.session.currentUser.restaurantId !== restaurantId){
+    if (typeof req.session.currentUser.restaurantId !== 'undefined') {
+        if (req.session.currentUser.restaurantId !== restaurantId) {
             req.session.currentUser.restaurantId = restaurantId;
             req.session.currentUser.cartItems = [];
         }
-    }else{
+    } else {
         req.session.currentUser.restaurantId = restaurantId;
     }
 
-    var extras = (typeof req.body['extras[]'] === 'undefined') ? []:req.body['extras[]'] ;
+    var extras = (typeof req.body['extras[]'] === 'undefined') ? [] : req.body['extras[]'];
 
-    cartItemId = uuidv4(); 
+    cartItemId = uuidv4();
 
     var cartItem = {
         cartItemId: cartItemId,
         dishId: parseInt(dishId),
         qty: parseInt(quantity),
         notes: notes,
-        extras:[]
+        extras: []
     }
 
-    if(typeof extras !== 'string'){
+    if (typeof extras !== 'string') {
         extras.forEach((id) => {
             cartItem.extras.push(parseInt(id));
         });
-    }else{
+    } else {
         cartItem.extras.push(parseInt(extras));
     }
 
@@ -171,20 +211,20 @@ router.post('/add-to-cart', async function (req, res) {
 
 
 router.post('/edit-cart-item', async function (req, res) {
-    
+
     const { cartItemId, notes, quantity } = req.body;
 
     var cartItemInSession = req.session.currentUser.cartItems.find(obj => {
         return obj.cartItemId === cartItemId;
     });
-    
+
     var cartItemInSessionIndex = req.session.currentUser.cartItems.findIndex(obj => {
         return obj.cartItemId === cartItemId;
     });
-    
+
     req.session.currentUser.cartItems.splice(cartItemInSessionIndex, 1);
 
-    var extras = (typeof req.body['extras[]'] === 'undefined') ? []:req.body['extras[]'] ;
+    var extras = (typeof req.body['extras[]'] === 'undefined') ? [] : req.body['extras[]'];
 
     var cartItem = {
         cartItemId: cartItemId,
@@ -192,34 +232,34 @@ router.post('/edit-cart-item', async function (req, res) {
         qty: parseInt(quantity),
         price: "0.00",
         notes: notes,
-        extras:[]
+        extras: []
     }
 
-    if(typeof extras !== 'string'){
+    if (typeof extras !== 'string') {
         extras.forEach((id) => {
             cartItem.extras.push(parseInt(id));
         });
-    }else{
+    } else {
         cartItem.extras.push(parseInt(extras));
     }
 
     var priceForExtras = 0.00;
 
-    for (const extra of cartItem.extras){
+    for (const extra of cartItem.extras) {
         var extraItemData = await models.Extra.findOne({ where: { id: extra } })
-                .then(extraItemRecieved => {
-                    return extraItemRecieved.dataValues;
-                })
-                .catch(err => console.log(err));
+            .then(extraItemRecieved => {
+                return extraItemRecieved.dataValues;
+            })
+            .catch(err => console.log(err));
 
         priceForExtras += parseFloat(extraItemData.price);
     }
 
     var priceForDish = await models.Dish.findOne({ where: { id: cartItem.dishId } })
-                .then(extraItemRecieved => {
-                    return extraItemRecieved.dataValues.price;
-                })
-                .catch(err => console.log(err));
+        .then(extraItemRecieved => {
+            return extraItemRecieved.dataValues.price;
+        })
+        .catch(err => console.log(err));
 
     cartItem.price = parseFloat((priceForDish * cartItem.qty) + priceForExtras).toFixed(2);
 
@@ -229,17 +269,17 @@ router.post('/edit-cart-item', async function (req, res) {
 });
 
 router.post('/delete-cart-item', async function (req, res) {
-    
+
     const { cartItemId } = req.body;
-    
+
     var cartItemInSessionIndex = req.session.currentUser.cartItems.findIndex(obj => {
         return obj.cartItemId === cartItemId;
     });
-    
+
     req.session.currentUser.cartItems.splice(cartItemInSessionIndex, 1);
 
 
-    console.log("Cart Items in Session when deleted: ",req.session.currentUser.cartItems);
+    console.log("Cart Items in Session when deleted: ", req.session.currentUser.cartItems);
 
     res.redirect('/cart');
 });

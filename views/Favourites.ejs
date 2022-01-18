@@ -1,0 +1,56 @@
+<div data-role="page" id="home">
+    <%- include ("./partials/headers/TopNavBar"); %>
+        <div data-role="content" class="ui-content content-main">
+
+            <nav class="tabs-nav-wrapper">
+                <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                    <button class="nav-link active" id="fav-restaurant-tab" data-bs-toggle="tab"
+                        data-bs-target="#fav-restaurant" type="button" role="tab" aria-controls="fav-restaurant"
+                        aria-selected="true">Restaurants</button>
+                    <button class="nav-link" id="fav-dish-tab" data-bs-toggle="tab" data-bs-target="#fav-dish"
+                        type="button" role="tab" aria-controls="fav-dish" aria-selected="false">Dishes</button>
+                </div>
+            </nav>
+            <div class="tab-content" id="nav-tabContent">
+                <div class="tab-pane fade show active" id="fav-restaurant" role="tabpanel"
+                    aria-labelledby="fav-restaurant-tab">
+                    <% if (typeof favRestaurants !=="undefined" ){ %>
+                        <% for(const restaurant of favRestaurants){ %>
+                            <a href="<%= baseURL + '/restaurants/'+ restaurant.id %>" data-ajax="false">
+                                <%- include ("./partials/RestaurantFavItem", {
+                                    restaurantData: restaurant
+                                }); %>
+                            </a>
+                        <%}%>
+                    <% } else { %>
+                        <div class="empty-cart">
+                            No Favourite Restaurants. Add to show here.
+                        </div>
+                    <% } %>
+
+
+                </div>
+                <div class="tab-pane fade" id="fav-dish" role="tabpanel" aria-labelledby="fav-dish-tab">
+
+                    <% if (typeof favDishes !=="undefined" ){ %>
+                        <% for(const dish of favDishes){ %>
+                            <a href="<%= baseURL + '/restaurants/'+ dish.restaurantId + '/dish/' + dish.id %>" data-ajax="false">
+                                <%- include ("./partials/DishFavItem", {dish : dish}); %>
+                            </a>
+                        <%}%>
+                    <% } else { %>
+                        <div class="empty-cart">
+                            No Favourite Dishes. Add to show here.
+                        </div>
+                    <% } %>
+
+
+                </div>
+
+            </div>
+
+
+        </div><!-- /content -->
+
+        <%- include ("./partials/BottomNavBars/BottomNavBar"); %>
+</div><!-- /page -->
