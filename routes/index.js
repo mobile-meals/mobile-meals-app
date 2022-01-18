@@ -248,9 +248,9 @@ router.get('/my-addresses',async function(req, res){
     })
     .catch(err => console.log(err));
 
-    existingAddressesforUser.sort(function(x, y) { return x - y });
+    //existingAddressesforUser.sort(function(x, y) { return x - y });
 
-    existingAddressesforUser.reverse();
+    //existingAddressesforUser.reverse();
 
     res.render('Address', {
         existingAddressesforUser

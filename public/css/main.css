@@ -743,33 +743,81 @@ form button {
   width: 100%;
 }
 
+div#passwordResetConfirm\ mobile_only {
+  display: block;
+  height: 750px;
+}
+
 @media (min-width: 1025px) {
-  #password-reset-confirm {
-    width: 35%;
-    margin-left: 30%;
-    margin-top: 15%;
+  div#passwordResetConfirm\ mobile_only {
+    display: none;
   }
-  #password-reset-confirm h3 {
-    font-size: 26px;
+}
+
+#passwordResetConfirm {
+  display: none;
+}
+
+@media (min-width: 1025px) {
+  #passwordResetConfirm {
+    margin-left: 35%;
+    margin-top: 13%;
+    display: block;
+    width: 30%;
+  }
+  #passwordResetConfirm .top-nav-main {
+    margin-top: 20%;
+  }
+  #passwordResetConfirm h3 {
+    margin-left: 13%;
   }
 }
 
 @media (min-width: 1025px) {
   #password-reset {
-    width: 35%;
-    margin-left: 30%;
-    margin-top: 15%;
+    width: 100%;
   }
-  #password-reset h3 {
-    font-size: 26px;
+  #password-reset .top-nav-main {
+    width: 100%;
   }
+  #password-reset h1 {
+    font-size: 34px;
+    font-weight: 600;
+  }
+  #password-reset p {
+    font-size: 24px;
+    font-weight: 400;
+  }
+  #password-reset label {
+    font-size: 24px;
+  }
+  #password-reset .input-group {
+    font-size: 24px;
+  }
+}
+
+div#vendor-consent\ mobile_Only {
+  display: block;
+}
+
+@media (min-width: 1025px) {
+  div#vendor-consent\ mobile_Only {
+    display: none;
+  }
+}
+
+#vendor-consent {
+  display: none;
 }
 
 @media (min-width: 1025px) {
   #vendor-consent {
+    scroll-behavior: inherit;
+    display: block;
     width: 30%;
-    margin-left: 30%;
-    margin-top: 15%;
+    height: 340px;
+    margin-left: 35%;
+    margin-top: 20%;
   }
   #vendor-consent h3 {
     font-size: 26px;
@@ -785,6 +833,9 @@ form button {
 
 @media (min-width: 1025px) {
   #menu {
+    width: 50%;
+  }
+  #menu .top-nav-main {
     width: 50%;
   }
   #menu .rewards-container {
@@ -825,9 +876,6 @@ form button {
     font-size: 36px;
     font-weight: 600;
   }
-  #menu .top-nav-bar-title {
-    margin-left: 75%;
-  }
 }
 
 #menu .logout-button {
@@ -835,18 +883,283 @@ form button {
 }
 
 @media (min-width: 1025px) {
-  #get-started {
+  #single-restaurant .top-nav-restaurant {
+    width: 100%;
+    height: 10%;
+  }
+  #single-restaurant .top-nav-restaurant svg {
+    width: 90px;
+  }
+  #single-restaurant .restaurant-header img {
+    width: 40%;
+    height: 10%;
+  }
+  #single-restaurant .restaurant-header .header-info .header-2cols h4 {
+    font-size: 34px;
+    font-weight: 600;
+    width: 150%;
+  }
+  #single-restaurant .restaurant-header .header-info .header-2cols .tag {
+    width: 13%;
+    font-size: 24px;
+    font-weight: 700;
+    text-align: center;
+  }
+  #single-restaurant .restaurant-header .header-info .header-2cols .icon-text svg {
+    width: 30px;
+    height: 30px;
+  }
+  #single-restaurant .restaurant-header .header-info .header-2cols .icon-text div {
+    font-size: 24px;
+    font-weight: 400;
+  }
+  #single-restaurant .restaurant-content-area .x-scroll-container a {
+    margin-bottom: 15%;
+  }
+  #single-restaurant .restaurant-content-area .x-scroll-container a .text-bold {
+    font-size: 24px;
+    font-weight: 700;
+  }
+  #single-restaurant .restaurant-content-area .restaurant-dishes {
+    width: 80%;
+  }
+  #single-restaurant .restaurant-content-area .restaurant-dishes h5 {
+    font-size: 24px;
+    font-weight: 700;
+  }
+  #single-restaurant .restaurant-content-area .restaurant-dishes .item-title {
+    font-size: 24px;
+    font-weight: 600;
+  }
+  #single-restaurant .restaurant-content-area .restaurant-dishes .item-desc {
+    font-size: 20px;
+    font-weight: 400;
+    max-width: 100%;
+  }
+  #single-restaurant .restaurant-content-area .restaurant-dishes .restaurant-item-card {
+    width: 90%;
+    height: 150px;
+  }
+  #single-restaurant .restaurant-content-area .restaurant-dishes img {
+    width: 200%;
+  }
+  #single-restaurant .restaurant-content-area .restaurant-dishes .item-card-info {
+    width: 90%;
+  }
+  #single-restaurant .restaurant-content-area .restaurant-dishes .price-order {
+    font-size: 20px;
+    font-weight: 400;
+  }
+}
+
+@media (min-width: 1025px) {
+  #single-dish .top-nav-restaurant {
+    width: 100%;
+    height: 10%;
+  }
+  #single-dish .top-nav-restaurant svg {
+    width: 90px;
+  }
+  #single-dish .dish-header img {
+    width: 40%;
+    height: 50%;
+    max-height: 350px;
+  }
+  #single-dish .dish-header .food-item-info {
+    width: 50%;
+    margin-left: 45%;
+    margin-top: -22%;
+  }
+  #single-dish .dish-header .food-item-info hr {
+    display: none;
+  }
+  #single-dish .dish-header .food-item-info h4 {
+    font-size: 34px;
+    font-weight: 600;
+  }
+  #single-dish .dish-header .food-item-info p {
+    font-size: 24px;
+    font-weight: 400;
+  }
+  #single-dish .dish-header .food-item-info .text-bold {
+    margin-top: 10%;
+    font-size: 34px;
+    font-weight: 700;
+  }
+  #single-dish .dish-notes label {
+    font-size: 24px;
+    font-weight: 400;
+  }
+  #single-dish .dish-notes textarea {
+    font-size: 24px;
+    font-weight: 400;
+  }
+}
+
+#single-dish .footer-dish button {
+  width: 30%;
+}
+
+@media (min-width: 1025px) {
+  #search .top-nav-main {
+    width: 100%;
+  }
+  #search .top-nav-main input {
+    width: 1100px;
+    font-size: 24px;
+    font-weight: 400;
+  }
+  #search .recent-search .ui-link .text-bold {
+    font-size: 20px;
+    font-weight: 400;
+  }
+  #search h5 {
+    font-size: 24px;
+    font-weight: 700;
+  }
+  #search .search-categories .search-category {
+    max-width: 200px;
+    height: 200px;
+  }
+  #search .search-categories .search-category img {
+    height: 150px;
+  }
+  #search .search-categories .search-category .card-body {
+    height: 20px;
+    width: 100%;
+    font-size: 20px;
+    font-weight: 400;
+  }
+}
+
+@media (min-width: 1025px) {
+  #Cart .top-nav-main {
+    width: 100%;
+  }
+  #Cart .top-nav-main h4 {
+    font-size: 34px;
+    font-weight: 600;
+  }
+  #Cart .cart-header .leading-2 {
+    font-weight: 700;
+    font-size: 36px;
+  }
+  #Cart .cart-header button {
+    width: 20%;
+  }
+  #Cart .cart-items .cart-item {
+    width: 100%;
+  }
+  #Cart .cart-items .cart-item .title-desc h6 {
+    font-size: 16px;
+  }
+  #Cart .cart-items .cart-item .qty-price {
+    width: 10%;
+  }
+  #Cart .cart-add-more-btn {
+    margin-top: 2%;
+    margin-bottom: 2%;
+  }
+  #Cart label {
+    font-size: 24px;
+    font-weight: 400;
+  }
+  #Cart textarea {
+    font-size: 20px;
+    font-weight: 400;
+  }
+  #Cart .cart-address span {
+    font-size: 24px;
+    font-weight: 400;
+  }
+  #Cart .cart-address .address-holder {
+    font-size: 20px;
+    font-weight: 400;
+  }
+  #Cart .cart-address bt {
+    font-size: 20px;
+    font-weight: 400;
+  }
+  #Cart .address-holder .promo-content {
+    -webkit-box-align: left;
+        -ms-flex-align: left;
+            align-items: left;
+  }
+  #Cart .address-holder .promo-content .promo-percentage {
+    width: 20%;
+  }
+  #Cart .address-holder .promo-content .promo-text span {
+    font-size: 20px;
+    font-weight: 400;
+  }
+  #Cart .cart-calculations .calculate-item p {
+    font-size: 24px;
+    font-weight: 400;
+  }
+  #Cart .cart-calculations .calculate-item p span {
+    font-size: 24px;
+    font-weight: 400;
+  }
+}
+
+@media (min-width: 1025px) {
+  #address .top-nav-main {
+    width: 100%;
+  }
+  #address .top-nav-main h4 {
+    font-size: 34px;
+    font-weight: 600;
+  }
+  #address .empty-cart {
+    font-weight: 400;
+    font-size: 20px;
+  }
+}
+
+@media (min-width: 1025px) {
+  #add-address .top-nav-main {
+    width: 100%;
+  }
+  #add-address h4 {
+    font-size: 34px;
+    font-weight: 600;
+  }
+  #add-address .input-group label {
+    font-size: 19px;
+    font-weight: 400;
+  }
+}
+
+@media (min-width: 1025px) {
+  #locate-me .top-nav-main {
+    width: 100%;
+  }
+  #locate-me .top-nav-main h4 {
+    font-size: 34px;
+    font-weight: 600;
+  }
+  #locate-me p {
+    font-size: 20px;
+    font-weight: 400;
+  }
+}
+
+@media (min-width: 1025px) {
+  div#get-started\ pt-top-none .ui-content {
     margin-top: 20%;
     margin-left: 50%;
     margin-right: 12%;
   }
-  #get-started h1 {
+  div#get-started\ pt-top-none .ui-content h1 {
     font-size: 60px;
     font-weight: 700;
   }
-  #get-started p {
+  div#get-started\ pt-top-none .ui-content p {
     font-size: 32px;
     font-weight: 500;
+  }
+  div#get-started\ pt-top-none .ui-content .input-group .select-country-wrapper {
+    margin-top: -5%;
   }
 }
 
@@ -1035,7 +1348,6 @@ form button {
     width: 90%;
   }
   #login .ui-content .ui-btn {
-    width: 90%;
     margin-top: 5%;
   }
   #login .ui-content .ui-link {
@@ -1059,7 +1371,6 @@ form button {
 @media (min-width: 1025px) {
   #register .ui-content {
     margin-left: 35%;
-    margin-top: -5%;
   }
   #register .ui-content h1 {
     font-size: 60px;
@@ -1079,33 +1390,8 @@ form button {
   #register .ui-content .accept-terms {
     width: 600px;
   }
-  #register .ui-content .input-names {
-    display: -webkit-inline-box;
-    display: -ms-inline-flexbox;
-    display: inline-flex;
-    margin-bottom: 3%;
-    width: 90%;
-  }
-  #register .ui-content .input-names .input-firstname {
-    margin-right: 20%;
-    width: 95%;
-  }
-  #register .ui-content .input-names .input-lastname {
-    width: 95%;
-  }
-  #register .ui-content .input-passwordfield {
-    display: -webkit-inline-box;
-    display: -ms-inline-flexbox;
-    display: inline-flex;
+  #register .ui-content .input-group input[type=checkbox] {
     margin-top: 3%;
-    width: 90%;
-  }
-  #register .ui-content .input-passwordfield .input-password {
-    margin-right: 20%;
-    width: 95%;
-  }
-  #register .ui-content .input-passwordfield .input-confirmpassword {
-    width: 95%;
   }
   #register .ui-content a {
     font-size: 24px;
@@ -1113,7 +1399,6 @@ form button {
   }
   #register .ui-content button {
     margin-top: 5%;
-    width: 90%;
   }
   #register .ui-content .res-name-num {
     display: -webkit-inline-box;
@@ -1149,7 +1434,51 @@ form button {
     width: 58%;
   }
   #register .ui-content .zip-confirm .identityConfirm select {
-    width: 91%;
+    width: 92%;
+  }
+}
+
+div#partner-registration-confirm\ mobile_Only {
+  display: block;
+  margin-top: -12%;
+}
+
+@media (min-width: 1025px) {
+  div#partner-registration-confirm\ mobile_Only {
+    display: none;
+  }
+}
+
+#partner-registration-confirm {
+  display: none;
+}
+
+@media (min-width: 1025px) {
+  #partner-registration-confirm {
+    display: block;
+    width: 30%;
+    margin-left: 35%;
+  }
+  #partner-registration-confirm .ui-content {
+    margin-top: 50%;
+  }
+}
+
+@media (min-width: 1025px) {
+  #partner-identity-confirmation {
+    width: 30%;
+    margin-left: 35%;
+    margin-top: 5%;
+  }
+  #partner-identity-confirmation h1 {
+    margin-left: 10%;
+  }
+  #partner-identity-confirmation .top-nav-main {
+    width: 4%;
+    margin-top: 5%;
+  }
+  #partner-identity-confirmation .top-nav-main svg {
+    margin-right: 6%;
   }
 }
 
