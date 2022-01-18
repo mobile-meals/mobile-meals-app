@@ -886,23 +886,22 @@ form {
     width: 100%;
 }
 
-div#passwordResetConfirm\ mobile_only{
+#passwordResetConfirm{
     display: block;
     height: 750px;
     @include ipad-landscape{
         display: none;
     }
 }
-#passwordResetConfirm{
+#passwordResetConfirmIpad{
     display: none;
     @include ipad-landscape{
         .top-nav-main{
-            margin-top: 20%;
+            margin-top: 5%;
         }
         margin-left: 35%;
-        margin-top: 13%;
         display: block;
-        width: 30%;
+        width: 40%;
         h3{
             margin-left: 13%;
         }
@@ -915,7 +914,9 @@ div#passwordResetConfirm\ mobile_only{
         .top-nav-main{
             width: 100%;
         }
-        width: 100%;
+        width: 50%;
+        margin-left: 30%;
+        margin-top: 20%;
         h1{
             font-size: 34px;
             font-weight: 600;
@@ -1096,9 +1097,6 @@ div#passwordResetConfirm\ mobile_only{
                     width: 90%;
                     height: 150px;
                 }
-                img{
-                    width: 200%;
-                }
                 .item-card-info{
                     width: 90%;
                 }
@@ -1161,11 +1159,11 @@ div#passwordResetConfirm\ mobile_only{
              }
         }
     }
-    .footer-dish{
-        button{
-            width: 30%;
-        }
-    }
+    // .footer-dish{
+    //     button{
+    //         width: 30%;
+    //     }
+    // }
 }
 
 #search{
