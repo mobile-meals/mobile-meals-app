@@ -296,6 +296,10 @@ p {
 
   h4 {
     color: $mm-primary-color;
+    font-size: 18px;
+    @include ipad-portrait{
+      font-size: 36px;
+    }
   }
 }
 
@@ -881,12 +885,14 @@ form {
 }
 
 #top-nav-main{
+  @include ipad-landscape{
     width: 100%;
+  }
 }
 
 #passwordResetConfirm{
     display: block;
-    height: 750px;
+    //height: 750px;
     @include ipad-landscape{
         display: none;
     }
@@ -1019,9 +1025,9 @@ form {
             font-weight: 600; 
         }
     }
-    .logout-button{
-        height: 20%;
-    }
+    // .logout-button{
+    //     height: 20%;
+    // }
 }
 
 #single-restaurant{
@@ -1110,6 +1116,7 @@ form {
             }
         }
     }
+  }
 }
 
 #single-dish{
@@ -1438,10 +1445,7 @@ div#get-started\ pt-top-none{
       padding-bottom: 80px;
       padding-top: 50px;
     }
-  }
-  }
-
-  #Cart {
+     #Cart {
     label {
       font-size: 24px;
     }
@@ -1453,12 +1457,19 @@ div#get-started\ pt-top-none{
     }
   }
 
+  }
+  }
+
+
+
   #edit-cart-items {
-    label {
-      font-size: 28px;
-    }
-    #dish-note {
-      font-size: 24px;
+      @include ipad-portrait{
+      label {
+        font-size: 28px;
+      }
+      #dish-note {
+        font-size: 24px;
+      }
     }
   }
 
@@ -3528,4 +3539,3 @@ div#get-started\ pt-top-none{
     }
 }
 
-}
