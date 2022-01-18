@@ -22,6 +22,10 @@ module.exports = (sequelize, DataTypes) => {
 
       Dish.hasMany(models.Extra, {
         foreignKey: 'dish_id',
+      });
+
+      Dish.hasMany(models.CartItem, {
+        foreignKey: 'dish_id',
       })
     }
   };

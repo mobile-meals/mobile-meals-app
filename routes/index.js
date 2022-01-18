@@ -61,7 +61,65 @@ router.get('/', async function (req, res) {
 
 router.get('/components', (req, res) => res.render('components'));
 
-router.get('/menu', (req, res) => res.render('Menu', { utilHelpers }));
+router.get('/menu', async function (req, res) {
+    const currentUserId = req.session.currentUser.id;
+
+    const tiers = {
+        "GREEN": 'http://localhost:5000/img/Green.svg',
+        "BRONZE": 'http://localhost:5000/img/Bronze.svg',
+        "SILVER": 'http://localhost:5000/img/Silver.svg',
+        "GOLD": 'http://localhost:5000/img/Gold.svg',
+    }
+
+    var rewardItemForUser = await models.Reward.findOne({ where: { user_id: currentUserId } })
+        .then(rewardItem => {
+            return rewardItem.dataValues;
+        })
+        .catch(err => console.log(err));
+
+    var userRewardItem = null;
+
+
+    if (typeof rewardItemForUser !== 'undefined') {
+        userRewardItem = rewardItemForUser;
+    } else {
+        var tier = utilHelpers.getUserLoyaltyTier(0);
+
+        var rewardsEntry = {
+            user_id: currentUserId,
+            points: 0.00,
+            tier: tier,
+            createdAt: new Date(),
+            updateddAt: new Date()
+        }
+
+        const rewardItemCreated = await models.Reward.create(rewardsEntry);
+
+        userRewardItem = rewardItemCreated.dataValues;
+    }
+
+    var currentTierImageURL = tiers[userRewardItem.tier];
+
+    var nextTierImageURL = tiers[utilHelpers.getNextTier(userRewardItem.tier)];
+
+    const currentTierMinPoints = utilHelpers.getCurrentTierMinPoints(userRewardItem.tier);
+    const nextTierMinPoints = utilHelpers.getNextTierMinPoints(userRewardItem.tier);
+
+    var percentageOfPoints = parseInt(( (parseInt(userRewardItem.points)- currentTierMinPoints)/ (nextTierMinPoints - currentTierMinPoints) ) * 100);
+
+    console.log(userRewardItem.tier);
+    console.log(nextTierMinPoints);
+
+
+    res.render('Menu', { 
+        utilHelpers,
+        userRewardItem,
+        currentTierImageURL,
+        nextTierImageURL,
+        nextTierMinPoints,
+        percentageOfPoints
+     })
+});
 
 router.get('/search', async function (req, res) {
     var recentSeachTerms = [
@@ -155,11 +213,144 @@ router.get('/cart', async function (req, res) {
         );
     }
 
+    const currentUserId = req.session.currentUser.id;
+
+    var defaultFormattedAddress = await models.Address.findOne({ where: { user_id: currentUserId, is_default: true } })
+        .then(addressReceived => {
+            req.session.currentUser.defaultAddressId = addressReceived.dataValues.id;
+
+            return {
+                id: addressReceived.dataValues.id,
+                address: utilHelpers.formatAddress(addressReceived.dataValues)
+            };
+        })
+        .catch(err => console.log(err));
+
+    var defaultCard = await models.Card.findOne({ where: { user_id: currentUserId, is_default: true } })
+        .then(cardReceived => {
+            req.session.currentUser.defaultCardId = cardReceived.dataValues.id;
+
+            return {
+                id: cardReceived.dataValues.id,
+                lastDigits: utilHelpers.getLast4DigitsOfCard(cardReceived.dataValues.card_number)
+            };
+        })
+        .catch(err => console.log(err));
+
+    console.log(defaultFormattedAddress);
+
+
     res.render('Cart', {
         restaurantData,
         cartItems,
-        utilHelpers
+        utilHelpers,
+        defaultFormattedAddress,
+        defaultCard
     });
+});
+
+router.post('/cart', async function (req, res) {
+    const currentUserId = req.session.currentUser.id;
+    const defaultAddressId = req.session.currentUser.defaultAddressId;
+    const defaultCardId = req.session.currentUser.defaultCardId;
+    const orderStatus = 'PREPARING';
+    const restaurantId = req.session.currentUser.restaurantId;
+
+    const { notes, subTotal, discount, deliveryCharge, total } = req.body;
+
+    const cartItemsInSession = req.session.currentUser.cartItems;
+
+    // Creating the Order Entry in DB
+    var newOrderEntry = {
+        notes: notes,
+        status: orderStatus,
+        address_id: parseInt(defaultAddressId),
+        payment_type_id: parseInt(defaultCardId),
+        sub_total: parseFloat(subTotal),
+        discount: parseFloat(discount),
+        delivery_charge: parseFloat(deliveryCharge),
+        total: parseFloat(total),
+        restaurant_id: parseInt(restaurantId),
+        order_date_time: new Date(),
+        user_id: currentUserId,
+        createdAt: new Date(),
+        updateddAt: new Date()
+    }
+
+    const orderCreated = await models.Order.create(newOrderEntry);
+
+    const orderId = orderCreated.dataValues.id;
+
+    //Create Entries for Cart Items
+    for (const cartItem of cartItemsInSession) {
+        var cartItemEntry = {
+            dish_id: cartItem.dishId,
+            qty: cartItem.qty,
+            price: parseFloat(cartItem.price),
+            note: cartItem.notes,
+            order_id: orderId,
+            createdAt: new Date(),
+            updateddAt: new Date()
+        }
+
+        const cartItemCreated = await models.CartItem.create(cartItemEntry);
+
+        const cartItemCreatedId = cartItemCreated.dataValues.id;
+
+        for (cartItemExtraId of cartItem.extras) {
+            var extraItemData = await models.Extra.findOne({ where: { id: cartItemExtraId } })
+                .then(extraItemRecieved => {
+                    return extraItemRecieved.dataValues;
+                })
+                .catch(err => console.log(err));
+
+            var cartExtraItemEntry = {
+                cart_item_id: cartItemCreatedId,
+                extra_id: extraItemData.id,
+                qty: 1,
+                price: parseFloat(1 * extraItemData.price),
+                createdAt: new Date(),
+                updateddAt: new Date()
+            }
+
+            const cartItemExtraCreated = await models.CartItemExtra.create(cartExtraItemEntry);
+        }
+    }
+
+    var rewardsPointsEarned = parseFloat(newOrderEntry.total / 100);
+
+
+
+    var rewardItemForUser = await models.Reward.findOne({ where: { user_id: currentUserId } })
+        .then(rewardItem => {
+            return rewardItem.dataValues;
+        })
+        .catch(err => console.log(err));
+
+    console.log(rewardItemForUser);
+
+    if (typeof rewardItemForUser !== 'undefined') {
+        var points = parseFloat(rewardItemForUser.points + rewardsPointsEarned);
+
+        var tier = utilHelpers.getUserLoyaltyTier(points);
+
+        const update = await models.Reward.update({ points: points, tier: tier }, { where: { user_id: currentUserId } });
+    } else {
+        var tier = utilHelpers.getUserLoyaltyTier(rewardsPointsEarned);
+        var rewardsEntry = {
+            user_id: currentUserId,
+            points: rewardsPointsEarned,
+            tier: tier,
+            createdAt: new Date(),
+            updateddAt: new Date()
+        }
+
+        const rewardItemCreated = await models.Reward.create(rewardsEntry);
+    }
+
+    req.session.currentUser.cartItems = [];
+
+    res.redirect('/review');
 });
 
 router.get('/edit-cart-item/:item', async function (req, res) {
@@ -199,24 +390,22 @@ router.get('/edit-cart-item/:item', async function (req, res) {
         extras: extrasForDish
     };
 
-    console.log(item);
-
     res.render('partials/dialogs/EditCartItem', {
         item
     });
 });
 
-router.get('/my-addresses',async function(req, res){
+router.get('/my-addresses', async function (req, res) {
     currentUserId = req.session.currentUser.id;
 
     var existingAddressesforUser = await models.Address.findAll({
         where: { user_id: currentUserId }
     }).then(existingAddresses => {
         var addresses = [];
-        console.log("Recieved: ",existingAddresses);
+        console.log("Recieved: ", existingAddresses);
 
-        if (existingAddresses instanceof Array){
-            existingAddresses.forEach(address =>{
+        if (existingAddresses instanceof Array) {
+            existingAddresses.forEach(address => {
                 console.log("Array");
                 console.log("add: ", address);
                 var formattedAddress = utilHelpers.formatAddress(address.dataValues);
@@ -230,7 +419,7 @@ router.get('/my-addresses',async function(req, res){
 
                 addresses.push(addressObj);
             });
-        }else{
+        } else {
             console.log("OBJECT");
             var formattedAddress = utilHelpers.formatAddress(existingAddresses.dataValues);
 
@@ -246,9 +435,9 @@ router.get('/my-addresses',async function(req, res){
 
         return addresses;
     })
-    .catch(err => console.log(err));
+        .catch(err => console.log(err));
 
-    existingAddressesforUser.sort(function(x, y) { return x - y });
+    existingAddressesforUser.sort(function (x, y) { return x - y });
 
     existingAddressesforUser.reverse();
 
@@ -281,21 +470,21 @@ router.get('/add-address', async function (req, res) {
 
         const url = `https://eu1.locationiq.com/v1/reverse.php?key=pk.9e3258d85f622591c06d831ff0f2724c&lat=${lnglat[1]}&lon=${lnglat[0]}&format=json`;
 
-        try{
+        try {
             const response = await axios.get(url);
             prefilledData = response.data instanceof Array ? response.data[0].address : response.data.address;
-        }catch(err){
+        } catch (err) {
             console.error(err);
         }
     }
 
     currentUserId = req.session.currentUser.id;
 
-    const countOfAddressesforUser = await models.Address.count({ where: { user_id: currentUserId }});
+    const countOfAddressesforUser = await models.Address.count({ where: { user_id: currentUserId } });
 
-    var isDisabled = countOfAddressesforUser === 0 ? true:false;
-    
-    var isDefault = isDisabled ? true:false;
+    var isDisabled = countOfAddressesforUser === 0 ? true : false;
+
+    var isDefault = isDisabled ? true : false;
 
     res.render('AddAddress', {
         prefilledData,
@@ -309,38 +498,38 @@ router.post('/add-address', async function (req, res) {
 
     const lnglat = typeof req.session.currentUser.location !== 'undefined' ? req.session.currentUser.location : [];
 
-    const { name, phone, address_1, address_2, suburb, city, zipcode, tag, is_default} = req.body;
+    const { name, phone, address_1, address_2, suburb, city, zipcode, tag, is_default } = req.body;
 
     var currentUserId = req.session.currentUser.id;
 
     //Check if user has previous addresses.
-    const countOfAddressesforUser = await models.Address.count({ where: { user_id: currentUserId }});
+    const countOfAddressesforUser = await models.Address.count({ where: { user_id: currentUserId } });
 
-    var def = is_default === 'on' ? true: false;
+    var def = is_default === 'on' ? true : false;
 
-    let isDefault = countOfAddressesforUser === 0 ? true: def;
+    let isDefault = countOfAddressesforUser === 0 ? true : def;
 
-    if (isDefault && countOfAddressesforUser !== 0){
+    if (isDefault && countOfAddressesforUser !== 0) {
         // Get All Ids for previous addresses
         var existingAddressIds = await models.Address.findAll({
             where: { user_id: currentUserId },
             attributes: ['id']
         }).then(existingAddresses => {
             var ids = [];
-    
-            if (existingAddresses instanceof Array){
-                existingAddresses.forEach(address =>{
+
+            if (existingAddresses instanceof Array) {
+                existingAddresses.forEach(address => {
                     ids.push(address.dataValues.id);
                 });
-            }else{
+            } else {
                 ids.push(existingAddresses.dataValues.id);
             }
-    
+
             return ids;
         })
-        .catch(err => console.log(err));
+            .catch(err => console.log(err));
 
-        const update = await models.Address.update({ is_default: false },{where: {id: existingAddressIds}});
+        const update = await models.Address.update({ is_default: false }, { where: { id: existingAddressIds } });
     }
 
     var newAddress = {
@@ -366,7 +555,7 @@ router.post('/add-address', async function (req, res) {
 });
 
 
-router.get('/my-cards',async function(req, res){
+router.get('/my-cards', async function (req, res) {
     var currentUserId = req.session.currentUser.id;
 
     var existingCardsforUser = await models.Card.findAll({
@@ -374,8 +563,8 @@ router.get('/my-cards',async function(req, res){
     }).then(existingCards => {
         var cards = [];
 
-        if (existingCards instanceof Array){
-            existingCards.forEach(card =>{
+        if (existingCards instanceof Array) {
+            existingCards.forEach(card => {
 
                 var cardNumberFormatted = utilHelpers.getLast4DigitsOfCard(card.dataValues.card_number);
 
@@ -388,7 +577,7 @@ router.get('/my-cards',async function(req, res){
 
                 cards.push(cardObject);
             });
-        }else{
+        } else {
             var cardNumberFormatted = utilHelpers.getLast4DigitsOfCard(existingCards.dataValues.card_number);
 
             var cardObject = {
@@ -403,9 +592,9 @@ router.get('/my-cards',async function(req, res){
 
         return cards;
     })
-    .catch(err => console.log(err));
+        .catch(err => console.log(err));
 
-    existingCardsforUser.sort(function(x, y) { return x - y });
+    existingCardsforUser.sort(function (x, y) { return x - y });
 
     existingCardsforUser.reverse();
 
@@ -414,14 +603,14 @@ router.get('/my-cards',async function(req, res){
     });
 });
 
-router.get('/add-card',async function(req, res){
+router.get('/add-card', async function (req, res) {
     currentUserId = req.session.currentUser.id;
 
-    const countOfCardsforUser = await models.Card.count({ where: { user_id: currentUserId }});
+    const countOfCardsforUser = await models.Card.count({ where: { user_id: currentUserId } });
 
-    var isDisabled = countOfCardsforUser === 0 ? true:false;
-    
-    var isDefault = isDisabled ? true:false;
+    var isDisabled = countOfCardsforUser === 0 ? true : false;
+
+    var isDefault = isDisabled ? true : false;
 
     res.render('AddCard', {
         isDisabled,
@@ -429,42 +618,42 @@ router.get('/add-card',async function(req, res){
     });
 });
 
-router.post('/add-card',async function(req, res){
+router.post('/add-card', async function (req, res) {
     const cardTypes = [
         'VISA', 'MASTER CARD', 'AMEX'
     ];
 
-    const { name, card_no, exp, cvc, is_default} = req.body;
+    const { name, card_no, exp, cvc, is_default } = req.body;
 
     var currentUserId = req.session.currentUser.id;
 
-    const countOfCardsForUser = await models.Card.count({ where: { user_id: currentUserId }});
+    const countOfCardsForUser = await models.Card.count({ where: { user_id: currentUserId } });
 
-    var def = is_default === 'on' ? true: false;
+    var def = is_default === 'on' ? true : false;
 
-    let isDefault = countOfCardsForUser === 0 ? true: def;
+    let isDefault = countOfCardsForUser === 0 ? true : def;
 
-    if (isDefault && countOfCardsForUser !== 0){
+    if (isDefault && countOfCardsForUser !== 0) {
         // Get All Ids for previous cards
         var existingCardIds = await models.Card.findAll({
             where: { user_id: currentUserId },
             attributes: ['id']
         }).then(existingCards => {
             var ids = [];
-    
-            if (existingCards instanceof Array){
-                existingCards.forEach(card =>{
+
+            if (existingCards instanceof Array) {
+                existingCards.forEach(card => {
                     ids.push(card.dataValues.id);
                 });
-            }else{
+            } else {
                 ids.push(existingCards.dataValues.id);
             }
-    
+
             return ids;
         })
-        .catch(err => console.log(err));
+            .catch(err => console.log(err));
 
-        const update = await models.Card.update({ is_default: false },{where: {id: existingCardIds}});
+        const update = await models.Card.update({ is_default: false }, { where: { id: existingCardIds } });
     }
 
     const random = Math.floor(Math.random() * cardTypes.length);
@@ -476,8 +665,8 @@ router.post('/add-card',async function(req, res){
         cardholder_name: name,
         card_number: card_no,
         exp_date: exp,
-        cvc:cvc,
-        type:cardType,
+        cvc: cvc,
+        type: cardType,
         is_default: isDefault,
         createdAt: new Date(),
         updateddAt: new Date()
@@ -486,6 +675,28 @@ router.post('/add-card',async function(req, res){
     const cardCreated = await models.Card.create(newCard);
 
     res.redirect('/my-cards');
+});
+
+router.get('/review', async function (req, res) {
+    const currentUserId = req.session.currentUser.id;
+    const restaurantId = req.session.currentUser.restaurantId;
+
+    var restaurantData = await models.Restaurant.findOne({ where: { id: restaurantId } })
+        .then(restaurantItem => {
+            return restaurantItem.dataValues;
+        })
+        .catch(err => console.log(err));
+
+    console.log(restaurantData);
+
+
+    res.render('Review', {
+        restaurantData
+    });
+});
+
+router.get('/done-review', function (req, res) {
+    res.render('partials/dialogs/ReviewCompleted');
 });
 
 module.exports = router;

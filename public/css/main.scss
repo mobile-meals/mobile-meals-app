@@ -31,15 +31,6 @@ $input-field-border-focus: #45AC34;
 	}
 }
 
-// .ui-dialog { 
-//     margin-top: -150vh;
-//     padding: .2em; 
-//     width: 100vw; 
-//     background-color: rgba(255,255,255,0.3) !important;
-//     overflow: hidden; 
-//     z-index: 10;
-// }
-
 .ui-dialog{
     top: 50%;
     left: 50%;
@@ -1764,4 +1755,36 @@ form{
         }
     }
 
+}
+
+.review-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    p{
+        font-size: 18px;
+        text-align: center;
+    }
+
+    .rating-stars{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 48px 0;
+
+        svg{
+            width: 45px;
+            height: 45px;
+        }
+
+        .star-active{
+            fill: $mm-primary-color;
+        }
+        
+    }
+
+    .comments{
+        margin-bottom: 54px;
+    }
 }

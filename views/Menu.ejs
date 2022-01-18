@@ -10,21 +10,21 @@
     <%- include ("./partials/headers/TopNavBarBackOnly", {title:' Menu'}); %>
         <div data-role="content" class="ui-content content-main pt-top-none">
             <div class="rewards-container">
-                <img class="" data-country-code="LK" src="http://localhost:5000/img/Silver.svg">
+                <img class="" data-country-code="LK" src="<%= currentTierImageURL %>">
                 <div class="rewards-data">
-                    <h5 class="uppercase">Mobile Meals Silver</h5>
+                    <h5 class="uppercase">Mobile Meals <%= userRewardItem.tier %></h5>
 
                     <div class="progress-bar-wrapper">
-                        <img class="" src="http://localhost:5000/img/Silver.svg">
+                        <img class="" src="<%= currentTierImageURL %>">
 
                         <div class="progress">
-                            <div class="progress-bar" role="progressbar" style="width: 50%" aria-valuenow="50"
+                            <div class="progress-bar" role="progressbar" style="width: <%= percentageOfPoints %>%" aria-valuenow="<%= percentageOfPoints %>"
                                 aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
 
-                        <img class="" data-country-code="LK" src="http://localhost:5000/img/Gold.svg">
+                        <img class="" data-country-code="LK" src="<%= nextTierImageURL %>">
                     </div>
-                    <span class="text-bold points uppercase">320 of 400 points</span>
+                    <span class="text-bold points uppercase"><%= parseInt(userRewardItem.points) %> of <%= nextTierMinPoints %> points</span>
 
                     <button class="offers-button">
                         View Offers

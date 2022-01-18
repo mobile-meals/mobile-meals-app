@@ -82,20 +82,19 @@
                     <hr>
 
                     <div>
-                        <label for="dish-note">Delivery Notes</label>
-                        <textarea class="form-control" id="dish-note" placeholder="Write special notes for the Rider"
+                        <label for="delivery_note">Delivery Notes</label>
+                        <textarea class="form-control" id="delivery_note" placeholder="Write special notes for the Rider"
                             rows="20"></textarea>
                     </div>
 
                     <div class="cart-address">
                         <span>Delivery Address</span>
                         <div class="address-holder">
-                            Mr. John Smith<bt>
-                                154/95 A<br>
-                                Darley Road,<br>
-                                Colombo 10<br>
-                                10521<br>
-                                +94 77 152 4262<br>
+                            <% if (typeof defaultFormattedAddress !== 'undefined') { %>
+                                <%- defaultFormattedAddress.address %>
+                            <% }else{ %>
+                                <a href="/my-addresses" data-ajax="false">No default Address. Click to Add one.</a>
+                            <%}%>
                         </div>
                     </div>
 
@@ -160,8 +159,8 @@
                                 </path>
                             </svg>
 
-
-                            <div class="promo-text">
+                            <% if (typeof defaultCard !== 'undefined') { %>
+                                <div class="promo-text">
                                 <div class="card-num">
                                     <svg class="card-hidden-circles" viewBox="0 0 127 5" fill="none"
                                         xmlns="http://www.w3.org/2000/svg">
@@ -203,10 +202,14 @@
                                             fill="#1A2340" />
                                     </svg>
 
-                                    <span class="title">5875</span>
+                                    <span class="title"><%= defaultCard.lastDigits %></span>
                                 </div>
                                 <span class="desc">Payment Type</span>
                             </div>
+                            <% }else{ %>
+                                <a href="/my-cards" data-ajax="false">No default Card. Click to Add one.</a>
+                            <%}%>
+                            
                         </div>
                         <svg class="promo-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                             xmlns="http://www.w3.org/2000/svg">
@@ -230,3 +233,31 @@
                 <%- include ("./partials/BottomNavBars/CartBottomNavBar", {total : total}); %>
             <% } %>
     </div><!-- /page -->
+
+    <script>
+
+        document.getElementById("create-order").addEventListener("click", function() {
+            var baseUrl = "<%=baseURL%>";
+            var notes = document.getElementById('delivery_note').value;
+
+            var payload = {
+                notes: notes,
+                subTotal: '<%= subTotal %>',
+                discount: '<%= discount %>',
+                deliveryCharge: '<%= deliveryCharge %>',
+                total: '<%= total %>',
+            }
+
+            console.log(payload);
+
+            $.ajax({
+                type: "POST",
+                url: "/cart",
+                data: payload,
+                success: function(){
+                    window.location.href = baseUrl + "/review";
+                }
+            });
+        });
+        
+    </script>

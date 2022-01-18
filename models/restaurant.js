@@ -10,7 +10,11 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       Restaurant.hasMany(models.Dish, {
         foreignKey: 'restaurant_id',
-      })
+      });
+
+      Restaurant.hasMany(models.Order, {
+        foreignKey: 'restaurant_id'
+      });
     }
   };
   Restaurant.init({

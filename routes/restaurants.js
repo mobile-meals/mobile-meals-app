@@ -190,6 +190,7 @@ router.post('/edit-cart-item', async function (req, res) {
         cartItemId: cartItemId,
         dishId: parseInt(cartItemInSession.dishId),
         qty: parseInt(quantity),
+        price: "0.00",
         notes: notes,
         extras:[]
     }
@@ -201,6 +202,26 @@ router.post('/edit-cart-item', async function (req, res) {
     }else{
         cartItem.extras.push(parseInt(extras));
     }
+
+    var priceForExtras = 0.00;
+
+    for (const extra of cartItem.extras){
+        var extraItemData = await models.Extra.findOne({ where: { id: extra } })
+                .then(extraItemRecieved => {
+                    return extraItemRecieved.dataValues;
+                })
+                .catch(err => console.log(err));
+
+        priceForExtras += parseFloat(extraItemData.price);
+    }
+
+    var priceForDish = await models.Dish.findOne({ where: { id: cartItem.dishId } })
+                .then(extraItemRecieved => {
+                    return extraItemRecieved.dataValues.price;
+                })
+                .catch(err => console.log(err));
+
+    cartItem.price = parseFloat((priceForDish * cartItem.qty) + priceForExtras).toFixed(2);
 
     req.session.currentUser.cartItems.push(cartItem);
 
